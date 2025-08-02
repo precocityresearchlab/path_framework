@@ -2,6 +2,10 @@
 
 > A comprehensive methodology framework for systematic software engineering through human-AI collaboration
 
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](RELEASE_NOTES.md)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Framework](https://img.shields.io/badge/framework-PATH-orange.svg)](framework/path_framework_overview.md)
+
 ## 🎯 What is PATH Framework?
 
 **PATH Framework** (People-Agent Teams/Process/Technology) is a revolutionary approach to software engineering that structures development practices around four integrated phases through collaborative human-AI teams:
@@ -198,8 +202,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
+- **📋 Release Notes**: [Version 1.0.0 - Foundation Release](RELEASE_NOTES.md)
 - **Framework Documentation**: [Complete Overview](framework/path_framework_overview.md)
 - **Implementation Guide**: [Getting Started](#-quick-start-guide)
+- **📁 Templates**: [Implementation Templates](templates/)
 - **GitHub Issues**: [Report Bugs or Request Features](https://github.com/precocityresearchlab/path_framework/issues)
 - **Discussions**: [Community Discussions](https://github.com/precocityresearchlab/path_framework/discussions)
 

@@ -1,5 +1,7 @@
 # PATH Framework: People-Agent Teams/Process/Technology for Software Engineering
 
+**Version 1.0.0** | **Released: August 2, 2025**
+
 ## Definition
 **PATH Framework** (People-Agent Teams/Process/Technology) is a comprehensive methodology framework that structures software engineering practices around four integrated phases: Software Engineering, Test-Driven Development, DevOps & Production Readiness, and Production Operations & Maintenance. Each phase implements the PATH model to ensure systematic, scalable, and technology-enabled software delivery through collaborative human-AI teams.
 
