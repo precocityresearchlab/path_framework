@@ -16,10 +16,10 @@ graph TB
     end
     
     subgraph "Phase 1: Architecture & Design"
-        B1["🤖 domain_analyst"] -.-> B
-        B2["🤖 system_architect"] -.-> B
-        B3["🤖 component_designer"] -.-> B
-        B4["🤖 integration_architect"] -.-> B
+        B1["🤖 agent_domain_analyst"] -.-> B
+        B2["🤖 agent_system_architect"] -.-> B
+        B3["🤖 agent_component_designer"] -.-> B
+        B4["🤖 agent_integration_architect"] -.-> B
         B --> G1[system_architecture.yaml]
         B --> G2[component_designs.yaml]
         B --> G3[interface_specifications.yaml]
@@ -27,10 +27,10 @@ graph TB
     end
     
     subgraph "Phase 2: TDD Implementation"
-        C1["🤖 tdd_orchestrator"] -.-> C
-        C2["🤖 test_strategist"] -.-> C
-        C3["🤖 implementation_specialist"] -.-> C
-        C4["🤖 coverage_validator"] -.-> C
+        C1["🤖 agent_tdd_orchestrator"] -.-> C
+        C2["🤖 agent_test_strategist"] -.-> C
+        C3["🤖 agent_implementation_specialist"] -.-> C
+        C4["🤖 agent_coverage_validator"] -.-> C
         C --> H1[test_specifications.yaml]
         C --> H2[implementation_artifacts.yaml]
         C --> H3[deployment_packages.yaml]
@@ -39,10 +39,10 @@ graph TB
     end
     
     subgraph "Phase 3: DevOps & CI/CD"
-        D1["🤖 pipeline_architect"] -.-> D
-        D2["🤖 infrastructure_engineer"] -.-> D
-        D3["🤖 deployment_specialist"] -.-> D
-        D4["🤖 monitoring_analyst"] -.-> D
+        D1["🤖 agent_pipeline_architect"] -.-> D
+        D2["🤖 agent_infrastructure_engineer"] -.-> D
+        D3["🤖 agent_deployment_specialist"] -.-> D
+        D4["🤖 agent_monitoring_analyst"] -.-> D
         D --> I1[pipeline_configurations.yaml]
         D --> I2[infrastructure_templates.yaml]
         D --> I3[monitoring_configurations.yaml]
@@ -50,10 +50,10 @@ graph TB
     end
     
     subgraph "Phase 4: Operations"
-        E1["🤖 reliability_engineer"] -.-> E
-        E2["🤖 operations_specialist"] -.-> E
-        E3["🤖 performance_analyst"] -.-> E
-        E4["🤖 security_operator"] -.-> E
+        E1["🤖 agent_reliability_engineer"] -.-> E
+        E2["🤖 agent_operations_specialist"] -.-> E
+        E3["🤖 agent_performance_analyst"] -.-> E
+        E4["🤖 agent_security_operator"] -.-> E
         E --> J1[kpi_reports.yaml]
         E --> J2[performance_reports.yaml]
         E --> J3[operational_excellence.yaml]
@@ -126,7 +126,7 @@ graph TB
 
 ## PATH Software Engineering Lifecycle
 
-### **Phase 1: Agent-Centric Software Engineering**
+### **Phase 1: PATH-Based Software Engineering**
 **Purpose**: Architecture & Component Design
 **PATH Implementation**:
 - **People-Agent Teams**: Domain Analyst, System Architect, Component Designer, Integration Architect working with human architects
@@ -136,7 +136,7 @@ graph TB
 **Key Outputs**: Architecture blueprints, component specifications, integration design
 **Handoff**: Architecture decisions and component interfaces to TDD phase
 
-### **Phase 2: Agent-Centric Test-Driven Development** 
+### **Phase 2: PATH-Based Test-Driven Development** 
 **Purpose**: Test-Driven Implementation
 **PATH Implementation**:
 - **People-Agent Teams**: TDD Orchestrator, Test Strategist, Implementation Specialist, Coverage Validator collaborating with human developers
@@ -146,7 +146,7 @@ graph TB
 **Key Outputs**: Implemented features, comprehensive test suites, coverage reports
 **Handoff**: Working software with tests to DevOps phase
 
-### **Phase 3: Agent-Centric DevOps & Production Readiness**
+### **Phase 3: PATH-Based DevOps & Production Readiness**
 **Purpose**: CI/CD, Deployment, Monitoring
 **PATH Implementation**:
 - **People-Agent Teams**: Pipeline Architect, Infrastructure Engineer, Deployment Specialist, Monitoring Analyst working with DevOps engineers
@@ -159,7 +159,7 @@ graph TB
 **Key Outputs**: Production-ready deployment automation, monitoring infrastructure
 **Handoff**: Deployment systems and operational procedures to Operations phase
 
-### **Phase 4: Agent-Centric Production Operations & Maintenance**
+### **Phase 4: PATH-Based Production Operations & Maintenance**
 **Purpose**: Production Operations, Monitoring, Incident Response
 **PATH Implementation**:
 - **People-Agent Teams**: Reliability Engineer, Operations Specialist, Performance Analyst, Security Operator collaborating with operations teams
@@ -211,7 +211,7 @@ graph TB
 
 The PATH Framework provides a comprehensive, human-AI collaborative approach to software engineering that delivers superior outcomes through the synergy of People-Agent Teams, systematic Processes, and enabling Technology.
 
-## PAPT Integration Principles
+## PATH Integration Principles
 
 ### **Cross-Phase Consistency**
 - **Agent Communication**: Standardized interfaces and information exchange
@@ -229,7 +229,7 @@ The PATH Framework provides a comprehensive, human-AI collaborative approach to 
 - **Large Projects**: Specialized agent teams, comprehensive processes
 - **Enterprise Projects**: Multiple agent teams per phase, formal governance
 
-## PAPT Methodology Benefits
+## PATH Methodology Benefits
 
 ### **For Software Engineering Teams**
 - **Systematic Approach**: Clear structure and predictable outcomes
@@ -251,18 +251,18 @@ The PATH Framework provides a comprehensive, human-AI collaborative approach to 
 
 ## Document Structure
 
-The PAPT framework is implemented through focused methodology documents:
+The PATH framework is implemented through focused methodology documents:
 
 ### **Core Framework** (This Document)
-- PAPT model definition and principles
+- PATH model definition and principles
 - Cross-phase integration and handoffs
 - Scalability and adaptation guidelines
 
 ### **Phase-Specific Methodologies**
-1. **[Agent-Centric Software Engineering](./agent_centric_software_engineering_methodology.md)**
-2. **[Agent-Centric Test-Driven Development](./agent_centric_tdd_methodology.md)**
-3. **[Agent-Centric DevOps & Production Readiness](./agent_centric_devops_methodology.md)**
-4. **[Agent-Centric Production Operations](./agent_centric_operations_methodology.md)**
+1. **[PATH-Based Software Engineering](./path_software_engineering_methodology.md)**
+2. **[PATH-Based Test-Driven Development](./path_tdd_methodology.md)**
+3. **[PATH-Based DevOps & Production Readiness](./path_devops_methodology.md)**
+4. **[PATH-Based Production Operations](./path_operations_methodology.md)**
 
 ### **Implementation Guides**
 - Technology-specific adaptation guides
@@ -270,7 +270,7 @@ The PAPT framework is implemented through focused methodology documents:
 - Team scaling and organization strategies
 - Tool integration and workflow automation
 
-## Getting Started with PAPT
+## Getting Started with PATH
 
 ### **Assessment Phase**
 1. **Project Analysis**: Determine complexity, scale, and technology requirements
@@ -290,4 +290,4 @@ The PAPT framework is implemented through focused methodology documents:
 3. **Process Improvement**: Refine workflows and agent collaboration
 4. **Continuous Evolution**: Adapt methodology to changing requirements
 
-The PAPT framework provides a comprehensive, scalable approach to software engineering that leverages specialized agent expertise while maintaining focus on systematic processes and flexible technology integration.
+The PATH framework provides a comprehensive, scalable approach to software engineering that leverages specialized agent expertise while maintaining focus on systematic processes and flexible technology integration.

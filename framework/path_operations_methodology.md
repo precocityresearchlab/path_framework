@@ -1,10 +1,7 @@
 # PATH-Based Production Operations & Maintenance Methodology
 
 ## Overview
-**PATH-Based Production Operations & Maintenance** is a systematic methodology for ongoing production system management that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology ensures reliable production operations through human-AI collaboration in incident response, performance optimization, scaling management, and continuous system evolution.ent-Centric Production Operations & Maintenance Methodology
-
-## Overview
-**Agent-Centric Production Operations & Maintenance** is a systematic methodology for ongoing production system management that follows the PAPT (People-Agent/Process/Technology) framework. This methodology ensures reliable production operations through incident response, performance optimization, scaling management, and continuous system evolution.
+**PATH-Based Production Operations & Maintenance** is a systematic methodology for ongoing production system management that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology ensures reliable production operations through incident response, performance optimization, scaling management, and continuous system evolution.
 
 ## Methodology Input/Output Specification
 
@@ -99,16 +96,16 @@ graph TD
     J --> K[Continuous Improvement]
     
     subgraph "AI Agent Responsibilities"
-        L["🤖 reliability_engineer"] -.-> B
+        L["🤖 agent_reliability_engineer"] -.-> B
         L -.-> C
         L -.-> D
         L -.-> E
         L -.-> G
         L -.-> K
-        M["🤖 operations_specialist"] -.-> I
-        N["🤖 performance_analyst"] -.-> F
+        M["🤖 agent_operations_specialist"] -.-> I
+        N["🤖 agent_performance_analyst"] -.-> F
         N -.-> H
-        O["🤖 security_operator"] -.-> J
+        O["🤖 agent_security_operator"] -.-> J
     end
     
     subgraph "Technology Tools"
@@ -375,4 +372,4 @@ graph TD
 - **Reliability Patterns**: Operations reliability insights inform architecture patterns
 - **Technology Evaluation**: Operations experience with technology informs architecture choices
 
-The Agent-Centric Production Operations methodology provides systematic production system management that ensures reliable, performant, and secure operation while enabling continuous improvement and evolution of production systems.
+The PATH-Based Production Operations methodology provides systematic production system management that ensures reliable, performant, and secure operation while enabling continuous improvement and evolution of production systems.

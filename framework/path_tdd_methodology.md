@@ -1,10 +1,7 @@
 # PATH-Based Test-Driven Development Methodology
 
 ## Overview
-**PATH-Based Test-Driven Development** is a systematic methodology for test-driven implementation that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology transforms architecture specifications into working software through strict RED-GREEN-REFACTOR cycles, leveraging the proven promptus TDD framework while maintaining coordinated human-AI team expertise.ent-Centric Test-Driven Development Methodology
-
-## Overview
-**Agent-Centric Test-Driven Development** is a systematic methodology for test-driven implementation that follows the PAPT (People-Agent/Process/Technology) framework. This methodology transforms architecture specifications into working software through strict RED-GREEN-REFACTOR cycles, leveraging the proven promptus TDD framework while maintaining coordinated agent expertise.
+**PATH-Based Test-Driven Development** is a systematic methodology for test-driven implementation that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology transforms architecture specifications into working software through strict RED-GREEN-REFACTOR cycles, leveraging the proven promptus TDD framework while maintaining coordinated human-AI team expertise.
 
 ## Methodology Input/Output Specification
 
@@ -433,7 +430,7 @@ From `quality_gates_promptus.yaml`:
 - **Coverage Reports**: Coverage baselines and improvement tracking
 - **Quality Metrics**: Code quality indicators and technical debt analysis
 
-The Agent-Centric TDD methodology provides systematic, test-driven implementation that leverages the proven promptus framework while maintaining agent specialization and PAPT structure for reliable, high-quality software delivery.
+The PATH-Based TDD methodology provides systematic, test-driven implementation that leverages the proven promptus framework while maintaining agent specialization and PATH structure for reliable, high-quality software delivery.
 - **agent_test_analyst** designs tests to achieve comprehensive coverage of scenarios
 - **agent_red_phase_specialist** implements tests that improve coverage metrics
 - **agent_tdd_orchestrator** enforces coverage requirements before phase completion
@@ -447,7 +444,7 @@ The Agent-Centric TDD methodology provides systematic, test-driven implementatio
 
 ## Agent Team TDD Usage Examples
 
-Apply Agent-Centric TDD methodology with specialized agent teams to implement **[FEATURE_TYPE]** that must satisfy **[REQUIREMENTS]** and comply with **[STANDARDS]** using **[TECHNOLOGY_STACK]** with **[QUALITY_THRESHOLDS]**.
+Apply PATH-Based TDD methodology with specialized agent teams to implement **[FEATURE_TYPE]** that must satisfy **[REQUIREMENTS]** and comply with **[STANDARDS]** using **[TECHNOLOGY_STACK]** with **[QUALITY_THRESHOLDS]**.
 
 ### Agent Team TDD Usage Templates
 
@@ -490,28 +487,28 @@ Apply Agent-Centric TDD methodology with specialized agent teams to implement **
 - **agent_tdd_orchestrator**: Coordinate data processing TDD cycle and performance validation
 - **agent_emergency_repair_specialist**: Handle data pipeline issues, dependency problems, and test data setup
 
-## Agent-Centric Software Engineering Integration
+## PATH-Based Software Engineering Integration
 
-### Agent TDD Integration with Architecture Design
-The Agent-Centric TDD methodology integrates seamlessly with the Agent-Centric Software Engineering methodology by providing implementation discipline:
+### PATH TDD Integration with Architecture Design
+The PATH-Based TDD methodology integrates seamlessly with the PATH-Based Software Engineering methodology by providing implementation discipline:
 
 #### Architectural Implementation Workflow
-- **Agent-Centric Software Engineering** provides architectural design and component specifications
-- **Agent-Centric TDD** implements each component using disciplined test-driven development
+- **PATH-Based Software Engineering** provides architectural design and component specifications
+- **PATH-Based TDD** implements each component using disciplined test-driven development
 - **agent_specification_validator** ensures TDD implementation maintains architectural compliance
 - **agent_refactor_specialist** applies architectural patterns during refactoring phases
 
 #### Component Development Lifecycle
-1. **Architecture Phase**: Agent-Centric Software Engineering defines component interfaces and responsibilities
-2. **TDD Implementation Phase**: Agent-Centric TDD implements components with test-first discipline
+1. **Architecture Phase**: PATH-Based Software Engineering defines component interfaces and responsibilities
+2. **TDD Implementation Phase**: PATH-Based TDD implements components with test-first discipline
 3. **Integration Phase**: Both methodologies validate component integration and architectural compliance
 4. **Quality Validation Phase**: Combined validation ensures both architectural soundness and implementation quality
 
 ### Benefits of Integrated Methodology
 
 #### For Comprehensive Software Engineering
-- **Systematic Architecture**: Agent-Centric Software Engineering provides systematic architectural design
-- **Disciplined Implementation**: Agent-Centric TDD ensures test-driven implementation quality
+- **Systematic Architecture**: PATH-Based Software Engineering provides systematic architectural design
+- **Disciplined Implementation**: PATH-Based TDD ensures test-driven implementation quality
 - **End-to-End Traceability**: Requirements flow from architecture through test-driven implementation
 - **Quality Assurance**: Both methodologies provide complementary quality validation approaches
 
@@ -549,4 +546,4 @@ The Agent-Centric TDD methodology integrates seamlessly with the Agent-Centric S
 - **Emergency Recovery Frequency**: Rate of infrastructure failures and recovery effectiveness
 - **Implementation Quality Metrics**: Code quality trends through TDD cycle execution
 
-Agent-Centric Test-Driven Development delivers disciplined, high-quality software implementation across diverse technology stacks and domains through coordinated AI agent team expertise and systematic test-first development practices. This methodology ensures comprehensive test coverage, specification compliance, and maintainable code through collaborative TDD excellence.
+PATH-Based Test-Driven Development delivers disciplined, high-quality software implementation across diverse technology stacks and domains through coordinated AI agent team expertise and systematic test-first development practices. This methodology ensures comprehensive test coverage, specification compliance, and maintainable code through collaborative TDD excellence.

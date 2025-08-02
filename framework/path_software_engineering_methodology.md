@@ -91,11 +91,11 @@ graph TD
     F --> G[Design Documentation]
     
     subgraph "AI Agent Responsibilities"
-        H["🤖 domain_analyst"] -.-> B
-        I["🤖 system_architect"] -.-> C
+        H["🤖 agent_domain_analyst"] -.-> B
+        I["🤖 agent_system_architect"] -.-> C
         I -.-> F
-        J["🤖 component_designer"] -.-> D
-        K["🤖 integration_architect"] -.-> E
+        J["🤖 agent_component_designer"] -.-> D
+        K["🤖 agent_integration_architect"] -.-> E
         H -.-> G
     end
     
@@ -350,7 +350,7 @@ Each phase has a designated lead agent with specific decision authority, while o
 - **Performance Reality**: Real-world performance data influences design choices
 - **Evolution Planning**: Implementation experience guides architecture evolution
 
-The Agent-Centric Software Engineering methodology provides systematic, agent-driven architecture design that creates implementation-ready blueprints while maintaining flexibility for diverse technology stacks and domain requirements.
+The PATH-Based Software Engineering methodology provides systematic, agent-driven architecture design that creates implementation-ready blueprints while maintaining flexibility for diverse technology stacks and domain requirements.
 "Create a **[BUSINESS_DOMAIN]** application that complies with **[REGULATIONS]** and integrates with **[EXISTING_SYSTEMS]** to support **[BUSINESS_PROCESSES]** with **[SCALABILITY_REQUIREMENTS]**."
 
 **Primary Agent Assignments**:
@@ -376,7 +376,7 @@ The Agent-Centric Software Engineering methodology provides systematic, agent-dr
 
 The agent team methodology systematically analyzes your context, collaboratively selects appropriate patterns, designs comprehensive architecture through specialized expertise, and delivers a complete implementation blueprint with full requirement traceability across all agent domains.
 
-## Agent-Centric Software Engineering Benefits for Agent Teams
+## PATH-Based Software Engineering Benefits for Agent Teams
 
 ### For AI-Driven Development Teams
 - **Systematic Multi-Agent Processing**: Clear, repeatable algorithmic process distributed across specialized agents

@@ -1,10 +1,7 @@
 # PATH-Based DevOps & Production Readiness Methodology
 
 ## Overview
-**PATH-Based DevOps & Production Readiness** is a systematic methodology for infrastructure automation, deployment, and monitoring that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology transforms tested software into production-ready systems through coordinated human-AI DevOps practices, CI/CD automation, and comprehensive monitoring.ent-Centric DevOps & Production Readiness Methodology
-
-## Overview
-**Agent-Centric DevOps & Production Readiness** is a systematic methodology for infrastructure automation, deployment, and monitoring that follows the PAPT (People-Agent/Process/Technology) framework. This methodology transforms tested software into production-ready systems through coordinated DevOps practices, CI/CD automation, and comprehensive monitoring.
+**PATH-Based DevOps & Production Readiness** is a systematic methodology for infrastructure automation, deployment, and monitoring that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology transforms tested software into production-ready systems through coordinated DevOps practices, CI/CD automation, and comprehensive monitoring.
 
 ## Methodology Input/Output Specification
 
@@ -361,5 +358,5 @@ Each DevOps phase has a designated lead agent with cross-agent collaboration for
 - **Incident Response**: DevOps automation supports operations incident response
 - **Performance Management**: DevOps performance monitoring feeds operations optimization
 - **Continuous Deployment**: DevOps pipelines enable continuous delivery to operations
-
-The Agent-Centric DevOps methodology provides systematic infrastructure automation and deployment practices that bridge the gap between test-driven development and production operations, ensuring reliable, scalable, and monitored software delivery.
+ 
+The PATH-Based DevOps methodology provides systematic infrastructure automation and deployment practices that bridge the gap between test-driven development and production operations, ensuring reliable, scalable, and monitored software delivery.
