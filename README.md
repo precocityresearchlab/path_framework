@@ -29,63 +29,48 @@
 - **💡 Knowledge Retention**: Structured processes capture organizational knowledge
 - **🔄 Continuous Improvement**: Feedback loops drive evolution
 
-## 🚀 Quick Start Guide
+## Quick Start
 
-### Prerequisites
-- Basic understanding of software engineering principles
-- Familiarity with your chosen technology stack
-- Team commitment to human-AI collaboration
+### 1. Install Prerequisites
+```bash
+# Install UV package manager (recommended)
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
-### Step 1: Framework Assessment (1 week)
+# Verify installation
+uv --version
+```
+
+### 2. Clone and Setup
 ```bash
 # Clone the framework
 git clone https://github.com/precocityresearchlab/path_framework.git
 cd path_framework
 
-# Review framework documentation
-open framework/path_framework_overview.md
+# Install all dependencies
+uv sync
+
+# Verify installation
+uv run path --help
 ```
 
-**Assessment Checklist:**
-- [ ] Project complexity assessment (small/medium/large/enterprise)
-- [ ] Technology stack evaluation
-- [ ] Team composition planning
-- [ ] Human-AI collaboration readiness
+### 3. Create Your First Project
+```bash
+# Initialize a new PATH Framework project
+uv run path init my-project --template api
 
-### Step 2: Phase 1 - Architecture Setup (1-2 weeks)
-Start with [PATH-Based Software Engineering](framework/path_software_engineering_methodology.md)
+# Navigate and set up
+cd my-project
+uv sync
 
-**Quick Implementation:**
-1. **Gather Requirements**: Product goals, technical specifications, compliance needs
-2. **Set Up Agent Team**: Domain Analyst, System Architect, Component Designer, Integration Architect
-3. **Define Process**: Follow the 7-phase architecture process
-4. **Create Deliverables**: Architecture specifications, component designs, technical documentation
+# Start the PATH Framework journey
+uv run path run --phase 1
+```
 
-### Step 3: Phase 2 - TDD Implementation (2-4 weeks)
-Apply [PATH-Based Test-Driven Development](framework/path_tdd_methodology.md)
-
-**Quick Implementation:**
-1. **Agent Team Setup**: TDD Orchestrator, Test Strategist, Implementation Specialist, Coverage Validator
-2. **Integrate Promptus**: Use the proven TDD workflow framework
-3. **RED-GREEN-REFACTOR**: Implement strict TDD cycles
-4. **Quality Gates**: Maintain >90% test coverage
-
-### Step 3: Phase 3 - DevOps Automation (1-2 weeks)
-Implement [PATH-Based DevOps](framework/path_devops_methodology.md)
-
-**Quick Implementation:**
-1. **Infrastructure Setup**: Pipeline Architect, Infrastructure Engineer, Deployment Specialist, Monitoring Analyst
-2. **CI/CD Pipelines**: Automated build, test, and deployment
-3. **Infrastructure as Code**: Repeatable, version-controlled infrastructure
-4. **Monitoring**: Comprehensive observability and alerting
-
-### Step 4: Phase 4 - Production Operations (Ongoing)
-Establish [PATH-Based Operations](framework/path_operations_methodology.md)
-
-**Quick Implementation:**
-1. **Operations Team**: Reliability Engineer, Operations Specialist, Performance Analyst, Security Operator
-2. **SRE Practices**: SLA management, incident response, performance optimization
-3. **Continuous Improvement**: Feedback loops back to architecture
+### 4. Explore the Framework
+- **Framework Overview**: [Complete methodology](framework/path_framework_overview.md)
+- **Getting Started**: [Step-by-step guide](GETTING_STARTED.md)
+- **UV Setup**: [Detailed UV setup guide](UV_SETUP_GUIDE.md)
+- **Agent Implementation**: [Building the AI agents](AGENT_IMPLEMENTATION_PLAN.md)
 
 ## 📁 Framework Structure
 
