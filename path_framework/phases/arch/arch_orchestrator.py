@@ -38,9 +38,9 @@ from ...models.arch_models import (
 )
 
 # Import PATH pillar components
-from .process.workflows import ArchitectureWorkflow
-from .process.quality_gates import ArchitectureQualityGates
-from .process.validation import ArchitectureValidation
+from .process.workflows import ArchWorkflows
+from .process.quality_gates import ArchQualityGates
+from .process.validation import ArchValidation
 
 from .ai.domain_analyst import AIDomainAnalyst, DomainAnalysisRequest, AnalysisType
 from .ai.system_architect import AISystemArchitect, ArchitectureRequest
@@ -137,9 +137,9 @@ class ArchOrchestrator(BasePhase):
     
     def _init_process_components(self):
         """Initialize Process pillar components"""
-        self.workflow = ArchitectureWorkflow()
-        self.quality_gates = ArchitectureQualityGates()
-        self.validation = ArchitectureValidation()
+        self.workflow = ArchWorkflows()
+        self.quality_gates = ArchQualityGates()
+        self.validation = ArchValidation()
     
     def _init_ai_components(self):
         """Initialize AI pillar components"""

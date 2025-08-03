@@ -1,0 +1,106 @@
+# PATH Framework Requirements Template
+# This file provides a structured way to define project requirements for artifact generation
+
+project_info:
+  name: "My Application"
+  domain: "business"  # business, protocol, data, realtime, financial, healthcare, iot
+  description: "Brief description of the project"
+
+functional_requirements:
+  core_features:
+    - "Feature 1: Description"
+    - "Feature 2: Description"
+    - "Feature 3: Description"
+  
+  user_stories:
+    - "As a user, I want to..."
+    - "As an admin, I need to..."
+  
+  business_processes:
+    - "Process 1: Step-by-step workflow"
+    - "Process 2: Business logic description"
+
+technical_constraints:
+  performance:
+    - "Response time < 200ms"
+    - "Support 10,000 concurrent users"
+  
+  scalability:
+    - "Horizontal scaling capability"
+    - "Auto-scaling based on demand"
+  
+  technology_preferences:
+    - "Must use Python/Java/Go"
+    - "Cloud-native deployment"
+    - "Microservices architecture"
+  
+  integration_requirements:
+    - "REST API integration with System X"
+    - "Database: PostgreSQL"
+    - "Message queue: Kafka/RabbitMQ"
+
+stakeholders:
+  internal:
+    - "End users"
+    - "System administrators"
+    - "Business analysts"
+  
+  external:
+    - "Third-party API providers"
+    - "External audit systems"
+  
+  roles_permissions:
+    - "Admin: Full access"
+    - "User: Read-only access"
+    - "Manager: Approval workflows"
+
+compliance_requirements:
+  industry_standards:
+    - "REST API best practices"
+    - "OpenAPI 3.0 specification"
+  
+  regulatory:
+    - "GDPR compliance for data handling"
+    - "SOX compliance for financial data"
+  
+  security:
+    - "OAuth 2.0 authentication"
+    - "Data encryption at rest and in transit"
+    - "Role-based access control"
+  
+  audit_requirements:
+    - "Complete audit trail"
+    - "Data retention for 7 years"
+
+quality_attributes:
+  performance:
+    - "Sub-second response times"
+    - "99.9% uptime SLA"
+  
+  security:
+    - "Penetration testing requirements"
+    - "Vulnerability scanning"
+  
+  maintainability:
+    - "Code coverage > 80%"
+    - "Automated testing pipeline"
+  
+  usability:
+    - "Mobile-responsive design"
+    - "Accessibility compliance (WCAG 2.1)"
+
+business_context:
+  objectives:
+    - "Increase operational efficiency by 30%"
+    - "Reduce manual processing time"
+  
+  success_metrics:
+    - "User adoption rate > 80%"
+    - "Cost reduction of $100K annually"
+  
+  timeline:
+    - "MVP delivery in 3 months"
+    - "Full release in 6 months"
+
+# Example usage:
+# python generate_path_artifacts.py --project "Trading System" --requirements-file requirements_template.yaml

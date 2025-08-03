@@ -26,8 +26,11 @@ from datetime import datetime
 from enum import Enum
 
 from ...base import BasePhase
-from ....exceptions import PathFrameworkError
+from ....exceptions import PathFrameworkError, AgentError
 from ....models.arch_models import RequirementAnalysis, DomainModel, SystemArchitecture
+from ....models.phase1_models import (
+    Phase1Output, Requirement, TechnologyStack, ComponentDesign, IntegrationDesign
+)
 from .domain_analyst import AIDomainAnalyst, DomainAnalysisRequest, AnalysisType
 from .system_architect import AISystemArchitect, ArchitectureRequest
 from .component_designer import AIComponentDesigner, ComponentDesignRequest
@@ -487,7 +490,6 @@ class ArchOrchestrator(BasePhase):
         if step == Phase1Step.CONTEXT_ANALYSIS:
             # Convert requirements data back to objects
             if "requirements" in output:
-                from ...models.phase1_models import Requirement
                 requirements = []
                 for req_data in output["requirements"]:
                     req = Requirement(**req_data)
@@ -501,12 +503,10 @@ class ArchOrchestrator(BasePhase):
         
         elif step == Phase1Step.DOMAIN_MODELING:
             if "domain_model" in output and output["domain_model"]:
-                from ...models.phase1_models import DomainModel
                 phase_output.domain_model = DomainModel(**output["domain_model"])
         
         elif step == Phase1Step.ARCHITECTURE_DESIGN:
             if "architecture" in output:
-                from ...models.phase1_models import SystemArchitecture, TechnologyStack
                 arch_data = output["architecture"]
                 
                 # Handle technology stack
@@ -518,7 +518,6 @@ class ArchOrchestrator(BasePhase):
         
         elif step == Phase1Step.COMPONENT_DESIGN:
             if "components" in output:
-                from ...models.phase1_models import ComponentDesign
                 components = []
                 for comp_data in output["components"]:
                     comp = ComponentDesign(**comp_data)
@@ -527,7 +526,6 @@ class ArchOrchestrator(BasePhase):
         
         elif step == Phase1Step.INTEGRATION_DESIGN:
             if "integration_design" in output:
-                from ...models.phase1_models import IntegrationDesign
                 phase_output.integration_design = IntegrationDesign(**output["integration_design"])
         
         # Update validation results

@@ -28,7 +28,8 @@ from .technology import ArchitectureTools, DesignPatterns, ModelingFrameworks
 from .human import HumanOversight, ApprovalGates, CreativeInput
 
 # Phase Orchestrator (coordinates all PATH components)
-from .arch_orchestrator import ArchOrchestrator
+from .ai.orchestrator import ArchOrchestrator  # AI orchestrator with fixed imports
+# from .simple_orchestrator import ArchOrchestrator  # Fallback disabled
 
 __all__ = [
     # Phase Orchestrator

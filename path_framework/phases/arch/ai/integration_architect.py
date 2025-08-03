@@ -14,9 +14,9 @@ Decision Authority: Autonomous with human approval for security decisions
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, asdict
 
-from ...agents.base import BaseAgent
-from ...exceptions import ValidationError, AgentError
-from ...models.phase1_models import IntegrationDesign, SystemArchitecture, ComponentDesign
+from ....agents_base import BaseAgent
+from ....exceptions import PathFrameworkError
+from ....models.arch_models import IntegrationDesign, SystemArchitecture, ComponentDesign
 
 
 @dataclass
@@ -99,7 +99,7 @@ class AIIntegrationArchitect(BaseAgent):
             return result
             
         except Exception as e:
-            raise AgentError(f"Integration design failed: {str(e)}")
+            raise PathFrameworkError(f"Integration design failed: {str(e)}")
 
     async def execute(self, task: Dict[str, Any]) -> Dict[str, Any]:
         """Execute integration design task"""
@@ -116,7 +116,7 @@ class AIIntegrationArchitect(BaseAgent):
                 "confidence_score": result.confidence_score
             }
         except Exception as e:
-            raise AgentError(f"Integration design execution failed: {str(e)}")
+            raise PathFrameworkError(f"Integration design execution failed: {str(e)}")
 
     def validate_output(self, output: Dict[str, Any]) -> bool:
         """Validate output format"""

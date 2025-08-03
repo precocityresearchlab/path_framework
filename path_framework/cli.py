@@ -24,10 +24,6 @@ from rich.prompt import Prompt, Confirm
 
 # Arch phase imports
 from .phases.arch.simple_orchestrator import ArchOrchestrator
-from .models.arch_models import (
-    RequirementAnalysis, DomainModel, SystemArchitecture, 
-    ComponentDesign, IntegrationDesign
-)
 
 app = typer.Typer(
     name="path",
@@ -60,7 +56,14 @@ def init(
         border_style="blue"
     ))
     
-    project_dir = Path(directory) / project_name if directory else Path(project_name)
+    # Create projects directory if it doesn't exist
+    if directory:
+        projects_root = Path(directory)
+    else:
+        projects_root = Path.cwd() / "projects"
+    
+    projects_root.mkdir(exist_ok=True)
+    project_dir = projects_root / project_name
     
     with Progress(
         SpinnerColumn(),
@@ -461,19 +464,19 @@ async def _run_arch_phase(
     # Initialize orchestrator
     orchestrator = ArchOrchestrator()
     
-    # Create initial requirements
-    initial_requirements = RequirementAnalysis(
-        project_name=project_name,
-        description=project_description,
-        project_type=project_type,
-        target_users=[user.strip() for user in target_users.split(",")],
-        business_objectives=[],
-        functional_requirements=[],
-        non_functional_requirements=[],
-        constraints=[],
-        assumptions=[],
-        success_criteria=[]
-    )
+    # Create simple requirements dict
+    initial_requirements = {
+        "project_name": project_name,
+        "description": project_description,
+        "project_type": project_type,
+        "target_users": [user.strip() for user in target_users.split(",")],
+        "business_objectives": [],
+        "functional_requirements": [],
+        "non_functional_requirements": [],
+        "constraints": [],
+        "assumptions": [],
+        "success_criteria": []
+    }
     
     with Progress(
         SpinnerColumn(),

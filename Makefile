@@ -10,6 +10,39 @@ help: ## Show this help message
 	@echo "Available commands:"
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
+help-maintenance: ## Show maintenance commands only
+	@echo "PATH Framework - Maintenance Commands"
+	@echo "===================================="
+	@echo ""
+	@echo "🧹 Cleaning & Cleanup:"
+	@echo "  clean              - Clean up build artifacts and cache"
+	@echo "  clean-projects     - Clean all generated projects only"
+	@echo "  clean-all          - Deep clean: artifacts, cache, projects, and dependencies"
+	@echo "  clean-nuclear      - Nuclear clean: everything including .venv (requires uv sync)"
+	@echo ""
+	@echo "💾 Backup & Restore:"
+	@echo "  backup-projects    - Backup all projects to timestamped archive"
+	@echo "  restore-projects   - Restore projects from backup archive"
+	@echo ""
+	@echo "🔧 System Health:"
+	@echo "  health-check       - Comprehensive framework health check"
+	@echo "  update-deps        - Update all dependencies to latest versions"
+	@echo "  security-audit     - Run comprehensive security audit"
+	@echo ""
+	@echo "📊 Code Quality:"
+	@echo "  code-quality       - Run comprehensive code quality checks"
+	@echo "  format-code        - Auto-format all code"
+	@echo "  performance-profile - Profile framework performance"
+	@echo ""
+	@echo "🚀 Release Management:"
+	@echo "  release-check      - Pre-release validation checklist"
+	@echo "  maintenance-report - Generate comprehensive maintenance report"
+	@echo ""
+	@echo "💡 Usage examples:"
+	@echo "  make health-check        # Quick system check"
+	@echo "  make backup-projects     # Backup before major changes"
+	@echo "  make release-check       # Before creating a release"
+
 # Installation commands
 install: ## Install production dependencies
 	uv sync --no-dev
@@ -61,13 +94,195 @@ docs-serve: ## Serve documentation locally
 
 # Maintenance commands
 clean: ## Clean up build artifacts and cache
-	rm -rf build/
-	rm -rf dist/
-	rm -rf *.egg-info/
-	rm -rf .pytest_cache/
-	rm -rf .mypy_cache/
-	rm -rf htmlcov/
-	find . -type d -name __pycache__ -delete
+	@echo "🧹 Cleaning build artifacts and cache..."
+	@rm -rf build/
+	@rm -rf dist/
+	@rm -rf *.egg-info/
+	@rm -rf .pytest_cache/
+	@rm -rf .mypy_cache/
+	@rm -rf htmlcov/
+	@echo "Removing __pycache__ directories..."
+	@find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true
+	@find . -name "*.pyc" -delete 2>/dev/null || true
+	@find . -name "*.pyo" -delete 2>/dev/null || true
+	@echo "✅ Clean completed!"
+
+clean-projects: ## Clean all generated projects only
+	@echo "🗂️  Cleaning generated projects..."
+	@if [ -d "projects" ]; then \
+		echo "Removing all projects in projects/ directory..."; \
+		rm -rf projects/*/; \
+		echo "✅ Projects cleaned successfully!"; \
+	else \
+		echo "📁 No projects directory found"; \
+	fi
+
+clean-all: ## Deep clean: artifacts, cache, projects, and dependencies
+	@echo "🧹 Performing deep clean..."
+	@make clean
+	@echo "Removing all generated projects..."
+	@rm -rf projects/
+	@echo "Cleaning UV cache..."
+	@uv cache clean
+	@echo "✅ Deep clean completed!"
+
+clean-nuclear: ## Nuclear clean: everything including .venv (requires uv sync afterward)
+	@echo "☢️  Performing nuclear clean - removing EVERYTHING..."
+	@echo "This will remove .venv and require 'uv sync' to rebuild"
+	@read -p "Are you sure? [y/N]: " confirm; \
+	if [ "$$confirm" = "y" ] || [ "$$confirm" = "Y" ]; then \
+		echo "🧹 Cleaning build artifacts..."; \
+		rm -rf build/ dist/ *.egg-info/ .pytest_cache/ .mypy_cache/ htmlcov/; \
+		echo "💥 Removing ALL __pycache__ directories (including .venv)..."; \
+		find . -type d -name __pycache__ -exec rm -rf {} + 2>/dev/null || true; \
+		find . -name "*.pyc" -delete 2>/dev/null || true; \
+		find . -name "*.pyo" -delete 2>/dev/null || true; \
+		echo "🗂️  Removing projects directory..."; \
+		rm -rf projects/; \
+		echo "💀 Removing virtual environment..."; \
+		rm -rf .venv/; \
+		echo "🧹 Cleaning UV cache..."; \
+		uv cache clean; \
+		echo "☢️  Nuclear clean completed!"; \
+		echo "🔄 Run 'uv sync' to rebuild your environment"; \
+	else \
+		echo "❌ Nuclear clean cancelled"; \
+	fi
+
+backup-projects: ## Backup all projects to timestamped archive
+	@echo "💾 Creating projects backup..."
+	@if [ -d "projects" ]; then \
+		timestamp=$$(date +"%Y%m%d_%H%M%S"); \
+		backup_name="projects_backup_$$timestamp.tar.gz"; \
+		tar -czf "$$backup_name" projects/; \
+		echo "✅ Projects backed up to: $$backup_name"; \
+		ls -lh "$$backup_name"; \
+	else \
+		echo "⚠️  No projects directory found"; \
+	fi
+
+restore-projects: ## Restore projects from backup archive
+	@echo "📂 Restoring projects from backup..."
+	@echo "Available backups:"
+	@ls -1 projects_backup_*.tar.gz 2>/dev/null || echo "No backup files found"
+	@read -p "Enter backup filename: " backup_file; \
+	if [ -f "$$backup_file" ]; then \
+		echo "Extracting $$backup_file..."; \
+		tar -xzf "$$backup_file"; \
+		echo "✅ Projects restored from $$backup_file"; \
+	else \
+		echo "❌ Backup file not found: $$backup_file"; \
+	fi
+
+health-check: ## Comprehensive framework health check
+	@echo "🏥 PATH Framework Health Check"
+	@echo "=============================="
+	@echo ""
+	@echo "1️⃣  Environment Check:"
+	@make uv-check
+	@echo ""
+	@echo "2️⃣  Dependencies Check:"
+	@uv sync --dry-run
+	@echo ""
+	@echo "3️⃣  Framework Structure:"
+	@echo "Core modules:"
+	@ls -la path_framework/core/ 2>/dev/null || echo "❌ Core missing"
+	@echo "Architecture phase:"
+	@ls -la path_framework/phases/arch/ 2>/dev/null || echo "❌ Arch phase missing"
+	@echo ""
+	@echo "4️⃣  Test Suite:"
+	@make test-unit
+	@echo ""
+	@echo "5️⃣  Project Status:"
+	@make arch-status
+
+update-deps: ## Update all dependencies to latest compatible versions
+	@echo "🔄 Updating dependencies..."
+	@uv sync --upgrade
+	@echo "📋 Generating dependency report..."
+	@uv tree > dependency-report.txt
+	@echo "✅ Dependencies updated! Report saved to dependency-report.txt"
+
+security-audit: ## Run comprehensive security audit
+	@echo "🔒 Running security audit..."
+	@echo "1. Checking for known vulnerabilities..."
+	@uv run safety check --json > security-report.json 2>/dev/null || echo "Safety check completed"
+	@echo "2. Running bandit security scan..."
+	@uv run bandit -r path_framework -f json -o bandit-report.json || echo "Bandit scan completed"
+	@echo "3. Checking for outdated packages..."
+	@uv tree --outdated > outdated-packages.txt 2>/dev/null || echo "Package check completed"
+	@echo "✅ Security audit completed! Reports saved to:"
+	@echo "   - security-report.json"
+	@echo "   - bandit-report.json" 
+	@echo "   - outdated-packages.txt"
+
+performance-profile: ## Profile framework performance
+	@echo "⚡ Running performance profiling..."
+	@uv run python -m cProfile -o profile-stats.prof -m path_framework.cli --help
+	@echo "Generating profile report..."
+	@uv run python -c "import pstats; p=pstats.Stats('profile-stats.prof'); p.sort_stats('cumulative').print_stats(20)" > profile-report.txt
+	@echo "✅ Performance profile saved to profile-report.txt"
+
+code-quality: ## Run comprehensive code quality checks
+	@echo "📊 Running code quality analysis..."
+	@echo "1. Code formatting (black)..."
+	@uv run black --check --diff path_framework/ || echo "Formatting issues found"
+	@echo "2. Import sorting (isort)..."
+	@uv run isort --check-only --diff path_framework/ || echo "Import sorting issues found"
+	@echo "3. Type checking (mypy)..."
+	@uv run mypy path_framework/ || echo "Type checking completed"
+	@echo "4. Linting (flake8)..."
+	@uv run flake8 path_framework/ || echo "Linting completed"
+	@echo "5. Complexity analysis..."
+	@uv run radon cc path_framework/ -a || echo "Complexity analysis completed"
+	@echo "✅ Code quality analysis completed!"
+
+format-code: ## Auto-format all code
+	@echo "🎨 Formatting code..."
+	@uv run black path_framework/
+	@uv run isort path_framework/
+	@echo "✅ Code formatted!"
+
+release-check: ## Pre-release validation checklist
+	@echo "🚀 Release Readiness Check"
+	@echo "=========================="
+	@echo ""
+	@echo "✅ Running comprehensive checks..."
+	@make health-check
+	@echo ""
+	@make security-audit
+	@echo ""
+	@make code-quality
+	@echo ""
+	@echo "📋 Release Checklist:"
+	@echo "  [ ] All tests passing"
+	@echo "  [ ] Documentation updated"
+	@echo "  [ ] Security audit clean"
+	@echo "  [ ] Performance acceptable"
+	@echo "  [ ] Version bumped in pyproject.toml"
+	@echo "  [ ] CHANGELOG.md updated"
+	@echo "  [ ] Git tag created"
+
+maintenance-report: ## Generate comprehensive maintenance report
+	@echo "📊 Generating maintenance report..."
+	@timestamp=$$(date +"%Y-%m-%d_%H-%M-%S"); \
+	report_file="maintenance-report-$$timestamp.md"; \
+	echo "# PATH Framework Maintenance Report" > $$report_file; \
+	echo "Generated: $$(date)" >> $$report_file; \
+	echo "" >> $$report_file; \
+	echo "## Environment" >> $$report_file; \
+	uv --version >> $$report_file 2>&1; \
+	echo "" >> $$report_file; \
+	echo "## Dependencies" >> $$report_file; \
+	uv tree >> $$report_file 2>&1; \
+	echo "" >> $$report_file; \
+	echo "## Project Structure" >> $$report_file; \
+	find path_framework -name "*.py" | wc -l | xargs echo "Python files:" >> $$report_file; \
+	find . -name "*.md" | wc -l | xargs echo "Documentation files:" >> $$report_file; \
+	echo "" >> $$report_file; \
+	echo "## Test Coverage" >> $$report_file; \
+	make test-coverage >> $$report_file 2>&1; \
+	echo "✅ Maintenance report saved to: $$report_file"
 	find . -type f -name "*.pyc" -delete
 
 # Build and publish commands
@@ -93,6 +308,108 @@ example-init: ## Initialize example project
 
 example-run: ## Run complete example
 	cd examples/task_management_api && uv run python run_full_cycle.py
+
+# Arch Phase Operations - Architecture & Software Engineering
+arch-init: ## Initialize new project for Architecture phase
+	@echo "🚀 Initializing new PATH Framework project..."
+	@read -p "Enter project name: " project_name; \
+	uv run python -m path_framework.cli init "$$project_name" --template default
+	@echo "✅ Project initialized in projects/ directory"
+
+arch-run: ## Run Architecture phase generation
+	@echo "🏗️  Running Architecture & Software Engineering phase..."
+	@read -p "Enter project name: " project_name; \
+	uv run python -m path_framework.cli arch "$$project_name" --path "./projects/$$project_name" --interactive
+
+arch-demo: ## Run Architecture phase demonstration with sample project
+	@echo "🎯 Running Architecture phase demo with sample e-commerce project..."
+	uv run python demo_proper_projects.py
+	@echo "📁 Check results in: projects/demo-ecommerce-platform/path_artifacts/arch/"
+
+arch-llm-demo: ## Demonstrate real LLM integration
+	@echo "🤖 Testing PATH Framework with real LLM integration..."
+	@echo "💡 Set OPENAI_API_KEY or ANTHROPIC_API_KEY for real LLM calls"
+	uv run python demo_llm_standalone.py
+
+arch-validate: ## Validate Architecture phase implementation and run tests
+	@echo "✅ Validating Architecture phase implementation..."
+	uv run pytest framework_tests/ -v -k "arch" --tb=short
+	@echo "📊 Checking test coverage for Architecture phase..."
+	uv run pytest framework_tests/ --cov=path_framework.phases.arch --cov-report=term
+
+arch-full: ## Complete Architecture workflow: init + architecture + validation
+	@echo "🎯 Running complete Architecture phase workflow..."
+	@read -p "Enter project name: " project_name; \
+	echo "1️⃣  Initializing project: $$project_name"; \
+	uv run python -m path_framework.cli init "$$project_name" --template default; \
+	echo "2️⃣  Running architecture phase..."; \
+	uv run python -m path_framework.cli arch "$$project_name" --path "./projects/$$project_name" --non-interactive; \
+	echo "3️⃣  Validating results..."; \
+	if [ -d "./projects/$$project_name/path_artifacts/arch" ]; then \
+		echo "✅ Architecture phase artifacts generated successfully!"; \
+		ls -la "./projects/$$project_name/path_artifacts/arch/"; \
+	else \
+		echo "❌ Phase 1 artifacts not found"; \
+	fi
+
+arch-clean: ## Clean all generated artifacts for a project
+	@echo "🧹 Cleaning project artifacts..."
+	@read -p "Enter project name: " project_name; 
+	if [ -d "./projects/$$project_name" ]; then 
+		echo "Removing artifacts for project: $$project_name"; 
+		rm -rf "./projects/$$project_name/path_artifacts/"; 
+		echo "✅ Artifacts cleaned successfully!"; 
+	else 
+		echo "❌ Project $$project_name not found in ./projects/"; 
+	fi
+
+arch-status: ## Show Architecture phase implementation status
+	@echo "📊 PATH Framework Architecture Phase Status"
+	@echo "==========================================="
+	@echo ""
+	@echo "🏗️  Implementation Status:"
+	@if [ -f "path_framework/phases/arch/simple_orchestrator.py" ]; then \
+		echo "  ✅ Simple Orchestrator: Ready"; \
+	else \
+		echo "  ❌ Simple Orchestrator: Missing"; \
+	fi
+	@if [ -f "path_framework/phases/arch/ai/domain_analyst.py" ]; then \
+		echo "  ✅ AI Domain Analyst: Ready"; \
+	else \
+		echo "  ❌ AI Domain Analyst: Missing"; \
+	fi
+	@if [ -f "path_framework/core/llm_client.py" ]; then \
+		echo "  ✅ LLM Integration: Ready"; \
+	else \
+		echo "  ❌ LLM Integration: Missing"; \
+	fi
+	@echo ""
+	@echo "📁 Projects Directory:"
+	@if [ -d "projects" ]; then \
+		echo "  ✅ Projects folder exists"; \
+		echo "  📊 Projects: $$(ls projects/ 2>/dev/null | wc -l) found"; \
+		if [ $$(ls projects/ 2>/dev/null | wc -l) -gt 0 ]; then \
+			echo "  📂 Active projects:"; \
+			ls -1 projects/ | sed 's/^/    - /'; \
+		fi; \
+	else \
+		echo "  📁 No projects directory (will be created on first use)"; \
+	fi
+	@echo ""
+	@echo "🤖 LLM Integration:"
+	@if [ -n "$$OPENAI_API_KEY" ]; then \
+		echo "  ✅ OpenAI API key configured"; \
+	elif [ -n "$$ANTHROPIC_API_KEY" ]; then \
+		echo "  ✅ Anthropic API key configured"; \
+	else \
+		echo "  ⚠️  No LLM API keys configured (will use mock mode)"; \
+	fi
+	@echo ""
+	@echo "📚 Available Commands:"
+	@echo "  make arch-init     - Initialize new project"
+	@echo "  make arch-run      - Run architecture generation"
+	@echo "  make arch-demo     - Run sample demonstration"
+	@echo "  make arch-full     - Complete Architecture workflow"
 
 # Environment management
 env-info: ## Show environment information
@@ -231,11 +548,21 @@ quickstart: ## Quick start guide for new users
 	@echo "2. Run tests:"
 	@echo "   make test"
 	@echo ""
-	@echo "3. Create example project:"
-	@echo "   make example-init"
+	@echo "3. Check Architecture phase status:"
+	@echo "   make arch-status"
 	@echo ""
-	@echo "4. Run example:"
-	@echo "   make example-run"
+	@echo "4. Try Architecture demo:"
+	@echo "   make arch-demo"
 	@echo ""
-	@echo "5. View documentation:"
+	@echo "5. Create your project:"
+	@echo "   make arch-init"
+	@echo ""
+	@echo "6. Run architecture phase:"
+	@echo "   make arch-run"
+	@echo ""
+	@echo "7. View documentation:"
 	@echo "   make docs && make docs-serve"
+	@echo ""
+	@echo "💡 For real LLM integration:"
+	@echo "   export OPENAI_API_KEY='your-key'"
+	@echo "   make arch-llm-demo"

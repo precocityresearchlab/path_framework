@@ -40,6 +40,8 @@ dependencies = [
     "rich>=13.7.0",
     "uvloop>=0.19.0",
     "pyyaml>=6.0.2",
+    "openai>=1.98.0",
+    "anthropic>=0.60.0",
 ]
 
 # Optional dependencies for different use cases
@@ -142,6 +144,7 @@ Changelog = "https://github.com/precocityresearchlab/path_framework/blob/main/RE
 path = "path_framework.cli:main"
 path-agent = "path_framework.agents.cli:agent_main"
 path-orchestrator = "path_framework.orchestrator.cli:orchestrator_main"
+path-generate = "path_framework.phases.arch.generate_artifacts:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["path_framework"]
@@ -292,6 +295,60 @@ skips = ["B101", "B601"]
 [dependency-groups]
 dev = [
     "pytest>=8.4.1",
-    "pytest-asyncio>=1.1.0",
+    "pytest-asyncio>=1.1.0", 
     "pytest-cov>=6.2.1",
 ]
+
+# UV-specific configuration
+[tool.uv]
+# UV development dependencies
+dev-dependencies = [
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+    "pytest-cov>=6.2.1",
+    "black>=24.4.0",
+    "isort>=5.13.0",
+    "mypy>=1.10.0",
+    "flake8>=7.0.0",
+]
+
+# UV workspace configuration for phase-specific model support
+[tool.uv.sources]
+# Local development mode
+path-framework = { workspace = true }
+
+# UV environment configuration
+[tool.uv.pip]
+# Use faster resolution
+resolution-mode = "highest"
+# Enable pre-release versions if needed
+prerelease = "disallow"
+
+# UV scripts for common tasks
+[tool.uv.scripts]
+# PATH artifact generation
+generate-artifacts = "uv run python path_generate.py"
+path-arch = "uv run python -m path_framework.phases.arch.generate_artifacts"
+
+# LLM-related scripts
+test-llm = "uv run python -m pytest tests/ -m requires_llm"
+demo-openrouter = "uv run python examples/openrouter_example.py"
+demo-phase-models = "uv run python examples/phase_models_demo.py"
+demo-config = "uv run python examples/configuration_demo.py"
+
+# Setup scripts
+setup-openrouter = "./scripts/setup_openrouter.sh"
+setup-phase-models = "./scripts/setup_phase_models.sh"
+
+# Development scripts
+format = "uv run black path_framework/ examples/ tests/"
+lint = "uv run flake8 path_framework/ examples/ tests/"
+typecheck = "uv run mypy path_framework/"
+test = "uv run pytest"
+test-cov = "uv run pytest --cov=path_framework --cov-report=html"
+
+# Install LLM providers
+install-openai = "uv add openai"
+install-anthropic = "uv add anthropic"
+install-ollama = "uv add aiohttp"
+install-all-llm = "uv add openai anthropic aiohttp"

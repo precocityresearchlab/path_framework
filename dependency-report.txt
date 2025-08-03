@@ -1,0 +1,390 @@
+path-framework v2.0.0
+├── anthropic v0.60.0
+│   ├── anyio v4.9.0
+│   │   ├── idna v3.10
+│   │   └── sniffio v1.3.1
+│   ├── distro v1.9.0
+│   ├── httpx v0.28.1
+│   │   ├── anyio v4.9.0 (*)
+│   │   ├── certifi v2025.8.3
+│   │   ├── httpcore v1.0.9
+│   │   │   ├── certifi v2025.8.3
+│   │   │   └── h11 v0.16.0
+│   │   └── idna v3.10
+│   ├── jiter v0.10.0
+│   ├── pydantic v2.9.2
+│   │   ├── annotated-types v0.7.0
+│   │   ├── pydantic-core v2.23.4
+│   │   │   └── typing-extensions v4.14.1
+│   │   └── typing-extensions v4.14.1
+│   ├── sniffio v1.3.1
+│   └── typing-extensions v4.14.1
+├── asyncio-mqtt v0.16.2
+│   └── paho-mqtt v2.1.0
+├── httpx v0.28.1 (*)
+├── openai v1.98.0
+│   ├── anyio v4.9.0 (*)
+│   ├── distro v1.9.0
+│   ├── httpx v0.28.1 (*)
+│   ├── jiter v0.10.0
+│   ├── pydantic v2.9.2 (*)
+│   ├── sniffio v1.3.1
+│   ├── tqdm v4.67.1
+│   └── typing-extensions v4.14.1
+├── pydantic v2.9.2 (*)
+├── pydantic-settings v2.10.1
+│   ├── pydantic v2.9.2 (*)
+│   ├── python-dotenv v1.1.1
+│   └── typing-inspection v0.4.1
+│       └── typing-extensions v4.14.1
+├── pyyaml v6.0.2
+├── rich v14.1.0
+│   ├── markdown-it-py v3.0.0
+│   │   └── mdurl v0.1.2
+│   └── pygments v2.19.2
+├── structlog v25.4.0
+├── typer v0.16.0
+│   ├── click v8.2.1
+│   ├── rich v14.1.0 (*)
+│   ├── shellingham v1.5.4
+│   └── typing-extensions v4.14.1
+├── uvloop v0.21.0
+├── anthropic v0.60.0 (extra: all) (*)
+├── asyncpg v0.30.0 (extra: all)
+├── azure-identity v1.23.1 (extra: all)
+│   ├── azure-core v1.35.0
+│   │   ├── requests v2.32.4
+│   │   │   ├── certifi v2025.8.3
+│   │   │   ├── charset-normalizer v3.4.2
+│   │   │   ├── idna v3.10
+│   │   │   └── urllib3 v2.5.0
+│   │   ├── six v1.17.0
+│   │   └── typing-extensions v4.14.1
+│   ├── cryptography v45.0.5
+│   │   └── cffi v1.17.1
+│   │       └── pycparser v2.22
+│   ├── msal v1.33.0
+│   │   ├── cryptography v45.0.5 (*)
+│   │   ├── pyjwt[crypto] v2.10.1
+│   │   │   └── cryptography v45.0.5 (extra: crypto) (*)
+│   │   └── requests v2.32.4 (*)
+│   ├── msal-extensions v1.3.1
+│   │   └── msal v1.33.0 (*)
+│   └── typing-extensions v4.14.1
+├── bandit v1.8.6 (extra: all)
+│   ├── pyyaml v6.0.2
+│   ├── rich v14.1.0 (*)
+│   └── stevedore v5.4.1
+│       └── pbr v6.1.1
+│           └── setuptools v80.9.0
+├── boto3 v1.40.1 (extra: all)
+│   ├── botocore v1.40.1
+│   │   ├── jmespath v1.0.1
+│   │   ├── python-dateutil v2.9.0.post0
+│   │   │   └── six v1.17.0
+│   │   └── urllib3 v2.5.0
+│   ├── jmespath v1.0.1
+│   └── s3transfer v0.13.1
+│       └── botocore v1.40.1 (*)
+├── coverage v7.10.1 (extra: all)
+├── cryptography v45.0.5 (extra: all) (*)
+├── docker v7.1.0 (extra: all)
+│   ├── requests v2.32.4 (*)
+│   └── urllib3 v2.5.0
+├── factory-boy v3.3.3 (extra: all)
+│   └── faker v37.5.3
+│       └── tzdata v2025.2
+├── fastapi v0.116.1 (extra: all)
+│   ├── pydantic v2.9.2 (*)
+│   ├── starlette v0.47.2
+│   │   └── anyio v4.9.0 (*)
+│   └── typing-extensions v4.14.1
+├── gitpython v3.1.45 (extra: all)
+│   └── gitdb v4.0.12
+│       └── smmap v5.0.2
+├── google-cloud-core v2.4.3 (extra: all)
+│   ├── google-api-core v2.25.1
+│   │   ├── google-auth v2.40.3
+│   │   │   ├── cachetools v5.5.2
+│   │   │   ├── pyasn1-modules v0.4.2
+│   │   │   │   └── pyasn1 v0.6.1
+│   │   │   └── rsa v4.9.1
+│   │   │       └── pyasn1 v0.6.1
+│   │   ├── googleapis-common-protos v1.70.0
+│   │   │   └── protobuf v6.31.1
+│   │   ├── proto-plus v1.26.1
+│   │   │   └── protobuf v6.31.1
+│   │   ├── protobuf v6.31.1
+│   │   └── requests v2.32.4 (*)
+│   └── google-auth v2.40.3 (*)
+├── grafana-api v1.0.3 (extra: all)
+│   └── requests v2.32.4 (*)
+├── jinja2 v3.1.6 (extra: all)
+│   └── markupsafe v3.0.2
+├── kubernetes v33.1.0 (extra: all)
+│   ├── certifi v2025.8.3
+│   ├── durationpy v0.10
+│   ├── google-auth v2.40.3 (*)
+│   ├── oauthlib v3.3.1
+│   ├── python-dateutil v2.9.0.post0 (*)
+│   ├── pyyaml v6.0.2
+│   ├── requests v2.32.4 (*)
+│   ├── requests-oauthlib v2.0.0
+│   │   ├── oauthlib v3.3.1
+│   │   └── requests v2.32.4 (*)
+│   ├── six v1.17.0
+│   ├── urllib3 v2.5.0
+│   └── websocket-client v1.8.0
+├── matplotlib v3.10.5 (extra: all)
+│   ├── contourpy v1.3.3
+│   │   └── numpy v2.3.2
+│   ├── cycler v0.12.1
+│   ├── fonttools v4.59.0
+│   ├── kiwisolver v1.4.8
+│   ├── numpy v2.3.2
+│   ├── packaging v25.0
+│   ├── pillow v11.3.0
+│   ├── pyparsing v3.2.3
+│   └── python-dateutil v2.9.0.post0 (*)
+├── motor v3.7.1 (extra: all)
+│   └── pymongo v4.13.2
+│       └── dnspython v2.7.0
+├── numpy v2.3.2 (extra: all)
+├── ollama v0.5.1 (extra: all)
+│   ├── httpx v0.28.1 (*)
+│   └── pydantic v2.9.2 (*)
+├── openai v1.98.0 (extra: all) (*)
+├── opentelemetry-api v1.36.0 (extra: all)
+│   ├── importlib-metadata v8.7.0
+│   │   └── zipp v3.23.0
+│   └── typing-extensions v4.14.1
+├── opentelemetry-sdk v1.36.0 (extra: all)
+│   ├── opentelemetry-api v1.36.0 (*)
+│   ├── opentelemetry-semantic-conventions v0.57b0
+│   │   ├── opentelemetry-api v1.36.0 (*)
+│   │   └── typing-extensions v4.14.1
+│   └── typing-extensions v4.14.1
+├── pandas v2.3.1 (extra: all)
+│   ├── numpy v2.3.2
+│   ├── python-dateutil v2.9.0.post0 (*)
+│   ├── pytz v2025.2
+│   └── tzdata v2025.2
+├── prometheus-client v0.22.1 (extra: all)
+├── pyjwt v2.10.1 (extra: all) (*)
+├── pytest v8.4.1 (extra: all)
+│   ├── iniconfig v2.1.0
+│   ├── packaging v25.0
+│   ├── pluggy v1.6.0
+│   └── pygments v2.19.2
+├── pytest-asyncio v1.1.0 (extra: all)
+│   └── pytest v8.4.1 (*)
+├── pytest-cov v6.2.1 (extra: all)
+│   ├── coverage[toml] v7.10.1
+│   ├── pluggy v1.6.0
+│   └── pytest v8.4.1 (*)
+├── pytest-mock v3.14.1 (extra: all)
+│   └── pytest v8.4.1 (*)
+├── redis v6.2.0 (extra: all)
+├── safety v3.6.0 (extra: all)
+│   ├── authlib v1.6.1
+│   │   └── cryptography v45.0.5 (*)
+│   ├── click v8.2.1
+│   ├── dparse v0.6.4
+│   │   └── packaging v25.0
+│   ├── filelock v3.16.1
+│   ├── httpx v0.28.1 (*)
+│   ├── jinja2 v3.1.6 (*)
+│   ├── marshmallow v4.0.0
+│   ├── nltk v3.9.1
+│   │   ├── click v8.2.1
+│   │   ├── joblib v1.5.1
+│   │   ├── regex v2025.7.34
+│   │   └── tqdm v4.67.1
+│   ├── packaging v25.0
+│   ├── psutil v6.1.1
+│   ├── pydantic v2.9.2 (*)
+│   ├── requests v2.32.4 (*)
+│   ├── ruamel-yaml v0.18.14
+│   │   └── ruamel-yaml-clib v0.2.12
+│   ├── safety-schemas v0.0.14
+│   │   ├── dparse v0.6.4 (*)
+│   │   ├── packaging v25.0
+│   │   ├── pydantic v2.9.2 (*)
+│   │   ├── ruamel-yaml v0.18.14 (*)
+│   │   └── typing-extensions v4.14.1
+│   ├── setuptools v80.9.0
+│   ├── tenacity v9.1.2
+│   ├── tomlkit v0.13.3
+│   ├── typer v0.16.0 (*)
+│   └── typing-extensions v4.14.1
+├── scikit-learn v1.7.1 (extra: all)
+│   ├── joblib v1.5.1
+│   ├── numpy v2.3.2
+│   ├── scipy v1.16.1
+│   │   └── numpy v2.3.2
+│   └── threadpoolctl v3.6.0
+├── seaborn v0.13.2 (extra: all)
+│   ├── matplotlib v3.10.5 (*)
+│   ├── numpy v2.3.2
+│   └── pandas v2.3.1 (*)
+├── sqlalchemy v2.0.42 (extra: all)
+│   ├── greenlet v3.2.3
+│   └── typing-extensions v4.14.1
+├── uvicorn v0.35.0 (extra: all)
+│   ├── click v8.2.1
+│   └── h11 v0.16.0
+├── websockets v15.0.1 (extra: all)
+├── matplotlib v3.10.5 (extra: data) (*)
+├── numpy v2.3.2 (extra: data)
+├── pandas v2.3.1 (extra: data) (*)
+├── scikit-learn v1.7.1 (extra: data) (*)
+├── seaborn v0.13.2 (extra: data) (*)
+├── asyncpg v0.30.0 (extra: database)
+├── motor v3.7.1 (extra: database) (*)
+├── redis v6.2.0 (extra: database)
+├── sqlalchemy v2.0.42 (extra: database) (*)
+├── anthropic v0.60.0 (extra: dev) (*)
+├── asyncpg v0.30.0 (extra: dev)
+├── azure-identity v1.23.1 (extra: dev) (*)
+├── bandit v1.8.6 (extra: dev) (*)
+├── black v25.1.0 (extra: dev)
+│   ├── click v8.2.1
+│   ├── mypy-extensions v1.1.0
+│   ├── packaging v25.0
+│   ├── pathspec v0.12.1
+│   └── platformdirs v4.3.8
+├── boto3 v1.40.1 (extra: dev) (*)
+├── coverage v7.10.1 (extra: dev)
+├── cryptography v45.0.5 (extra: dev) (*)
+├── docker v7.1.0 (extra: dev) (*)
+├── factory-boy v3.3.3 (extra: dev) (*)
+├── fastapi v0.116.1 (extra: dev) (*)
+├── flake8 v7.3.0 (extra: dev)
+│   ├── mccabe v0.7.0
+│   ├── pycodestyle v2.14.0
+│   └── pyflakes v3.4.0
+├── gitpython v3.1.45 (extra: dev) (*)
+├── google-cloud-core v2.4.3 (extra: dev) (*)
+├── grafana-api v1.0.3 (extra: dev) (*)
+├── isort v6.0.1 (extra: dev)
+├── jinja2 v3.1.6 (extra: dev) (*)
+├── kubernetes v33.1.0 (extra: dev) (*)
+├── matplotlib v3.10.5 (extra: dev) (*)
+├── mkdocs v1.6.1 (extra: dev)
+│   ├── click v8.2.1
+│   ├── ghp-import v2.1.0
+│   │   └── python-dateutil v2.9.0.post0 (*)
+│   ├── jinja2 v3.1.6 (*)
+│   ├── markdown v3.8.2
+│   ├── markupsafe v3.0.2
+│   ├── mergedeep v1.3.4
+│   ├── mkdocs-get-deps v0.2.0
+│   │   ├── mergedeep v1.3.4
+│   │   ├── platformdirs v4.3.8
+│   │   └── pyyaml v6.0.2
+│   ├── packaging v25.0
+│   ├── pathspec v0.12.1
+│   ├── pyyaml v6.0.2
+│   ├── pyyaml-env-tag v1.1
+│   │   └── pyyaml v6.0.2
+│   └── watchdog v6.0.0
+├── mkdocs-material v9.6.16 (extra: dev)
+│   ├── babel v2.17.0
+│   ├── backrefs v5.9
+│   ├── colorama v0.4.6
+│   ├── jinja2 v3.1.6 (*)
+│   ├── markdown v3.8.2
+│   ├── mkdocs v1.6.1 (*)
+│   ├── mkdocs-material-extensions v1.3.1
+│   ├── paginate v0.5.7
+│   ├── pygments v2.19.2
+│   ├── pymdown-extensions v10.16.1
+│   │   ├── markdown v3.8.2
+│   │   └── pyyaml v6.0.2
+│   └── requests v2.32.4 (*)
+├── motor v3.7.1 (extra: dev) (*)
+├── mypy v1.17.1 (extra: dev)
+│   ├── mypy-extensions v1.1.0
+│   ├── pathspec v0.12.1
+│   └── typing-extensions v4.14.1
+├── numpy v2.3.2 (extra: dev)
+├── ollama v0.5.1 (extra: dev) (*)
+├── openai v1.98.0 (extra: dev) (*)
+├── opentelemetry-api v1.36.0 (extra: dev) (*)
+├── opentelemetry-sdk v1.36.0 (extra: dev) (*)
+├── pandas v2.3.1 (extra: dev) (*)
+├── pre-commit v4.2.0 (extra: dev)
+│   ├── cfgv v3.4.0
+│   ├── identify v2.6.12
+│   ├── nodeenv v1.9.1
+│   ├── pyyaml v6.0.2
+│   └── virtualenv v20.33.0
+│       ├── distlib v0.4.0
+│       ├── filelock v3.16.1
+│       └── platformdirs v4.3.8
+├── prometheus-client v0.22.1 (extra: dev)
+├── pyjwt v2.10.1 (extra: dev) (*)
+├── pytest v8.4.1 (extra: dev) (*)
+├── pytest-asyncio v1.1.0 (extra: dev) (*)
+├── pytest-cov v6.2.1 (extra: dev) (*)
+├── pytest-mock v3.14.1 (extra: dev) (*)
+├── redis v6.2.0 (extra: dev)
+├── safety v3.6.0 (extra: dev) (*)
+├── scikit-learn v1.7.1 (extra: dev) (*)
+├── seaborn v0.13.2 (extra: dev) (*)
+├── sphinx v8.2.3 (extra: dev)
+│   ├── alabaster v1.0.0
+│   ├── babel v2.17.0
+│   ├── docutils v0.21.2
+│   ├── imagesize v1.4.1
+│   ├── jinja2 v3.1.6 (*)
+│   ├── packaging v25.0
+│   ├── pygments v2.19.2
+│   ├── requests v2.32.4 (*)
+│   ├── roman-numerals-py v3.1.0
+│   ├── snowballstemmer v3.0.1
+│   ├── sphinxcontrib-applehelp v2.0.0
+│   ├── sphinxcontrib-devhelp v2.0.0
+│   ├── sphinxcontrib-htmlhelp v2.1.0
+│   ├── sphinxcontrib-jsmath v1.0.1
+│   ├── sphinxcontrib-qthelp v2.0.0
+│   └── sphinxcontrib-serializinghtml v2.0.0
+├── sphinx-rtd-theme v3.0.2 (extra: dev)
+│   ├── docutils v0.21.2
+│   ├── sphinx v8.2.3 (*)
+│   └── sphinxcontrib-jquery v4.1
+│       └── sphinx v8.2.3 (*)
+├── sqlalchemy v2.0.42 (extra: dev) (*)
+├── uvicorn v0.35.0 (extra: dev) (*)
+├── websockets v15.0.1 (extra: dev)
+├── azure-identity v1.23.1 (extra: dev-tools) (*)
+├── boto3 v1.40.1 (extra: dev-tools) (*)
+├── docker v7.1.0 (extra: dev-tools) (*)
+├── gitpython v3.1.45 (extra: dev-tools) (*)
+├── google-cloud-core v2.4.3 (extra: dev-tools) (*)
+├── kubernetes v33.1.0 (extra: dev-tools) (*)
+├── anthropic v0.60.0 (extra: llm) (*)
+├── ollama v0.5.1 (extra: llm) (*)
+├── openai v1.98.0 (extra: llm) (*)
+├── grafana-api v1.0.3 (extra: monitoring) (*)
+├── opentelemetry-api v1.36.0 (extra: monitoring) (*)
+├── opentelemetry-sdk v1.36.0 (extra: monitoring) (*)
+├── prometheus-client v0.22.1 (extra: monitoring)
+├── bandit v1.8.6 (extra: security) (*)
+├── cryptography v45.0.5 (extra: security) (*)
+├── pyjwt v2.10.1 (extra: security) (*)
+├── safety v3.6.0 (extra: security) (*)
+├── coverage v7.10.1 (extra: testing)
+├── factory-boy v3.3.3 (extra: testing) (*)
+├── pytest v8.4.1 (extra: testing) (*)
+├── pytest-asyncio v1.1.0 (extra: testing) (*)
+├── pytest-cov v6.2.1 (extra: testing) (*)
+├── pytest-mock v3.14.1 (extra: testing) (*)
+├── fastapi v0.116.1 (extra: web) (*)
+├── jinja2 v3.1.6 (extra: web) (*)
+├── uvicorn v0.35.0 (extra: web) (*)
+├── websockets v15.0.1 (extra: web)
+├── pytest v8.4.1 (group: dev) (*)
+├── pytest-asyncio v1.1.0 (group: dev) (*)
+└── pytest-cov v6.2.1 (group: dev) (*)
+(*) Package tree already displayed

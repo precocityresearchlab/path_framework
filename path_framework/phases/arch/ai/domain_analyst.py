@@ -19,6 +19,7 @@ from enum import Enum
 
 from ....agents_base import BaseAgent
 from ....exceptions import PathFrameworkError
+from ....core.llm_client import get_llm_client, LLMRequest
 from ....models.arch_models import (
     RequirementAnalysis,
     DomainModel,
@@ -296,10 +297,106 @@ class AIDomainAnalyst(BaseAgent):
 
     # Private helper methods
     async def _extract_requirements(self, description: str, context: str, stakeholder_input: List[str]) -> List[Requirement]:
-        """Extract requirements from natural language text"""
+        """Extract requirements from natural language text using LLM"""
+        try:
+            # Get LLM client with Phase 1 configuration
+            llm_client = get_llm_client(phase=1)
+            
+            # Prepare context for LLM
+            stakeholder_text = "\n".join(stakeholder_input or [])
+            
+            # Create comprehensive prompt for requirements extraction
+            system_prompt = """You are an expert business analyst specializing in requirements engineering. Your task is to extract clear, actionable requirements from project descriptions and stakeholder input.
+
+For each requirement you identify:
+1. Create a clear, concise title
+2. Write a detailed description
+3. Classify the type (functional, non_functional, business, technical, compliance)
+4. Assess priority (critical, high, medium, low)
+5. Generate 2-3 acceptance criteria
+6. Estimate complexity (1-10 scale)
+
+Focus on extracting requirements that are:
+- Specific and measurable
+- Testable and verifiable 
+- Relevant to the project goals
+- Realistic and achievable"""
+
+            user_prompt = f"""Project Description:
+{description}
+
+Business Context:
+{context}
+
+Stakeholder Input:
+{stakeholder_text}
+
+Please extract and analyze all requirements from this information. Return your analysis as JSON matching this exact schema:
+
+{{
+  "requirements": [
+    {{
+      "title": "string",
+      "description": "string", 
+      "type": "functional|non_functional|business|technical|compliance",
+      "priority": "critical|high|medium|low",
+      "acceptance_criteria": ["string", "string", "string"],
+      "complexity_score": number,
+      "business_value": "string",
+      "dependencies": ["string"],
+      "stakeholders": ["string"]
+    }}
+  ]
+}}"""
+
+            # Make LLM request
+            request = LLMRequest(
+                prompt=user_prompt,
+                system_prompt=system_prompt,
+                temperature=0.1,
+                max_tokens=4000,
+                response_format="json"
+            )
+            
+            response = await llm_client.generate(request)
+            
+            # Parse LLM response
+            try:
+                result_data = json.loads(response.content)
+                requirements = []
+                
+                for req_data in result_data.get("requirements", []):
+                    requirement = Requirement(
+                        title=req_data.get("title", ""),
+                        description=req_data.get("description", ""),
+                        type=RequirementType(req_data.get("type", "functional")),
+                        priority=RequirementPriority(req_data.get("priority", "medium")),
+                        acceptance_criteria=req_data.get("acceptance_criteria", []),
+                        business_value=req_data.get("business_value", ""),
+                        complexity_score=req_data.get("complexity_score", 5.0),
+                        dependencies=req_data.get("dependencies", []),
+                        stakeholders=req_data.get("stakeholders", [])
+                    )
+                    requirements.append(requirement)
+                
+                self.logger.info(f"Extracted {len(requirements)} requirements using LLM")
+                return requirements
+                
+            except json.JSONDecodeError as e:
+                self.logger.error(f"Failed to parse LLM response: {e}")
+                # Fallback to simple extraction
+                return await self._fallback_extract_requirements(description, context, stakeholder_input)
+                
+        except Exception as e:
+            self.logger.error(f"LLM requirements extraction failed: {e}")
+            # Fallback to simple extraction
+            return await self._fallback_extract_requirements(description, context, stakeholder_input)
+
+    async def _fallback_extract_requirements(self, description: str, context: str, stakeholder_input: List[str]) -> List[Requirement]:
+        """Fallback requirements extraction using simple patterns"""
         requirements = []
         
-        # Simple pattern-based extraction (in real implementation, use NLP models)
+        # Simple pattern-based extraction
         requirement_indicators = [
             "must", "should", "shall", "will", "requires", "needs",
             "user can", "system will", "application should"

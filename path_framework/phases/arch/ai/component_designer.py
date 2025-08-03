@@ -14,9 +14,9 @@ Decision Authority: Autonomous with human review for complex designs
 from typing import Dict, List, Any, Optional
 from dataclasses import dataclass, asdict
 
-from ...agents.base import BaseAgent
-from ...exceptions import ValidationError, AgentError
-from ...models.phase1_models import ComponentDesign, SystemArchitecture
+from ....agents_base import BaseAgent
+from ....exceptions import PathFrameworkError
+from ....models.arch_models import ComponentDesign, SystemArchitecture
 
 
 @dataclass
@@ -85,7 +85,7 @@ class AIComponentDesigner(BaseAgent):
             return result
             
         except Exception as e:
-            raise AgentError(f"Component design failed: {str(e)}")
+            raise PathFrameworkError(f"Component design failed: {str(e)}")
 
     async def execute(self, task: Dict[str, Any]) -> Dict[str, Any]:
         """Execute component design task"""
@@ -102,7 +102,7 @@ class AIComponentDesigner(BaseAgent):
                 "confidence_score": result.confidence_score
             }
         except Exception as e:
-            raise AgentError(f"Component design execution failed: {str(e)}")
+            raise PathFrameworkError(f"Component design execution failed: {str(e)}")
 
     def validate_output(self, output: Dict[str, Any]) -> bool:
         """Validate output format"""
