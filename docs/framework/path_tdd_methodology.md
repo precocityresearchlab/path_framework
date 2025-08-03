@@ -1,7 +1,10 @@
 # PATH-Based Test-Driven Development Methodology
+**Process/AI/Technology/Human for TDD Implementation - Phase 2 Implementation**
+
+**Version 2.0.0** | **Released: August 3, 2025**
 
 ## Overview
-**PATH-Based Test-Driven Development** is a systematic methodology for test-driven implementation that follows the PATH (Process/AI/Technology/Human) framework. This methodology transforms architecture specifications into working software through strict RED-GREEN-REFACTOR cycles, leveraging the proven promptus TDD framework while maintaining coordinated human-AI team expertise.
+**PATH-Based Test-Driven Development** is a systematic methodology for test-driven implementation that follows the PATH (Process/AI/Technology/Human) framework. This methodology transforms architecture specifications into working software through strict RED-GREEN-REFACTOR cycles, leveraging the proven promptus TDD framework while maintaining coordinated human-AI team expertise, serving as Phase 2 of the complete PATH Framework lifecycle.
 
 ## Methodology Input/Output Specification
 
@@ -83,47 +86,57 @@ methodology_outputs:
 
 ```mermaid
 graph TD
-    A[Architecture Specifications] --> B[Coverage Baseline]
-    B --> C[Test Strategy & Classification]
+    A[Architecture Specifications] --> B[Test Strategy Planning]
+    B --> C[Test Case Generation]
     C --> D[RED: Write Failing Test]
     D --> E[GREEN: Minimal Implementation]
-    E --> F[REFACTOR: Code Quality]
-    F --> G[Coverage Validation]
+    E --> F[Coverage Validation]
+    F --> G[REFACTOR: Code Improvement]
     G --> H{Coverage Target Met?}
     H -->|No| D
     H -->|Yes| I[Integration Testing]
     I --> J[Documentation & Artifacts]
     
     subgraph "AI Agent Responsibilities"
-        K["🤖 AI Coverage Validator"] -.-> B
-        K -.-> G
-        K -.-> H
+        K["🤖 AI TDD Orchestrator"] -.-> B
+        K -.-> D
+        K -.-> I
+        K -.-> J
         L["🤖 AI Test Strategist"] -.-> C
         M["🤖 AI Implementation Specialist"] -.-> E
-        M -.-> F
-        N["🤖 AI TDD Orchestrator"] -.-> D
-        N -.-> I
-        N -.-> J
+        M -.-> G
+        N["🤖 AI Coverage Validator"] -.-> F
+        N -.-> H
     end
     
     subgraph "Technology & Promptus Framework"
-        O[coverage_validation_promptus.yaml] -.-> B
-        O -.-> G
+        O[TDD Frameworks] -.-> B
         P[tdd_workflow_promptus.yaml] -.-> D
         P -.-> E
-        P -.-> F
-        Q[Testing Frameworks] -.-> D
-        R[Coverage Tools] -.-> B
-        R -.-> G
-        S[Code Quality Tools] -.-> F
+        P -.-> G
+        Q[Testing Frameworks] -.-> C
+        R[coverage_validation_promptus.yaml] -.-> F
+        S[Code Quality Tools] -.-> G
         T[emergency_repair_promptus.yaml] -.-> U[Emergency Response]
     end
     
+    subgraph "Flow Patterns"
+        V1["Pattern 2: AI-Driven"] -.-> B
+        V1 -.-> C
+        V1 -.-> D
+        V1 -.-> E
+        V1 -.-> F
+        V1 -.-> G
+        V1 -.-> I
+        V1 -.-> J
+        V2["Pattern 3: Collaborative"] -.-> H
+    end
+    
     subgraph "Output Deliverables"
-        J --> V[test_specifications.yaml]
-        J --> W[implementation_artifacts.yaml]
-        J --> X[code_quality_metrics.yaml]
-        J --> Y[deployment_packages.yaml]
+        J --> W[test_specifications.yaml]
+        J --> X[implementation_artifacts.yaml]
+        J --> Y[code_quality_metrics.yaml]
+        J --> Z[deployment_packages.yaml]
     end
     
     style A fill:#e1f5fe
@@ -146,11 +159,33 @@ graph TD
     style R fill:#e8f5e8
     style S fill:#e8f5e8
     style T fill:#e8f5e8
-    style V fill:#c8e6c9
+    style V1 fill:#fff8e1
+    style V2 fill:#fff8e1
     style W fill:#c8e6c9
     style X fill:#c8e6c9
     style Y fill:#c8e6c9
+    style Z fill:#c8e6c9
 ```
+
+## PATH Flow Pattern Integration
+
+### **Flow Pattern 2: AI-Driven Automation** (Core TDD Cycle)
+```
+interface_specifications.yaml → 🤖 AI Test Strategist + Testing Frameworks → Test Generation Process → test_specifications.yaml
+```
+**Usage**: Systematic test generation, RED-GREEN-REFACTOR automation, coverage validation
+**AI Role**: Test strategy, systematic implementation, quality validation
+**Technology Role**: Testing frameworks, coverage tools, promptus TDD workflow
+**Process Role**: Strict TDD cycle enforcement with quality gates
+
+### **Flow Pattern 3: Human-AI Collaborative Decision** (Quality Gates)
+```
+(coverage_report.yaml + 👤 Human Code Review) → 🤖 AI Coverage Validator + Quality Tools → Code Review Process → implementation_artifacts.yaml
+```
+**Usage**: Code quality validation, coverage threshold decisions, implementation approval
+**Human Role**: Code review, quality approval, strategic oversight
+**AI Role**: Quality analysis, coverage validation, compliance checking
+**Technology Role**: Code review tools, quality metrics, validation frameworks
 
 ## PATH Implementation for Test-Driven Development
 
@@ -182,33 +217,49 @@ graph TD
 
 ### **Process: Promptus-Based TDD Workflow**
 
-#### **Phase 1: Pre-Task Coverage Baseline**
-**Lead Agent**: `AI Coverage Validator`
-**Promptus Integration**: Direct implementation of `coverage_validation_promptus.yaml`
-**Process Steps**:
-1. **Baseline Measurement**: Execute coverage measurement before any task
-2. **Coverage Recording**: Document current coverage percentage and uncovered paths
-3. **Target Setting**: Establish coverage improvement targets based on test type
-4. **Validation Criteria**: Set quality gates for coverage validation
+## Detailed Phase Mapping (Aligned with PATH Framework)
 
-**Outputs**: Coverage baseline, improvement targets, validation criteria
-**Quality Gates**: Accurate baseline measurement, clear coverage targets
+| Step | Flow Pattern | Input | Primary Agent | Supporting Agents | Human Role | Technology Stack | Process | Output |
+|------|--------------|-------|---------------|------------------|------------|------------------|---------|---------|
+| **Test Strategy Planning** | Pattern 2 | interface_specifications.yaml | 🤖 **AI TDD Orchestrator** | AI Test Strategist (consultation) | - | TDD Frameworks, Planning Tools | TDD Planning Workflow | test_strategy.yaml |
+| **Test Case Generation** | Pattern 2 | test_strategy.yaml | 🤖 **AI Test Strategist** | AI TDD Orchestrator (coordination) | - | Testing Frameworks, Test Generators | Test Generation Workflow | test_specifications.yaml |
+| **RED Phase (Failing Tests)** | Pattern 2 | test_specifications.yaml | 🤖 **AI Implementation Specialist** | AI Test Strategist (test validation) | - | Testing Tools, Code Scaffolding | RED Workflow | failing_tests.yaml |
+| **GREEN Phase (Implementation)** | Pattern 2 | failing_tests.yaml | 🤖 **AI Implementation Specialist** | AI TDD Orchestrator (workflow), AI Test Strategist (test compliance) | - | Development Tools, Code Generation | GREEN Workflow | working_implementation.yaml |
+| **REFACTOR Phase** | Pattern 2 | working_implementation.yaml | 🤖 **AI Implementation Specialist** | AI Coverage Validator (quality check) | - | Refactoring Tools, Code Quality Tools | REFACTOR Workflow | refactored_code.yaml |
+| **Coverage Validation** | Pattern 2 | refactored_code.yaml | 🤖 **AI Coverage Validator** | AI Implementation Specialist (code review), AI Test Strategist (test adequacy) | - | Coverage Tools, Quality Metrics | Coverage Analysis Workflow | coverage_report.yaml |
+| **Code Review & Approval** | Pattern 3 | coverage_report.yaml + Human Code Review | 🤖 **AI Coverage Validator** | All Phase 2 Agents | 👤 Code Review, Quality Approval | Code Review Tools, Quality Gates | Human Code Review Workflow | implementation_artifacts.yaml |
+| **Deployment Package Creation** | Pattern 2 | implementation_artifacts.yaml | 🤖 **AI TDD Orchestrator** | AI Implementation Specialist, AI Coverage Validator | - | Build Tools, Package Managers | Package Creation Workflow | deployment_packages.yaml |
 
-#### **Phase 2: Test Strategy & Classification**
-**Lead Agent**: `AI Test Strategist`
-**Promptus Integration**: Implementation of `test_classification_promptus.yaml` and `test_intent_preservation_promptus.yaml`
+#### **Phase 1: Test Strategy Planning**
+**Lead Agent**: `AI TDD Orchestrator`
+**Flow Pattern**: AI-Driven Automation
+**Promptus Integration**: Direct implementation of `test_classification_promptus.yaml`
 **Process Steps**:
 1. **Requirement Analysis**: Extract testable requirements from architecture specifications
 2. **Test Classification**: Classify tests as UNIT (improve coverage), INTEGRATION (maintain/improve), E2E (not measured)
-3. **Scenario Design**: Design test scenarios covering functionality, edge cases, error conditions
-4. **Specification Mapping**: Map test scenarios to specification requirements
+3. **Coverage Baseline**: Establish current coverage and improvement targets
+4. **Strategy Design**: Design comprehensive test strategy with scenario mapping
 
-**Outputs**: Test strategy, test scenarios, specification traceability
+**Outputs**: Test strategy, coverage baselines, test classification matrix
+**Quality Gates**: Complete scenario coverage, clear test classification, specification compliance
+
+#### **Phase 2: Test Case Generation**
+**Lead Agent**: `AI Test Strategist`
+**Flow Pattern**: AI-Driven Automation
+**Promptus Integration**: Implementation of `test_classification_promptus.yaml` and `test_intent_preservation_promptus.yaml`
+**Process Steps**:
+1. **Scenario Design**: Design test scenarios covering functionality, edge cases, error conditions
+2. **Specification Mapping**: Map test scenarios to specification requirements
+3. **Test Template Generation**: Create test templates following testing frameworks
+4. **Validation Rules**: Establish test validation and quality criteria
+
+**Outputs**: Test scenarios, specification traceability, test templates
 **Quality Gates**: Complete scenario coverage, clear test classification, specification compliance
 
 #### **Phase 3: RED Phase - Failing Test Implementation**
 **Lead Agent**: `AI Implementation Specialist`
 **Supporting Agent**: `AI TDD Orchestrator`
+**Flow Pattern**: AI-Driven Automation
 **Promptus Integration**: Core implementation of `tdd_workflow_promptus.yaml` RED phase
 **Process Steps**:
 1. **Single Test Implementation**: Write exactly one failing test for smallest feature increment
@@ -222,6 +273,7 @@ graph TD
 #### **Phase 4: GREEN Phase - Minimal Implementation**
 **Lead Agent**: `AI Implementation Specialist`
 **Supporting Agent**: `AI TDD Orchestrator`
+**Flow Pattern**: AI-Driven Automation
 **Promptus Integration**: Core implementation of `tdd_workflow_promptus.yaml` GREEN phase
 **Process Steps**:
 1. **Minimal Code Implementation**: Write absolute minimum code to make test pass
@@ -232,21 +284,10 @@ graph TD
 **Outputs**: Minimal working implementation, all tests passing
 **Quality Gates**: Single test passes, no regressions, minimal implementation scope
 
-#### **Phase 5: Coverage Validation**
-**Lead Agent**: `AI Coverage Validator`
-**Promptus Integration**: Implementation of `coverage_validation_promptus.yaml`
-**Process Steps**:
-1. **Coverage Measurement**: Execute coverage analysis after implementation
-2. **Improvement Validation**: Ensure UNIT tests improve coverage by ≥0.1%
-3. **Threshold Compliance**: Validate INTEGRATION tests maintain or improve coverage
-4. **Quality Metrics**: Generate coverage trend analysis and quality indicators
-
-**Outputs**: Coverage validation report, quality metrics, trend analysis
-**Quality Gates**: Coverage improvement validated, thresholds met, quality trends positive
-
-#### **Phase 6: REFACTOR Phase - Code Improvement**
+#### **Phase 5: REFACTOR Phase - Code Improvement**
 **Lead Agent**: `AI Implementation Specialist`
 **Supporting Agent**: `AI TDD Orchestrator`
+**Flow Pattern**: AI-Driven Automation
 **Promptus Integration**: Core implementation of `tdd_workflow_promptus.yaml` REFACTOR phase
 **Process Steps**:
 1. **Quality Analysis**: Identify code structure and quality improvement opportunities
@@ -257,9 +298,49 @@ graph TD
 **Outputs**: Improved code structure, maintained functionality, all tests passing
 **Quality Gates**: Structure improvements, no behavior changes, test suite integrity
 
-#### **Phase 7: Emergency Repair Mode** (When Activated)
+#### **Phase 6: Coverage Validation**
+**Lead Agent**: `AI Coverage Validator`
+**Flow Pattern**: AI-Driven Automation
+**Promptus Integration**: Implementation of `coverage_validation_promptus.yaml`
+**Process Steps**:
+1. **Coverage Measurement**: Execute coverage analysis after implementation
+2. **Improvement Validation**: Ensure UNIT tests improve coverage by ≥0.1%
+3. **Threshold Compliance**: Validate INTEGRATION tests maintain or improve coverage
+4. **Quality Metrics**: Generate coverage trend analysis and quality indicators
+
+**Outputs**: Coverage validation report, quality metrics, trend analysis
+**Quality Gates**: Coverage improvement validated, thresholds met, quality trends positive
+
+#### **Phase 7: Code Review & Approval**
+**Lead Agent**: `AI Coverage Validator`
+**Supporting Agents**: All Phase 2 Agents
+**Flow Pattern**: Human-AI Collaborative Decision
+**Process Steps**:
+1. **Quality Assessment**: Comprehensive code quality and compliance analysis
+2. **Human Review**: Strategic code review and approval gates
+3. **Compliance Validation**: Ensure adherence to coding standards and architecture
+4. **Approval Documentation**: Document review outcomes and approval decisions
+
+**Outputs**: Review documentation, approval records, compliance validation
+**Quality Gates**: Human approval obtained, quality standards met, compliance verified
+
+#### **Phase 8: Deployment Package Creation**
+**Lead Agent**: `AI TDD Orchestrator`
+**Supporting Agents**: `AI Implementation Specialist`, `AI Coverage Validator`
+**Flow Pattern**: AI-Driven Automation
+**Process Steps**:
+1. **Build Configuration**: Create deployment-ready build configurations
+2. **Dependency Management**: Package all dependencies and requirements
+3. **Deployment Documentation**: Generate deployment and configuration documentation
+4. **Handoff Preparation**: Prepare materials for DevOps methodology handoff
+
+**Outputs**: Deployment packages, build configurations, handoff documentation
+**Quality Gates**: Deployment readiness, complete packaging, handoff completeness
+
+#### **Phase 9: Emergency Repair Mode** (When Activated)
 **Lead Agent**: `AI TDD Orchestrator`
 **Supporting Agent**: `AI Implementation Specialist`
+**Flow Pattern**: AI-Driven Automation (Emergency Response)
 **Promptus Integration**: Implementation of `emergency_repair_promptus.yaml`
 **Process Steps**:
 1. **Infrastructure Diagnosis**: Identify build failures, import errors, API mismatches
