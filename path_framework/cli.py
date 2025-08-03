@@ -11,6 +11,7 @@ Command-line interface for the PATH Framework providing:
 
 import asyncio
 import sys
+import json
 from pathlib import Path
 from typing import Optional
 
@@ -19,6 +20,14 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.table import Table
+from rich.prompt import Prompt, Confirm
+
+# Arch phase imports
+from .phases.arch.simple_orchestrator import ArchOrchestrator
+from .models.arch_models import (
+    RequirementAnalysis, DomainModel, SystemArchitecture, 
+    ComponentDesign, IntegrationDesign
+)
 
 app = typer.Typer(
     name="path",
@@ -349,6 +358,227 @@ def show_project_status():
     status_table.add_row("Quality Gates", "0/12 passed", "❌ Pending")
     
     console.print(status_table)
+
+
+@app.command()
+def arch(
+    project_name: str = typer.Argument(..., help="Name of the project"),
+    project_path: Optional[str] = typer.Option(None, "--path", "-p", help="Project directory path"),
+    output_dir: Optional[str] = typer.Option(None, "--output", "-o", help="Output directory for artifacts"),
+    interactive: bool = typer.Option(True, "--interactive/--non-interactive", help="Run in interactive mode"),
+    config_file: Optional[str] = typer.Option(None, "--config", "-c", help="Configuration file path")
+):
+    """
+    Execute Arch Phase: Software Engineering & Architecture
+    
+    Runs the complete Architecture workflow with 4 specialized AI agents:
+    - Domain Analysis & Requirements Engineering
+    - System Architecture Design
+    - Component Design & SOLID Principles
+    - Integration Architecture & API Design
+    """
+    console.print(Panel.fit(
+        f"[bold blue]PATH Framework - Arch Phase: Software Engineering[/bold blue]\n"
+        f"Project: {project_name}",
+        border_style="blue"
+    ))
+    
+    # Setup paths
+    if project_path:
+        proj_path = Path(project_path).resolve()
+    else:
+        proj_path = Path.cwd() / project_name
+    
+    if output_dir:
+        out_path = Path(output_dir).resolve()
+    else:
+        out_path = proj_path / "path_artifacts" / "arch"
+    
+    # Create output directory
+    out_path.mkdir(parents=True, exist_ok=True)
+    
+    # Interactive configuration
+    if interactive:
+        console.print("\n[yellow]Architecture Phase Configuration[/yellow]")
+        
+        # Get project description
+        project_description = Prompt.ask(
+            "Project description",
+            default="Enter a brief description of your project"
+        )
+        
+        # Get project type
+        project_type = Prompt.ask(
+            "Project type",
+            choices=["web_application", "api_service", "desktop_app", "mobile_app", "data_pipeline", "ml_system", "other"],
+            default="web_application"
+        )
+        
+        # Get target users
+        target_users = Prompt.ask(
+            "Target users/stakeholders",
+            default="End users, administrators"
+        )
+        
+        # Confirm execution
+        if not Confirm.ask("\nProceed with Architecture phase execution?"):
+            console.print("[yellow]Architecture phase execution cancelled.[/yellow]")
+            return
+    else:
+        project_description = "Automated execution"
+        project_type = "web_application"
+        target_users = "General users"
+    
+    # Run Architecture Phase
+    try:
+        asyncio.run(_run_arch_phase(
+            project_name=project_name,
+            project_path=proj_path,
+            output_path=out_path,
+            project_description=project_description,
+            project_type=project_type,
+            target_users=target_users,
+            config_file=config_file
+        ))
+    except KeyboardInterrupt:
+        console.print("\n[red]Architecture phase execution interrupted by user.[/red]")
+    except Exception as e:
+        console.print(f"\n[red]Error during Architecture phase execution: {e}[/red]")
+        raise typer.Exit(1)
+
+
+async def _run_arch_phase(
+    project_name: str,
+    project_path: Path,
+    output_path: Path,
+    project_description: str,
+    project_type: str,
+    target_users: str,
+    config_file: Optional[str] = None
+):
+    """Execute the Architecture phase workflow"""
+    
+    # Initialize orchestrator
+    orchestrator = ArchOrchestrator()
+    
+    # Create initial requirements
+    initial_requirements = RequirementAnalysis(
+        project_name=project_name,
+        description=project_description,
+        project_type=project_type,
+        target_users=[user.strip() for user in target_users.split(",")],
+        business_objectives=[],
+        functional_requirements=[],
+        non_functional_requirements=[],
+        constraints=[],
+        assumptions=[],
+        success_criteria=[]
+    )
+    
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        console=console,
+    ) as progress:
+        
+        # Execute Phase 1 workflow
+        task = progress.add_task("Initializing Phase 1...", total=7)
+        
+        try:
+            # Step 1: Context Analysis
+            progress.update(task, description="Step 1: Analyzing project context...")
+            context = await orchestrator.analyze_context(
+                project_path=str(project_path),
+                initial_requirements=initial_requirements
+            )
+            progress.advance(task)
+            
+            # Step 2: Domain Modeling
+            progress.update(task, description="Step 2: Creating domain model...")
+            domain_model = await orchestrator.create_domain_model(
+                requirements=context.requirements,
+                project_context=context.project_context
+            )
+            progress.advance(task)
+            
+            # Step 3: Architecture Design
+            progress.update(task, description="Step 3: Designing system architecture...")
+            architecture = await orchestrator.design_architecture(
+                requirements=context.requirements,
+                domain_model=domain_model
+            )
+            progress.advance(task)
+            
+            # Step 4: Component Design
+            progress.update(task, description="Step 4: Designing components...")
+            components = await orchestrator.design_components(
+                architecture=architecture,
+                domain_model=domain_model
+            )
+            progress.advance(task)
+            
+            # Step 5: Integration Design
+            progress.update(task, description="Step 5: Designing integration patterns...")
+            integration = await orchestrator.design_integration(
+                architecture=architecture,
+                components=components
+            )
+            progress.advance(task)
+            
+            # Step 6: Validation
+            progress.update(task, description="Step 6: Validating design...")
+            validation_result = await orchestrator.validate_design(
+                requirements=context.requirements,
+                domain_model=domain_model,
+                architecture=architecture,
+                components=components,
+                integration=integration
+            )
+            progress.advance(task)
+            
+            # Step 7: Documentation Generation
+            progress.update(task, description="Step 7: Generating documentation...")
+            await orchestrator.generate_documentation(
+                output_path=str(output_path),
+                requirements=context.requirements,
+                domain_model=domain_model,
+                architecture=architecture,
+                components=components,
+                integration=integration,
+                validation_result=validation_result
+            )
+            progress.advance(task)
+            
+            progress.update(task, description="Architecture phase completed successfully!")
+            
+        except Exception as e:
+            progress.update(task, description=f"Error: {e}")
+            raise
+    
+    # Display results
+    console.print("\n[green]✅ Architecture phase completed successfully![/green]")
+    console.print(f"\n[bold]Artifacts generated in:[/bold] {output_path}")
+    
+    # Show summary table
+    table = Table(title="Architecture Phase Results Summary")
+    table.add_column("Component", style="cyan")
+    table.add_column("Status", style="green")
+    table.add_column("Artifacts", style="yellow")
+    
+    table.add_row("Requirements Analysis", "✅ Complete", "requirements.json, business_rules.md")
+    table.add_row("Domain Model", "✅ Complete", "domain_model.json, entities.md")
+    table.add_row("System Architecture", "✅ Complete", "architecture.json, diagrams/")
+    table.add_row("Component Design", "✅ Complete", "components.json, component_specs.md")
+    table.add_row("Integration Design", "✅ Complete", "integration.json, api_specs.md")
+    table.add_row("Validation", "✅ Complete", "validation_report.md")
+    table.add_row("Documentation", "✅ Complete", "README.md, design_docs/")
+    
+    console.print(table)
+    
+    console.print(f"\n[blue]Next Steps:[/blue]")
+    console.print("• Review generated artifacts in the output directory")
+    console.print("• Proceed to TDD phase when ready: path tdd")
+    console.print("• Use 'path validate arch' to run quality checks")
 
 
 def generate_progress_report(output: str, format: str):

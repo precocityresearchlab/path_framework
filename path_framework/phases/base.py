@@ -13,7 +13,7 @@ from enum import Enum
 from typing import Any, Dict, List, Optional
 from uuid import UUID, uuid4
 
-from ..agents.base import BaseAgent, AgentTask, AgentStatus
+from ..agents_base import BaseAgent, AgentTask, AgentStatus
 from ..exceptions import PhaseError
 
 

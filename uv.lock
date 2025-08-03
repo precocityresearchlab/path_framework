@@ -2117,6 +2117,7 @@ dependencies = [
     { name = "httpx" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
+    { name = "pyyaml" },
     { name = "rich" },
     { name = "structlog" },
     { name = "typer" },
@@ -2266,6 +2267,13 @@ web = [
     { name = "websockets" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "pytest" },
+    { name = "pytest-asyncio" },
+    { name = "pytest-cov" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "anthropic", marker = "extra == 'llm'", specifier = ">=0.28.0" },
@@ -2310,6 +2318,7 @@ requires-dist = [
     { name = "pytest-asyncio", marker = "extra == 'testing'", specifier = ">=0.23.0" },
     { name = "pytest-cov", marker = "extra == 'testing'", specifier = ">=5.0.0" },
     { name = "pytest-mock", marker = "extra == 'testing'", specifier = ">=3.14.0" },
+    { name = "pyyaml", specifier = ">=6.0.2" },
     { name = "redis", marker = "extra == 'database'", specifier = ">=5.0.0" },
     { name = "rich", specifier = ">=13.7.0" },
     { name = "safety", marker = "extra == 'security'", specifier = ">=3.2.0" },
@@ -2325,6 +2334,13 @@ requires-dist = [
     { name = "websockets", marker = "extra == 'web'", specifier = ">=12.0.0" },
 ]
 provides-extras = ["llm", "dev-tools", "testing", "monitoring", "security", "data", "web", "database", "all", "dev"]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "pytest", specifier = ">=8.4.1" },
+    { name = "pytest-asyncio", specifier = ">=1.1.0" },
+    { name = "pytest-cov", specifier = ">=6.2.1" },
+]
 
 [[package]]
 name = "pathspec"
