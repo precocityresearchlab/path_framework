@@ -4,8 +4,8 @@ build-backend = "hatchling.build"
 
 [project]
 name = "path-framework"
-version = "1.0.0"
-description = "PATH Framework - People-Agent Teams/Process/Technology for systematic software engineering"
+version = "2.0.0"
+description = "PATH Framework - Process/AI/Technology/Human for systematic software engineering"
 readme = "README.md"
 license = {file = "LICENSE"}
 authors = [

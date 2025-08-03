@@ -1,7 +1,8 @@
 # PATH-Based Production Operations & Maintenance Methodology
 
 ## Overview
-**PATH-Based Production Operations & Maintenance** is a systematic methodology for ongoing production system management that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology ensures reliable production operations through incident response, performance optimization, scaling management, and continuous system evolution.
+## Overview
+**PATH-Based Production Operations & Maintenance** is a systematic methodology for Site Reliability Engineering (SRE), production monitoring, and continuous improvement that follows the PATH (Process/AI/Technology/Human) framework. This methodology ensures reliable, performant, and maintainable production systems through proactive monitoring, incident response, and operational excellence practices.
 
 ## Methodology Input/Output Specification
 

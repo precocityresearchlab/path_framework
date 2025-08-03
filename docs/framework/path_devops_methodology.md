@@ -1,7 +1,7 @@
 # PATH-Based DevOps & Production Readiness Methodology
 
 ## Overview
-**PATH-Based DevOps & Production Readiness** is a systematic methodology for infrastructure automation, deployment, and monitoring that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology transforms tested software into production-ready systems through coordinated DevOps practices, CI/CD automation, and comprehensive monitoring.
+**PATH-Based DevOps & Production Readiness** is a systematic methodology for infrastructure automation, deployment, and monitoring that follows the PATH (Process/AI/Technology/Human) framework. This methodology transforms tested software into production-ready systems through coordinated DevOps practices, CI/CD automation, and comprehensive monitoring.
 
 ## Methodology Input/Output Specification
 
@@ -92,13 +92,13 @@ graph TD
     G --> H[Production Readiness]
     
     subgraph "AI Agent Responsibilities"
-        I["🤖 infrastructure_engineer"] -.-> B
+        I["🤖 AI Infrastructure Engineer"] -.-> B
         I -.-> G
-        J["🤖 pipeline_architect"] -.-> C
+        J["🤖 AI Pipeline Architect"] -.-> C
         J -.-> H
-        K["🤖 deployment_specialist"] -.-> D
+        K["🤖 AI Deployment Specialist"] -.-> D
         K -.-> F
-        L["🤖 monitoring_analyst"] -.-> E
+        L["🤖 AI Monitoring Analyst"] -.-> E
     end
     
     subgraph "Technology Tools"
@@ -147,25 +147,25 @@ graph TD
 
 ### **People-Agent Teams: Core Human-AI DevOps Team**
 
-#### **agent_pipeline_architect**
+#### **AI Pipeline Architect**
 **Primary Responsibility**: CI/CD pipeline design and automation with DevOps engineers
 **Key Capabilities**: Pipeline orchestration, build automation, deployment workflows
 **Decision Authority**: Pipeline architecture recommendations, CI/CD tool analysis (human approval)
 **Human Collaboration**: Works with DevOps engineers and release managers
 
-#### **agent_infrastructure_engineer**
+#### **AI Infrastructure Engineer**
 **Primary Responsibility**: Infrastructure as Code and environment management with platform teams
 **Key Capabilities**: Cloud infrastructure, containerization, resource optimization
 **Decision Authority**: Infrastructure design proposals, technology stack recommendations (human validation)
 **Human Collaboration**: Partners with platform engineers and cloud architects
 
-#### **agent_deployment_specialist**
+#### **AI Deployment Specialist**
 **Primary Responsibility**: Deployment strategies and release management with operations teams
 **Key Capabilities**: Blue-green deployments, canary releases, rollback procedures
 **Decision Authority**: Deployment pattern recommendations, release coordination proposals (human oversight)
 **Human Collaboration**: Collaborates with release managers and operations teams
 
-#### **agent_monitoring_analyst**
+#### **AI Monitoring Analyst**
 **Primary Responsibility**: Observability and performance monitoring with SRE teams
 **Key Capabilities**: Metrics collection, alerting, dashboard design, log analysis
 **Decision Authority**: Monitoring strategy recommendations, SLI/SLO proposals (human approval)

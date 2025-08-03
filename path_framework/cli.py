@@ -22,7 +22,7 @@ from rich.table import Table
 
 app = typer.Typer(
     name="path",
-    help="PATH Framework - People-Agent Teams/Process/Technology",
+    help="PATH Framework - Process/AI/Technology/Human",
     add_completion=False,
 )
 
@@ -266,10 +266,10 @@ def show_execution_plan(phase: Optional[int]):
     
     for p in phases:
         if p == 1:
-            table.add_row("1", "Domain Analyst", "Analyze requirements", "15 min")
-            table.add_row("1", "System Architect", "Design architecture", "30 min")
-            table.add_row("1", "Component Designer", "Design components", "20 min")
-            table.add_row("1", "Integration Architect", "Design integration", "15 min")
+            table.add_row("1", "AI Domain Analyst", "Analyze requirements", "15 min")
+            table.add_row("1", "AI System Architect", "Design architecture", "30 min")
+            table.add_row("1", "AI Component Designer", "Design components", "20 min")
+            table.add_row("1", "AI Integration Architect", "Design integration", "15 min")
         elif p == 2:
             table.add_row("2", "TDD Orchestrator", "Manage TDD cycles", "2 hours")
             table.add_row("2", "Test Strategist", "Design test strategy", "45 min")
@@ -298,22 +298,22 @@ def show_agents_table():
     table.add_column("Decision Authority", style="blue")
     
     agents = [
-        ("1", "Domain Analyst", "Requirements analysis & domain modeling", "Autonomous"),
-        ("1", "System Architect", "Architecture design & technology selection", "Human approval"),
-        ("1", "Component Designer", "Component design & SOLID principles", "Autonomous"),
-        ("1", "Integration Architect", "Integration patterns & DI design", "Autonomous"),
-        ("2", "TDD Orchestrator", "TDD cycle enforcement & workflow", "Autonomous"),
-        ("2", "Test Strategist", "Test design & strategy", "Human approval"),
-        ("2", "Implementation Specialist", "Code implementation & refactoring", "Code review"),
-        ("2", "Coverage Validator", "Coverage analysis & validation", "Autonomous"),
-        ("3", "Pipeline Architect", "CI/CD pipeline design", "Human approval"),
-        ("3", "Infrastructure Engineer", "Infrastructure as code", "Human approval"),
-        ("3", "Deployment Specialist", "Deployment strategies", "Autonomous"),
-        ("3", "Monitoring Analyst", "Monitoring & observability", "Autonomous"),
-        ("4", "Reliability Engineer", "SRE practices & SLAs", "Collaborative"),
-        ("4", "Operations Specialist", "Operations & runbooks", "Autonomous"),
-        ("4", "Performance Analyst", "Performance optimization", "Autonomous"),
-        ("4", "Security Operator", "Security monitoring", "Human approval"),
+        ("1", "AI Domain Analyst", "Requirements analysis & domain modeling", "Autonomous"),
+        ("1", "AI System Architect", "Architecture design & technology selection", "Human approval"),
+        ("1", "AI Component Designer", "Component design & SOLID principles", "Autonomous"),
+        ("1", "AI Integration Architect", "Integration patterns & DI design", "Autonomous"),
+        ("2", "AI TDD Orchestrator", "TDD cycle enforcement & workflow", "Autonomous"),
+        ("2", "AI Test Strategist", "Test design & strategy", "Human approval"),
+        ("2", "AI Implementation Specialist", "Code implementation & refactoring", "Code review"),
+        ("2", "AI Coverage Validator", "Coverage analysis & validation", "Autonomous"),
+        ("3", "AI Pipeline Architect", "CI/CD pipeline design", "Human approval"),
+        ("3", "AI Infrastructure Engineer", "Infrastructure as code", "Human approval"),
+        ("3", "AI Deployment Specialist", "Deployment strategies", "Autonomous"),
+        ("3", "AI Monitoring Analyst", "Monitoring & observability", "Autonomous"),
+        ("4", "AI Reliability Engineer", "SRE practices & SLAs", "Collaborative"),
+        ("4", "AI Operations Specialist", "Operations & runbooks", "Autonomous"),
+        ("4", "AI Performance Analyst", "Performance optimization", "Autonomous"),
+        ("4", "AI Security Operator", "Security monitoring", "Human approval"),
     ]
     
     for agent in agents:

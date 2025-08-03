@@ -1,7 +1,7 @@
 # PATH-Based Software Engineering Methodology
 
 ## Overview
-**PATH-Based Software Engineering** is a systematic methodology for architecture and component design that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology transforms domain requirements into comprehensive implementation blueprints through coordinated human-AI team expertise and systematic design phases.
+**PATH-Based Software Engineering** is a systematic methodology for architecture and component design that follows the PATH (Process/AI/Technology/Human) framework. This methodology transforms domain requirements into comprehensive implementation blueprints through coordinated human-AI team expertise and systematic design phases.
 
 ## Methodology Input/Output Specification
 
@@ -91,11 +91,11 @@ graph TD
     F --> G[Design Documentation]
     
     subgraph "AI Agent Responsibilities"
-        H["🤖 agent_domain_analyst"] -.-> B
-        I["🤖 agent_system_architect"] -.-> C
+        H["🤖 AI Domain Analyst"] -.-> B
+        I["🤖 AI System Architect"] -.-> C
         I -.-> F
-        J["🤖 agent_component_designer"] -.-> D
-        K["🤖 agent_integration_architect"] -.-> E
+        J["🤖 AI Component Designer"] -.-> D
+        K["🤖 AI Integration Architect"] -.-> E
         H -.-> G
     end
     
@@ -144,34 +144,31 @@ graph TD
 
 ### **People-Agent Teams: Core Human-AI Team**
 
-#### **agent_domain_analyst**
-**Primary Responsibility**: Requirements analysis and domain modeling in collaboration with business stakeholders
-**Key Capabilities**: Business domain analysis, stakeholder mapping, specification extraction
-**Decision Authority**: Domain model validation, requirement prioritization (with human approval)
-**Human Collaboration**: Works closely with business analysts and domain experts
+#### **AI Domain Analyst**
+- **Role**: Requirements analysis and domain modeling expert
+- **Primary Focus**: Translating business requirements into technical understanding
+- **Key Capabilities**: Domain analysis, knowledge extraction, requirements validation, context understanding
 
-#### **agent_system_architect** 
-**Primary Responsibility**: System architecture design and pattern selection with senior architects
-**Key Capabilities**: Architectural patterns, technology evaluation, system design
-**Decision Authority**: Architecture pattern recommendations, technology stack analysis (human final approval)
-**Human Collaboration**: Partners with lead architects and technical directors
+#### **AI System Architect** 
+- **Role**: Overall system architecture and technology selection expert
+- **Primary Focus**: High-level architecture design and technical direction
+- **Key Capabilities**: Architecture patterns, technology selection, system design, scalability planning
 
-#### **agent_component_designer**
-**Primary Responsibility**: Detailed component design and interface specification with development teams
-**Key Capabilities**: SOLID principles, interface design, component decomposition
-**Decision Authority**: Component interface proposals, dependency relationship analysis (with team review)
-**Human Collaboration**: Works with senior developers and tech leads
+#### **AI Component Designer**
+- **Role**: Component-level design and implementation planning expert
+- **Primary Focus**: Detailed component design and interface specification
+- **Key Capabilities**: Component design, SOLID principles, dependency management, interface design
 
-#### **agent_integration_architect**
-**Primary Responsibility**: Integration patterns and system orchestration with infrastructure teams
-**Key Capabilities**: Dependency injection, coordination patterns, system integration
-**Decision Authority**: Integration strategy recommendations, orchestration design proposals (human validation)
-**Human Collaboration**: Collaborates with DevOps engineers and system integrators
+#### **AI Integration Architect**
+- **Role**: System integration and interface design expert
+- **Primary Focus**: Integration patterns, API design, and system interfaces
+- **Key Capabilities**: Integration strategies, API design, data flow, service orchestration
 
 ### **Process: Systematic Design Phases**
 
-#### **Phase 1: Context Analysis & Domain Understanding**
-**Lead Agent**: `agent_domain_analyst`
+### **Phase 1: Context Analysis** (Domain Understanding)
+
+**Lead Agent**: `AI Domain Analyst`
 **Inputs**: Requirements documents, specifications, stakeholder inputs
 **Process Steps**:
 1. **Specification Analysis**: Extract domain entities, rules, and constraints
@@ -183,7 +180,7 @@ graph TD
 **Quality Gates**: Domain completeness, stakeholder validation, compliance mapping
 
 #### **Phase 2: Architecture Pattern Evaluation**
-**Lead Agent**: `agent_system_architect`
+**Lead Agent**: `AI System Architect`
 **Inputs**: Domain model, scalability requirements, technical constraints
 **Process Steps**:
 1. **Pattern Assessment**: Evaluate architectural patterns against requirements
@@ -195,7 +192,7 @@ graph TD
 **Quality Gates**: Pattern justification, technology compatibility, risk mitigation
 
 #### **Phase 3: Strategic Architecture Design**
-**Lead Agent**: `agent_system_architect`
+**Lead Agent**: `AI System Architect`
 **Inputs**: Selected architecture pattern, domain model, integration requirements
 **Process Steps**:
 1. **Layer Definition**: Define architectural layers and responsibilities
@@ -207,7 +204,7 @@ graph TD
 **Quality Gates**: Layer coherence, component completeness, dependency validation
 
 #### **Phase 4: Detailed Component Design**
-**Lead Agent**: `agent_component_designer`
+**Lead Agent**: `AI Component Designer`
 **Inputs**: Architecture blueprint, domain model, functional requirements
 **Process Steps**:
 1. **Component Specification**: Define scope, responsibilities, and interfaces
@@ -219,7 +216,7 @@ graph TD
 **Quality Gates**: Single responsibility compliance, interface clarity, dependency inversion
 
 #### **Phase 5: Implementation Structure Planning**
-**Lead Agent**: `agent_component_designer`
+**Lead Agent**: `AI Component Designer`
 **Inputs**: Component specifications, technology choices, coding standards
 **Process Steps**:
 1. **Folder Structure Design**: Organize code following architectural patterns
@@ -231,7 +228,7 @@ graph TD
 **Quality Gates**: Structure consistency, naming clarity, configuration completeness
 
 #### **Phase 6: Integration & Orchestration Design**
-**Lead Agent**: `agent_integration_architect`
+**Lead Agent**: `AI Integration Architect`
 **Inputs**: Component specifications, system boundaries, performance requirements
 **Process Steps**:
 1. **Dependency Injection Design**: Plan composition root and DI strategy
@@ -243,7 +240,7 @@ graph TD
 **Quality Gates**: Dependency management, orchestration clarity, error handling completeness
 
 #### **Phase 7: Validation & Documentation**
-**Lead Agent**: `agent_domain_analyst` (with all agents contributing)
+**Lead Agent**: `AI Domain Analyst` (with all agents contributing)
 **Inputs**: All design artifacts, original requirements, compliance standards
 **Process Steps**:
 1. **Requirements Traceability**: Map requirements to implementation components
@@ -283,10 +280,10 @@ graph TD
 Each phase has a designated lead agent with specific decision authority, while other agents provide specialized input and validation within their expertise areas.
 
 ### **Cross-Agent Validation Protocol**
-- **Domain Validation**: `agent_domain_analyst` validates all designs against requirements
-- **Architecture Consistency**: `agent_system_architect` ensures architectural coherence
-- **Design Quality**: `agent_component_designer` validates component design quality
-- **Integration Feasibility**: `agent_integration_architect` confirms integration viability
+- **Domain Validation**: `AI Domain Analyst` validates all designs against requirements
+- **Architecture Consistency**: `AI System Architect` ensures architectural coherence
+- **Design Quality**: `AI Component Designer` validates component design quality
+- **Integration Feasibility**: `AI Integration Architect` confirms integration viability
 
 ### **Decision Making Framework**
 - **Consensus Building**: Complex decisions involve multiple agent perspectives

@@ -1,14 +1,14 @@
 # PATH Framework: Complete Methodology Integration
 
 ## Overview
-This document provides a comprehensive view of how all four PATH-Based methodologies integrate within the PATH (People-Agent Teams/Process/Technology) framework to deliver complete software lifecycle management through human-AI collaboration.
+This document provides a comprehensive view of how all four PATH-Based methodologies integrate within the PATH (Process/AI/Technology/Human) framework to deliver complete software lifecycle management through human-AI collaboration.
 
 ## Four-Phase Software Lifecycle
 
 ### **Phase 1: Architecture & Design**
 **Methodology**: PATH-Based Software Engineering
 **Focus**: System architecture, component design, integration patterns
-**Key Agents**: domain_analyst, system_architect, component_designer, integration_architect
+**Key Agents**: AI Domain Analyst, AI System Architect, AI Component Designer, AI Integration Architect
 **Inputs**: Product goals and functionalities, technical specifications, industry standards, regulatory requirements, business constraints
 **Primary Deliverables**: 
 - Architecture specifications
@@ -21,7 +21,7 @@ This document provides a comprehensive view of how all four PATH-Based methodolo
 ### **Phase 2: Implementation & Testing**
 **Methodology**: PATH-Based TDD (with Promptus Integration)
 **Focus**: Test-driven development, implementation, code quality
-**Key Agents**: tdd_orchestrator, test_strategist, implementation_specialist, coverage_validator
+**Key Agents**: AI TDD Orchestrator, AI Test Strategist, AI Implementation Specialist, AI Coverage Validator
 **Inputs**: Architecture specifications, component designs, integration patterns, technical design documents, system interfaces, data models
 **Primary Deliverables**: 
 - Test suites
@@ -34,7 +34,7 @@ This document provides a comprehensive view of how all four PATH-Based methodolo
 ### **Phase 3: Deployment & CI/CD**
 **Methodology**: PATH-Based DevOps
 **Focus**: Continuous integration, deployment automation, infrastructure management
-**Key Agents**: pipeline_architect, infrastructure_engineer, deployment_specialist, monitoring_analyst
+**Key Agents**: AI Pipeline Architect, AI Infrastructure Engineer, AI Deployment Specialist, AI Monitoring Analyst
 **Inputs**: Test suites, production-ready code, quality metrics, code documentation, test reports, deployment artifacts
 **Primary Deliverables**: 
 - CI/CD pipelines

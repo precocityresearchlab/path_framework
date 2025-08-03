@@ -1,7 +1,7 @@
 # PATH-Based Test-Driven Development Methodology
 
 ## Overview
-**PATH-Based Test-Driven Development** is a systematic methodology for test-driven implementation that follows the PATH (People-Agent Teams/Process/Technology) framework. This methodology transforms architecture specifications into working software through strict RED-GREEN-REFACTOR cycles, leveraging the proven promptus TDD framework while maintaining coordinated human-AI team expertise.
+**PATH-Based Test-Driven Development** is a systematic methodology for test-driven implementation that follows the PATH (Process/AI/Technology/Human) framework. This methodology transforms architecture specifications into working software through strict RED-GREEN-REFACTOR cycles, leveraging the proven promptus TDD framework while maintaining coordinated human-AI team expertise.
 
 ## Methodology Input/Output Specification
 
@@ -95,13 +95,13 @@ graph TD
     I --> J[Documentation & Artifacts]
     
     subgraph "AI Agent Responsibilities"
-        K["🤖 coverage_validator"] -.-> B
+        K["🤖 AI Coverage Validator"] -.-> B
         K -.-> G
         K -.-> H
-        L["🤖 test_strategist"] -.-> C
-        M["🤖 implementation_specialist"] -.-> E
+        L["🤖 AI Test Strategist"] -.-> C
+        M["🤖 AI Implementation Specialist"] -.-> E
         M -.-> F
-        N["🤖 tdd_orchestrator"] -.-> D
+        N["🤖 AI TDD Orchestrator"] -.-> D
         N -.-> I
         N -.-> J
     end
@@ -156,25 +156,25 @@ graph TD
 
 ### **People-Agent Teams: Core Human-AI Development Team**
 
-#### **agent_tdd_orchestrator**
+#### **AI TDD Orchestrator**
 **Primary Responsibility**: TDD cycle coordination and compliance enforcement with development leads
 **Key Capabilities**: RED-GREEN-REFACTOR management, coverage validation, emergency repair coordination
 **Decision Authority**: TDD workflow enforcement recommendations, coverage threshold proposals (human approval)
 **Human Collaboration**: Works with senior developers and team leads on workflow optimization
 
-#### **agent_test_strategist**
+#### **AI Test Strategist**
 **Primary Responsibility**: Test strategy design and specification compliance with QA teams
 **Key Capabilities**: Test scenario analysis, specification mapping, test classification
 **Decision Authority**: Test approach recommendations, coverage expectation analysis (with QA approval)
 **Human Collaboration**: Partners with QA engineers and testing specialists
 
-#### **agent_implementation_specialist**
+#### **AI Implementation Specialist**
 **Primary Responsibility**: Minimal implementation and refactoring execution with developer teams
 **Key Capabilities**: Code implementation, refactoring techniques, architectural pattern application
 **Decision Authority**: Implementation approach proposals, refactoring suggestions (human code review)
 **Human Collaboration**: Works closely with developers during pair programming and code reviews
 
-#### **agent_coverage_validator**
+#### **AI Coverage Validator**
 **Primary Responsibility**: Coverage measurement and quality validation with quality assurance teams
 **Key Capabilities**: Coverage analysis, quality metrics, baseline tracking
 **Decision Authority**: Coverage validation reports, quality gate assessments (human final validation)
@@ -183,7 +183,7 @@ graph TD
 ### **Process: Promptus-Based TDD Workflow**
 
 #### **Phase 1: Pre-Task Coverage Baseline**
-**Lead Agent**: `agent_coverage_validator`
+**Lead Agent**: `AI Coverage Validator`
 **Promptus Integration**: Direct implementation of `coverage_validation_promptus.yaml`
 **Process Steps**:
 1. **Baseline Measurement**: Execute coverage measurement before any task
@@ -195,7 +195,7 @@ graph TD
 **Quality Gates**: Accurate baseline measurement, clear coverage targets
 
 #### **Phase 2: Test Strategy & Classification**
-**Lead Agent**: `agent_test_strategist`
+**Lead Agent**: `AI Test Strategist`
 **Promptus Integration**: Implementation of `test_classification_promptus.yaml` and `test_intent_preservation_promptus.yaml`
 **Process Steps**:
 1. **Requirement Analysis**: Extract testable requirements from architecture specifications
@@ -207,8 +207,8 @@ graph TD
 **Quality Gates**: Complete scenario coverage, clear test classification, specification compliance
 
 #### **Phase 3: RED Phase - Failing Test Implementation**
-**Lead Agent**: `agent_implementation_specialist`
-**Supporting Agent**: `agent_tdd_orchestrator`
+**Lead Agent**: `AI Implementation Specialist`
+**Supporting Agent**: `AI TDD Orchestrator`
 **Promptus Integration**: Core implementation of `tdd_workflow_promptus.yaml` RED phase
 **Process Steps**:
 1. **Single Test Implementation**: Write exactly one failing test for smallest feature increment
@@ -220,8 +220,8 @@ graph TD
 **Quality Gates**: Test fails correctly, no TDD violations, test isolation confirmed
 
 #### **Phase 4: GREEN Phase - Minimal Implementation**
-**Lead Agent**: `agent_implementation_specialist`
-**Supporting Agent**: `agent_tdd_orchestrator`
+**Lead Agent**: `AI Implementation Specialist`
+**Supporting Agent**: `AI TDD Orchestrator`
 **Promptus Integration**: Core implementation of `tdd_workflow_promptus.yaml` GREEN phase
 **Process Steps**:
 1. **Minimal Code Implementation**: Write absolute minimum code to make test pass
@@ -233,7 +233,7 @@ graph TD
 **Quality Gates**: Single test passes, no regressions, minimal implementation scope
 
 #### **Phase 5: Coverage Validation**
-**Lead Agent**: `agent_coverage_validator`
+**Lead Agent**: `AI Coverage Validator`
 **Promptus Integration**: Implementation of `coverage_validation_promptus.yaml`
 **Process Steps**:
 1. **Coverage Measurement**: Execute coverage analysis after implementation
@@ -245,8 +245,8 @@ graph TD
 **Quality Gates**: Coverage improvement validated, thresholds met, quality trends positive
 
 #### **Phase 6: REFACTOR Phase - Code Improvement**
-**Lead Agent**: `agent_implementation_specialist`
-**Supporting Agent**: `agent_tdd_orchestrator`
+**Lead Agent**: `AI Implementation Specialist`
+**Supporting Agent**: `AI TDD Orchestrator`
 **Promptus Integration**: Core implementation of `tdd_workflow_promptus.yaml` REFACTOR phase
 **Process Steps**:
 1. **Quality Analysis**: Identify code structure and quality improvement opportunities
@@ -258,8 +258,8 @@ graph TD
 **Quality Gates**: Structure improvements, no behavior changes, test suite integrity
 
 #### **Phase 7: Emergency Repair Mode** (When Activated)
-**Lead Agent**: `agent_tdd_orchestrator`
-**Supporting Agent**: `agent_implementation_specialist`
+**Lead Agent**: `AI TDD Orchestrator`
+**Supporting Agent**: `AI Implementation Specialist`
 **Promptus Integration**: Implementation of `emergency_repair_promptus.yaml`
 **Process Steps**:
 1. **Infrastructure Diagnosis**: Identify build failures, import errors, API mismatches
@@ -299,15 +299,15 @@ graph TD
 #### **`tdd_workflow_promptus.yaml`** - Primary TDD Cycle
 **Integration**: Direct implementation as core process framework
 **Agent Mapping**:
-- RED phase → `agent_implementation_specialist` + `agent_tdd_orchestrator`
-- GREEN phase → `agent_implementation_specialist` + `agent_tdd_orchestrator`  
-- REFACTOR phase → `agent_implementation_specialist` + `agent_tdd_orchestrator`
-- Coverage validation → `agent_coverage_validator`
+- RED phase → `AI Implementation Specialist` + `AI TDD Orchestrator`
+- GREEN phase → `AI Implementation Specialist` + `AI TDD Orchestrator`  
+- REFACTOR phase → `AI Implementation Specialist` + `AI TDD Orchestrator`
+- Coverage validation → `AI Coverage Validator`
 
 #### **`test_classification_promptus.yaml`** - Test Strategy
 **Integration**: Test type classification and scenario design
 **Agent Mapping**:
-- Test analysis → `agent_test_strategist`
+- Test analysis → `AI Test Strategist`
 - Classification decisions → `agent_test_strategist`
 - Coverage expectations → `agent_coverage_validator`
 
