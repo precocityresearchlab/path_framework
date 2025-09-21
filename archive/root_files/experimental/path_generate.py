@@ -5,13 +5,12 @@ Wrapper script to generate PATH-compliant artifacts using the Software Engineeri
 
 Usage:
     uv run python path_generate.py --project "My API" --domain "business"
-    
+
     # Or run directly from the phase directory:
     uv run python -m path_framework.phases.arch.generate_artifacts --project "My API"
 """
 
 import sys
-import os
 from pathlib import Path
 
 # Add framework to path
@@ -22,9 +21,12 @@ sys.path.insert(0, str(framework_root))
 if __name__ == "__main__":
     try:
         from path_framework.phases.arch.generate_artifacts import main
+
         main()
     except ImportError as e:
         print(f"❌ Error importing PATH Framework: {e}")
-        print("💡 Make sure you're running with UV from the PATH Framework root directory:")
+        print(
+            "💡 Make sure you're running with UV from the PATH Framework root directory:"
+        )
         print("   uv run python path_generate.py --project 'Your Project'")
         sys.exit(1)

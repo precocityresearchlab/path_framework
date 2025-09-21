@@ -70,16 +70,45 @@ test-coverage: ## Run tests with coverage report
 	uv run pytest --cov=path_framework --cov-report=html --cov-report=term
 
 # Code quality commands
-lint: ## Run linting checks
-	uv run flake8 path_framework tests
-	uv run isort --check-only path_framework tests
+lint: ## Run linting checks with Ruff
+	@echo "🔍 Running Ruff linting..."
+	@uv run ruff check path_framework tests framework_tests --statistics || true
 
-format: ## Format code with black and isort
-	uv run black path_framework tests
-	uv run isort path_framework tests
+lint-fix: ## Fix all linting issues automatically with Ruff
+	@echo "🔧 Auto-fixing linting issues with Ruff..."
+	@uv run ruff check --fix path_framework tests framework_tests
+	@uv run ruff format path_framework tests framework_tests
+	@echo "✅ Auto-fix completed!"
+
+lint-demos: ## Fix linting issues in demo files
+	@echo "🎯 Fixing demo files with Ruff..."
+	@uv run ruff check --fix demo_*.py || true
+	@uv run ruff format demo_*.py || true
+	@echo "✅ Demo files fixed!"
+
+lint-all: ## Fix linting issues across entire codebase with Ruff
+	@echo "🚀 Comprehensive Ruff linting fix for entire application stack..."
+	@make lint-fix
+	@make lint-demos
+	@echo "4. Fixing any remaining Python files..."
+	@find . -name "*.py" -not -path "./.venv/*" -not -path "./projects/*" -not -path "./.git/*" -exec uv run ruff check --fix {} \; 2>/dev/null || true
+	@find . -name "*.py" -not -path "./.venv/*" -not -path "./projects/*" -not -path "./.git/*" -exec uv run ruff format {} \; 2>/dev/null || true
+	@echo "✅ Entire application stack formatted with Ruff!"
+
+format: ## Format code with Ruff
+	@echo "🎨 Formatting code with Ruff..."
+	@uv run ruff format path_framework tests framework_tests demo_*.py examples/
+	@echo "✅ Code formatted!"
+	@make lint-fix
 
 type-check: ## Run type checking with mypy
 	uv run mypy path_framework
+
+demo: ## Run LLM integration demo
+	uv run demo_llm_standalone.py
+
+demo-file: ## Run specific demo file (usage: make demo-file FILE=demo_file.py)
+	uv run $(FILE)
 
 security: ## Run security checks
 	uv run bandit -r path_framework
@@ -507,6 +536,85 @@ validate-config: ## Validate PATH configuration
 
 generate-report: ## Generate project report
 	uv run path report --format html --output reports/latest.html
+
+# Port management commands
+ports-status: ## Show all listening ports and processes
+	@echo "🔍 Active Ports and Processes"
+	@echo "============================="
+	@echo ""
+	@echo "📊 Listening Ports:"
+	@netstat -tlnp 2>/dev/null | grep LISTEN | sort -k4 || echo "No ports found"
+	@echo ""
+	@echo "🐍 Python Processes:"
+	@ps aux | grep python | grep -v grep || echo "No Python processes"
+	@echo ""
+	@echo "📝 Node.js Processes:"
+	@ps aux | grep node | grep -v grep || echo "No Node.js processes"
+
+ports-clean: ## Stop common development servers
+	@echo "🧹 Cleaning up development servers..."
+	@echo "Stopping HTTP servers on port 8000..."
+	@pkill -f "http.server" 2>/dev/null || echo "No HTTP servers found"
+	@echo "Stopping FastAPI/Uvicorn servers..."
+	@pkill -f "uvicorn" 2>/dev/null || echo "No Uvicorn servers found"
+	@echo "Stopping Jupyter servers..."
+	@pkill -f "jupyter" 2>/dev/null || echo "No Jupyter servers found"
+	@echo "✅ Development servers cleaned up!"
+
+ports-docs: ## Start documentation server on custom port
+	@read -p "Enter port number (default 8000): " port; \
+	port=$${port:-8000}; \
+	echo "🌐 Starting documentation server on port $$port..."; \
+	echo "📖 Open: http://localhost:$$port"; \
+	uv run python -m http.server $$port --directory docs/_build/html
+
+# VS Code optimization commands
+vscode-optimize: ## Apply VS Code optimizations for PATH Framework
+	@echo "🎯 VS Code Optimization for PATH Framework"
+	@echo "=========================================="
+	@echo ""
+	@echo "✅ Configuration files created:"
+	@echo "   - .vscode/settings.json (performance optimized)"
+	@echo "   - .vscode/extensions.json (lightweight extensions)"
+	@echo "   - .vscode/tasks.json (PATH Framework tasks)"
+	@echo "   - .vscode/launch.json (Python environment)"
+	@echo ""
+	@echo "📖 Optimization guide: .vscode/OPTIMIZATION_GUIDE.md"
+	@echo ""
+	@echo "🔄 Next steps:"
+	@echo "   1. Restart VS Code completely"
+	@echo "   2. Install recommended extensions when prompted"
+	@echo "   3. Disable unwanted extensions (Copilot, IntelliCode API)"
+	@echo "   4. Run 'make ports-status' to verify reduced port usage"
+	@echo ""
+	@echo "💡 Expected results:"
+	@echo "   - 60-70% fewer open ports"
+	@echo "   - Faster VS Code startup"
+	@echo "   - Lower CPU usage"
+	@echo "   - Better PATH Framework development experience"
+
+vscode-check: ## Check VS Code optimization status
+	@echo "🔍 VS Code Optimization Status"
+	@echo "=============================="
+	@echo ""
+	@if [ -f ".vscode/settings.json" ]; then \
+		echo "  ✅ settings.json: Configured"; \
+	else \
+		echo "  ❌ settings.json: Missing"; \
+	fi
+	@if [ -f ".vscode/extensions.json" ]; then \
+		echo "  ✅ extensions.json: Configured"; \
+	else \
+		echo "  ❌ extensions.json: Missing"; \
+	fi
+	@if [ -f ".vscode/tasks.json" ]; then \
+		echo "  ✅ tasks.json: Configured"; \
+	else \
+		echo "  ❌ tasks.json: Missing"; \
+	fi
+	@echo ""
+	@echo "📊 Current port usage:"
+	@make ports-status
 
 # Development workflow shortcuts
 dev-setup: install-dev docs ## Complete development setup

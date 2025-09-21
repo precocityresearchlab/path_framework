@@ -16,39 +16,37 @@ Components:
 - HUMAN: Human oversight, approval gates, creative architectural decisions
 """
 
-# Process Components
-from .process.workflows import ArchWorkflows
+# Phase Orchestrator (coordinates all PATH components)
+from .ai.orchestrator import ArchOrchestrator  # AI orchestrator with fixed imports
+
+# Human Components
+from .human import ApprovalGates, CreativeInput, HumanOversight
 from .process.quality_gates import ArchQualityGates
 from .process.validation import ArchValidation
+
+# Process Components
+from .process.workflows import ArchWorkflows
 
 # Technology Components
 from .technology import ArchitectureTools, DesignPatterns, ModelingFrameworks
 
-# Human Components
-from .human import HumanOversight, ApprovalGates, CreativeInput
-
-# Phase Orchestrator (coordinates all PATH components)
-from .ai.orchestrator import ArchOrchestrator  # AI orchestrator with fixed imports
 # from .simple_orchestrator import ArchOrchestrator  # Fallback disabled
 
 __all__ = [
+    "ApprovalGates",
     # Phase Orchestrator
     "ArchOrchestrator",
-    
+    "ArchQualityGates",
+    "ArchValidation",
     # Process Components
     "ArchWorkflows",
-    "ArchQualityGates", 
-    "ArchValidation",
-    
     # Technology Components
     "ArchitectureTools",
+    "CreativeInput",
     "DesignPatterns",
-    "ModelingFrameworks",
-    
     # Human Components
     "HumanOversight",
-    "ApprovalGates",
-    "CreativeInput"
+    "ModelingFrameworks",
 ]
 
 # Complete PATH Registry for Arch Phase
@@ -56,7 +54,7 @@ ARCH_PATH_COMPONENTS = {
     "process": {
         "workflows": ArchWorkflows,
         "quality_gates": ArchQualityGates,
-        "validation": ArchValidation
+        "validation": ArchValidation,
     },
     "ai": {
         # AI components will be added when imports are fixed
@@ -64,11 +62,11 @@ ARCH_PATH_COMPONENTS = {
     "technology": {
         "architecture_tools": ArchitectureTools,
         "design_patterns": DesignPatterns,
-        "modeling_frameworks": ModelingFrameworks
+        "modeling_frameworks": ModelingFrameworks,
     },
     "human": {
         "oversight": HumanOversight,
         "approval_gates": ApprovalGates,
-        "creative_input": CreativeInput
-    }
+        "creative_input": CreativeInput,
+    },
 }

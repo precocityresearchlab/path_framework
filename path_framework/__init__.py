@@ -1,7 +1,7 @@
 """
 PATH Framework - People-Agent Teams/Process/Technology
 
-A comprehensive framework for systematic software engineering through 
+A comprehensive framework for systematic software engineering through
 human-AI collaboration.
 
 This package provides:
@@ -19,13 +19,13 @@ __license__ = "MIT"
 
 # Core components - imported lazily to avoid circular imports
 __all__ = [
-    "__version__",
     "__author__",
     "__email__",
     "__license__",
-    "get_version",
-    "get_agent_count", 
+    "__version__",
+    "get_agent_count",
     "get_phase_count",
+    "get_version",
 ]
 
 
@@ -48,28 +48,35 @@ def get_phase_count() -> int:
 def get_config():
     """Get PATH configuration loader."""
     from .config import PathConfig
+
     return PathConfig
 
 
 def get_cli_app():
     """Get the CLI application."""
     from .cli import app
+
     return app
 
 
-def initialize_framework(config_path: str = None):
+def initialize_framework(config_path: str | None = None):
     """
     Initialize the PATH Framework with configuration.
-    
+
     Args:
         config_path: Optional path to configuration file
-        
+
     Returns:
         Configured framework instance
     """
     try:
         config_class = get_config()
-        config = config_class.load_from_file(config_path) if config_path else config_class()
+        config = (
+            config_class.load_from_file(config_path) if config_path else config_class()
+        )
         return {"config": config, "status": "initialized"}
     except ImportError as e:
-        return {"error": f"Framework components not yet implemented: {e}", "status": "partial"}
+        return {
+            "error": f"Framework components not yet implemented: {e}",
+            "status": "partial",
+        }

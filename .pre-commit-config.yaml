@@ -1,0 +1,55 @@
+# PATH Framework - Pre-commit Configuration
+# Automatically format and lint code on commit
+
+repos:
+  # Built-in hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: trailing-whitespace
+        args: [--markdown-linebreak-ext=md]
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ['--maxkb=1000']
+      - id: debug-statements
+      - id: check-executables-have-shebangs
+
+  # Ruff - replaces Black, isort, flake8, autoflake, and more
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.1.8
+    hooks:
+      # Run the linter
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      # Run the formatter
+      - id: ruff-format
+
+  # Type checking with mypy
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        additional_dependencies: [types-PyYAML, types-requests]
+        exclude: ^(tests/|examples/|demo_.*\.py)
+
+  # Security scanning with bandit
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.7.5
+    hooks:
+      - id: bandit
+        args: [--config=pyproject.toml]
+        exclude: ^tests/
+
+# Configuration for specific files
+exclude: |
+  (?x)^(
+    projects/.*|
+    \.venv/.*|
+    build/.*|
+    dist/.*|
+    .*\.egg-info/.*
+  )$

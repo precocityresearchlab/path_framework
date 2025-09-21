@@ -17,9 +17,4 @@ Components:
 """
 
 # TDD Phase Registry
-TDD_PATH_COMPONENTS = {
-    "process": {},
-    "ai": {},
-    "technology": {},
-    "human": {}
-}
+TDD_PATH_COMPONENTS = {"process": {}, "ai": {}, "technology": {}, "human": {}}

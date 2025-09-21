@@ -1,4 +1,23 @@
+---
+created_date: 2025-08-03
+created_by: PATH Framework Team
+last_modified: 2025-09-21
+version: 1.0.0
+purpose: README for PATH Framework YAML templates and implementation guides
+framework_phase: N/A
+dependencies: [system templates, project templates, implementation guides]
+status: approved
+tags: [templates, YAML, implementation, project setup, PATH Framework]
+---
+
 # PATH Framework YAML Templates
+
+![Framework](https://img.shields.io/badge/Framework-PATH-orange?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Approved-brightgreen?style=flat-square)
+![Institution](https://img.shields.io/badge/Institution-Precocity%20Research-purple?style=flat-square)
+![Methodology](https://img.shields.io/badge/Methodology-Templates-red?style=flat-square)
 
 This directory contains YAML templates for each phase of the PATH framework.
 

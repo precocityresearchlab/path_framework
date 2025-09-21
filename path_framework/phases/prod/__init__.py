@@ -17,9 +17,4 @@ Components:
 """
 
 # Prod Phase Registry
-PROD_PATH_COMPONENTS = {
-    "process": {},
-    "ai": {},
-    "technology": {},
-    "human": {}
-}
+PROD_PATH_COMPONENTS = {"process": {}, "ai": {}, "technology": {}, "human": {}}

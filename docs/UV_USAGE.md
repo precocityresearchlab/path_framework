@@ -67,7 +67,7 @@ uv run python examples/configuration_demo.py
 uv run python demo_real_llm.py
 ```
 
-### 4. Development Commands
+### 4. Development Commands (Updated for Ruff)
 
 ```bash
 # Run tests
@@ -76,14 +76,17 @@ uv run pytest
 # Run tests with coverage
 uv run pytest --cov=path_framework --cov-report=html
 
-# Format code
-uv run black path_framework/ examples/ tests/
+# Format code with Ruff (replaces Black)
+uv run ruff format
 
-# Type checking
+# Lint code with Ruff (replaces flake8)
+uv run ruff check
+
+# Lint and fix issues
+uv run ruff check --fix
+
+# Type checking (if needed)
 uv run mypy path_framework/
-
-# Lint code
-uv run flake8 path_framework/
 ```
 
 ## UV Scripts (Configured in pyproject.toml)
@@ -97,10 +100,11 @@ uv run --script demo-openrouter       # OpenRouter demo
 uv run --script demo-phase-models     # Phase-specific models demo
 uv run --script demo-config           # Configuration demo
 
-# Development Scripts
-uv run --script format                # Format code with Black
-uv run --script lint                  # Lint with Flake8
-uv run --script typecheck             # Type check with MyPy
+# Development Scripts (Updated for Ruff)
+uv run --script format                # Format code with Ruff
+uv run --script lint                  # Lint with Ruff
+uv run --script lint-fix              # Lint and fix with Ruff
+uv run --script typecheck             # Type check with MyPy (optional)
 uv run --script test                  # Run tests
 uv run --script test-cov              # Run tests with coverage
 

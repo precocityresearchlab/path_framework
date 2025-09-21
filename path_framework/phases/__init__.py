@@ -3,10 +3,12 @@ PATH Framework Phases Module.
 
 This module contains the four main development phases:
 - Software Engineering Phase
-- TDD Phase  
+- TDD Phase
 - DevOps Phase
 - Operations Phase
 """
+
+import contextlib
 
 from .base import BasePhase
 
@@ -16,26 +18,14 @@ __all__ = [
 ]
 
 # Phase implementations will be added as they are created
-try:
-    from .software_engineering import SoftwareEngineeringPhase
+with contextlib.suppress(ImportError):
     __all__.append("SoftwareEngineeringPhase")
-except ImportError:
-    pass
 
-try:
-    from .tdd import TDDPhase
+with contextlib.suppress(ImportError):
     __all__.append("TDDPhase")
-except ImportError:
-    pass
 
-try:
-    from .devops import DevOpsPhase
+with contextlib.suppress(ImportError):
     __all__.append("DevOpsPhase")
-except ImportError:
-    pass
 
-try:
-    from .operations import OperationsPhase
+with contextlib.suppress(ImportError):
     __all__.append("OperationsPhase")
-except ImportError:
-    pass

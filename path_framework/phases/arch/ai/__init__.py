@@ -1,15 +1,15 @@
 """AI Components for Architecture Phase"""
 
-from .domain_analyst import AIDomainAnalyst
-from .system_architect import AISystemArchitect
 from .component_designer import AIComponentDesigner
+from .domain_analyst import AIDomainAnalyst
 from .integration_architect import AIIntegrationArchitect
 from .orchestrator import ArchOrchestrator
+from .system_architect import AISystemArchitect
 
 __all__ = [
-    "AIDomainAnalyst",
-    "AISystemArchitect", 
     "AIComponentDesigner",
+    "AIDomainAnalyst",
     "AIIntegrationArchitect",
-    "ArchOrchestrator"
+    "AISystemArchitect",
+    "ArchOrchestrator",
 ]

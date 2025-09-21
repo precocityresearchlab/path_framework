@@ -16,50 +16,48 @@ Components:
 - HUMAN: Human oversight, approval gates, creative architectural decisions
 """
 
+from .ai.component_designer import AIComponentDesigner
+
 # AI Components
 from .ai.domain_analyst import AIDomainAnalyst
-from .ai.system_architect import AISystemArchitect
-from .ai.component_designer import AIComponentDesigner
 from .ai.integration_architect import AIIntegrationArchitect
 from .ai.phase1_orchestrator import Phase1Orchestrator
+from .ai.system_architect import AISystemArchitect
+from .human.approval_gates import ApprovalGates
+from .human.creative_input import CreativeInput
+
+# Human Components
+from .human.oversight import HumanOversight
+from .process.quality_gates import Phase1QualityGates
+from .process.validation import Phase1Validation
 
 # Process Components
 from .process.workflows import Phase1Workflows
-from .process.quality_gates import Phase1QualityGates
-from .process.validation import Phase1Validation
 
 # Technology Components
 from .technology.architecture_tools import ArchitectureTools
 from .technology.design_patterns import DesignPatterns
 from .technology.modeling_frameworks import ModelingFrameworks
 
-# Human Components
-from .human.oversight import HumanOversight
-from .human.approval_gates import ApprovalGates
-from .human.creative_input import CreativeInput
-
 __all__ = [
+    "AIComponentDesigner",
     # AI Components
     "AIDomainAnalyst",
-    "AISystemArchitect", 
-    "AIComponentDesigner",
     "AIIntegrationArchitect",
-    "Phase1Orchestrator",
-    
-    # Process Components
-    "Phase1Workflows",
-    "Phase1QualityGates", 
-    "Phase1Validation",
-    
+    "AISystemArchitect",
+    "ApprovalGates",
     # Technology Components
     "ArchitectureTools",
+    "CreativeInput",
     "DesignPatterns",
-    "ModelingFrameworks",
-    
     # Human Components
     "HumanOversight",
-    "ApprovalGates",
-    "CreativeInput"
+    "ModelingFrameworks",
+    "Phase1Orchestrator",
+    "Phase1QualityGates",
+    "Phase1Validation",
+    # Process Components
+    "Phase1Workflows",
 ]
 
 # Complete PATH Registry for Phase 1
@@ -67,23 +65,23 @@ PHASE1_PATH_COMPONENTS = {
     "process": {
         "workflows": Phase1Workflows,
         "quality_gates": Phase1QualityGates,
-        "validation": Phase1Validation
+        "validation": Phase1Validation,
     },
     "ai": {
         "domain_analyst": AIDomainAnalyst,
         "system_architect": AISystemArchitect,
         "component_designer": AIComponentDesigner,
         "integration_architect": AIIntegrationArchitect,
-        "orchestrator": Phase1Orchestrator
+        "orchestrator": Phase1Orchestrator,
     },
     "technology": {
         "architecture_tools": ArchitectureTools,
         "design_patterns": DesignPatterns,
-        "modeling_frameworks": ModelingFrameworks
+        "modeling_frameworks": ModelingFrameworks,
     },
     "human": {
         "oversight": HumanOversight,
         "approval_gates": ApprovalGates,
-        "creative_input": CreativeInput
-    }
+        "creative_input": CreativeInput,
+    },
 }

@@ -9,44 +9,41 @@ docs/framework/path_software_engineering_methodology.md
 Usage:
     # From framework root using UV:
     uv run python path_generate.py --project "My API" --domain "business"
-    
+
     # As Python module with UV:
     uv run python -m path_framework.phases.arch --project "My API" --domain "business"
-    
+
     # Direct execution from phase directory with UV:
     cd path_framework/phases/arch
     uv run python generate_artifacts.py --project "My API" --domain "business"
-    
+
     # With detailed requirements:
     uv run python path_generate.py --project "Trading System" --domain "financial" \
         --requirements "High-frequency trading system with FIX protocol compliance" \
         --constraints "Sub-millisecond latency, 99.99% uptime" \
         --stakeholders "Traders, Risk Managers, Compliance Officers" \
         --compliance "FIX 4.4, MiFID II, SOX"
-    
+
     # With requirements file:
     uv run python path_generate.py --project "Healthcare Portal" --requirements-file "./requirements.yaml"
-    
+
     # Interactive mode:
     uv run python path_generate.py --interactive
 """
 
+import argparse
 import os
 import sys
-import json
-import yaml
-import argparse
 from datetime import datetime
 from pathlib import Path
 
-# Add the PATH framework to Python path  
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..', '..'))
+import yaml
+
+# Add the PATH framework to Python path
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "..", ".."))
 
 try:
-    from path_framework.phases.arch.ai.domain_analyst import DomainAnalyst
-    from path_framework.phases.arch.ai.system_architect import SystemArchitect  
-    from path_framework.phases.arch.ai.component_designer import ComponentDesigner
-    from path_framework.phases.arch.ai.integration_architect import IntegrationArchitect
+    pass
     # Try to import LLM client from the framework
     try:
         from path_framework.core.llm_client import LLMClient
@@ -56,95 +53,108 @@ try:
 except ImportError as e:
     print(f"⚠️  Could not import PATH agents: {e}")
     print("📝 Falling back to direct LLM implementation")
-    
+
     class LLMClient:
         def __init__(self):
-            import openai
             from openai import OpenAI
-            
+
             # Try OpenRouter first, then OpenAI
-            api_key = os.getenv('OPENROUTER_API_KEY')
+            api_key = os.getenv("OPENROUTER_API_KEY")
             if api_key:
                 self.client = OpenAI(
-                    base_url="https://openrouter.ai/api/v1",
-                    api_key=api_key
+                    base_url="https://openrouter.ai/api/v1", api_key=api_key
                 )
-                self.model = os.getenv('PATH_LLM_MODEL_PHASE1', 'google/gemma-3-27b-it:free')
+                self.model = os.getenv(
+                    "PATH_LLM_MODEL_PHASE1", "google/gemma-3-27b-it:free"
+                )
                 print(f"🔗 Using OpenRouter with model: {self.model}")
             else:
                 self.client = OpenAI()
-                self.model = 'gpt-3.5-turbo'
+                self.model = "gpt-3.5-turbo"
                 print(f"🔗 Using OpenAI with model: {self.model}")
-        
+
         def generate_response(self, prompt, max_tokens=4000):
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=max_tokens,
-                temperature=0.1
+                temperature=0.1,
             )
             return response.choices[0].message.content
+
 
 class PathArtifactGenerator:
     """
     PATH Framework Artifact Generator
     Implements the 7-step Software Engineering Methodology with flexible input handling
     """
-    
-    def __init__(self, project_name, domain="business", requirements=None, constraints=None, 
-                 stakeholders=None, compliance=None, requirements_file=None):
+
+    def __init__(
+        self,
+        project_name,
+        domain="business",
+        requirements=None,
+        constraints=None,
+        stakeholders=None,
+        compliance=None,
+        requirements_file=None,
+    ):
         self.project_name = project_name
         self.domain = domain
         self.llm_client = LLMClient()
-        
+
         # Set project path relative to framework root
         framework_root = Path(__file__).parent.parent.parent.parent
         self.project_path = framework_root / "projects" / project_name
         self.artifacts_path = self.project_path / "path_artifacts"
         self.timestamp = datetime.now().isoformat()
-        
+
         # Load or process requirements
         self.requirements_context = self._load_requirements_context(
             requirements, constraints, stakeholders, compliance, requirements_file
         )
-        
+
         # Create directories
         self.artifacts_path.mkdir(parents=True, exist_ok=True)
         (self.artifacts_path / "phase1").mkdir(exist_ok=True)
         (self.artifacts_path / "deliverables").mkdir(exist_ok=True)
-        
+
         print(f"🚀 Initializing PATH artifacts for: {project_name}")
         print(f"📁 Artifacts directory: {self.artifacts_path}")
         print(f"🏷️  Domain: {self.domain}")
-        
+
         if self.requirements_context:
             print(f"📋 Requirements loaded: {len(self.requirements_context)} sections")
-    
-    def _load_requirements_context(self, requirements, constraints, stakeholders, compliance, requirements_file):
+
+    def _load_requirements_context(
+        self, requirements, constraints, stakeholders, compliance, requirements_file
+    ):
         """Load and structure requirements from various input sources"""
         context = {}
-        
+
         # Load from file if provided
         if requirements_file and Path(requirements_file).exists():
-            with open(requirements_file, 'r') as f:
-                if requirements_file.endswith('.yaml') or requirements_file.endswith('.yml'):
+            with open(requirements_file) as f:
+                if requirements_file.endswith(".yaml") or requirements_file.endswith(
+                    ".yml"
+                ):
                     file_data = yaml.safe_load(f)
                 else:
                     file_data = {"requirements": f.read()}
                 context.update(file_data)
-        
+
         # Add CLI arguments
         if requirements:
-            context['functional_requirements'] = requirements
+            context["functional_requirements"] = requirements
         if constraints:
-            context['technical_constraints'] = constraints
+            context["technical_constraints"] = constraints
         if stakeholders:
-            context['stakeholders'] = stakeholders
+            context["stakeholders"] = stakeholders
         if compliance:
-            context['compliance_requirements'] = compliance
-        
+            context["compliance_requirements"] = compliance
+
         return context
-    
+
     def _get_context_prompt_section(self):
         """Generate context section for prompts based on available requirements"""
         if not self.requirements_context:
@@ -154,9 +164,9 @@ Domain: {self.domain}
 
 NOTE: Limited context provided. The AI should make reasonable assumptions for a {self.domain} domain project named "{self.project_name}" and generate comprehensive architecture based on common patterns and best practices for this domain.
 """
-        
+
         context_lines = [f"Project: {self.project_name}", f"Domain: {self.domain}", ""]
-        
+
         for key, value in self.requirements_context.items():
             if isinstance(value, str):
                 context_lines.append(f"{key.replace('_', ' ').title()}: {value}")
@@ -168,9 +178,9 @@ NOTE: Limited context provided. The AI should make reasonable assumptions for a 
                 context_lines.append(f"{key.replace('_', ' ').title()}:")
                 for sub_key, sub_value in value.items():
                     context_lines.append(f"  {sub_key}: {sub_value}")
-        
+
         return "\n".join(context_lines)
-    
+
     def step1_context_analysis(self):
         """
         Phase 1: Context Analysis (Domain Understanding)
@@ -178,9 +188,9 @@ NOTE: Limited context provided. The AI should make reasonable assumptions for a 
         Flow Pattern: Human-Initiated Process
         """
         print("\n📋 Step 1: Context Analysis")
-        
+
         context_section = self._get_context_prompt_section()
-        
+
         prompt = f"""
 You are an expert AI Domain Analyst specializing in requirements analysis and domain modeling.
 
@@ -190,7 +200,7 @@ Analyze the project and extract comprehensive domain context based on the provid
 
 Your task is to perform:
 1. **Specification Analysis**: Extract domain entities, rules, and constraints
-2. **Domain Modeling**: Create comprehensive domain models with ubiquitous language  
+2. **Domain Modeling**: Create comprehensive domain models with ubiquitous language
 3. **Stakeholder Mapping**: Identify external systems and integration points
 4. **Compliance Identification**: Document regulatory and compliance requirements
 
@@ -201,9 +211,9 @@ domain_context:
   project_name: "{self.project_name}"
   domain_type: "{self.domain}"
   timestamp: "{self.timestamp}"
-  
+
   domain_entities:
-    primary_entities: 
+    primary_entities:
       - "Entity1"
       - "Entity2"
     supporting_entities:
@@ -212,7 +222,7 @@ domain_context:
     relationships:
       - "Entity1 manages Entity2"
       - "Entity2 belongs to Entity1"
-  
+
   business_rules:
     core_rules:
       - "Business rule 1"
@@ -223,7 +233,7 @@ domain_context:
     validations:
       - "Validation rule 1"
       - "Validation rule 2"
-  
+
   stakeholders:
     internal_stakeholders:
       - "Stakeholder 1"
@@ -234,7 +244,7 @@ domain_context:
     integration_points:
       - "Integration point 1"
       - "Integration point 2"
-  
+
   compliance_requirements:
     industry_standards:
       - "Standard 1"
@@ -245,7 +255,7 @@ domain_context:
     security_standards:
       - "Security standard 1"
       - "Security standard 2"
-  
+
   quality_attributes:
     performance_requirements:
       - "Performance requirement 1"
@@ -263,22 +273,22 @@ domain_context:
 
 Provide detailed, specific analysis based on the project context. If context is limited, make reasonable assumptions based on the domain type and project name, focusing on common patterns and requirements for {self.domain} domain applications.
 """
-        
+
         response = self.llm_client.generate_response(prompt)
-        
+
         # Extract YAML content
         if "```yaml" in response:
             yaml_content = response.split("```yaml")[1].split("```")[0].strip()
         else:
             yaml_content = response
-        
+
         # Save domain context
         with open(self.artifacts_path / "phase1" / "domain_context.yaml", "w") as f:
             f.write(yaml_content)
-        
+
         print("✅ Generated: domain_context.yaml")
         return yaml_content
-    
+
     def step2_domain_modeling(self, domain_context):
         """
         Phase 2: Domain Modeling
@@ -286,7 +296,7 @@ Provide detailed, specific analysis based on the project context. If context is 
         Flow Pattern: AI-Driven Automation
         """
         print("\n🏗️  Step 2: Domain Modeling")
-        
+
         prompt = f"""
 You are an expert AI Domain Analyst creating detailed domain models.
 
@@ -301,7 +311,7 @@ Generate a detailed domain model following this structure:
 domain_model:
   project_name: "{self.project_name}"
   timestamp: "{self.timestamp}"
-  
+
   entities:
     core_entities:
       - name: ""
@@ -309,18 +319,18 @@ domain_model:
         behaviors: []
         relationships: []
         business_rules: []
-    
+
     supporting_entities:
       - name: ""
         attributes: []
         relationships: []
-  
+
   ubiquitous_language:
     terms:
       - term: ""
         definition: ""
         context: ""
-  
+
   bounded_contexts:
     contexts:
       - name: ""
@@ -328,14 +338,14 @@ domain_model:
         entities: []
         services: []
         boundaries: []
-  
+
   domain_services:
     services:
       - name: ""
         responsibility: ""
         operations: []
         dependencies: []
-  
+
   aggregates:
     aggregates:
       - name: ""
@@ -347,22 +357,22 @@ domain_model:
 
 Focus on creating a comprehensive domain model with clear entity relationships and business rules.
 """
-        
+
         response = self.llm_client.generate_response(prompt)
-        
+
         # Extract YAML content
         if "```yaml" in response:
             yaml_content = response.split("```yaml")[1].split("```")[0].strip()
         else:
             yaml_content = response
-        
+
         # Save domain model
         with open(self.artifacts_path / "phase1" / "domain_model.yaml", "w") as f:
             f.write(yaml_content)
-        
+
         print("✅ Generated: domain_model.yaml")
         return yaml_content
-    
+
     def step3_architecture_design(self, domain_model):
         """
         Phase 3: Architecture Design
@@ -370,7 +380,7 @@ Focus on creating a comprehensive domain model with clear entity relationships a
         Flow Pattern: AI-Driven Automation
         """
         print("\n🏛️  Step 3: Architecture Design")
-        
+
         prompt = f"""
 You are an expert AI System Architect specializing in architectural design and technology selection.
 
@@ -385,13 +395,13 @@ Generate a system architecture following this structure:
 system_architecture:
   project_name: "{self.project_name}"
   timestamp: "{self.timestamp}"
-  
+
   architectural_pattern:
     selected_pattern: ""
     pattern_rationale: ""
     pattern_benefits: []
     pattern_trade_offs: []
-  
+
   technology_stack:
     programming_language: ""
     framework: ""
@@ -400,45 +410,45 @@ system_architecture:
     cache: ""
     cloud_provider: ""
     deployment: ""
-    
+
   system_layers:
     presentation_layer:
       description: ""
       components: []
       responsibilities: []
-    
+
     application_layer:
       description: ""
       components: []
       responsibilities: []
-    
+
     domain_layer:
       description: ""
       components: []
       responsibilities: []
-    
+
     infrastructure_layer:
       description: ""
       components: []
       responsibilities: []
-  
+
   quality_attributes:
     performance:
       requirements: []
       strategies: []
-    
+
     scalability:
       requirements: []
       strategies: []
-    
+
     security:
       requirements: []
       strategies: []
-    
+
     maintainability:
       requirements: []
       strategies: []
-  
+
   risk_assessment:
     technical_risks: []
     mitigation_strategies: []
@@ -446,22 +456,24 @@ system_architecture:
 
 Select appropriate architectural patterns and technology stack based on the domain requirements.
 """
-        
+
         response = self.llm_client.generate_response(prompt)
-        
+
         # Extract YAML content
         if "```yaml" in response:
             yaml_content = response.split("```yaml")[1].split("```")[0].strip()
         else:
             yaml_content = response
-        
+
         # Save system architecture
-        with open(self.artifacts_path / "phase1" / "system_architecture.yaml", "w") as f:
+        with open(
+            self.artifacts_path / "phase1" / "system_architecture.yaml", "w"
+        ) as f:
             f.write(yaml_content)
-        
+
         print("✅ Generated: system_architecture.yaml")
         return yaml_content
-    
+
     def step4_component_design(self, system_architecture):
         """
         Phase 4: Component Design
@@ -469,7 +481,7 @@ Select appropriate architectural patterns and technology stack based on the doma
         Flow Pattern: AI-Driven Automation
         """
         print("\n🧩 Step 4: Component Design")
-        
+
         prompt = f"""
 You are an expert AI Component Designer specializing in component-level design and SOLID principles.
 
@@ -484,28 +496,28 @@ Generate component designs following this structure:
 component_designs:
   project_name: "{self.project_name}"
   timestamp: "{self.timestamp}"
-  
+
   components:
     - component_name: ""
       layer: ""
       responsibility: ""
       dependencies: []
-      
+
       interfaces:
         - interface_name: ""
           operations: []
           contracts: []
-      
+
       implementation:
         classes: []
         patterns: []
         solid_compliance: []
-      
+
       behavior:
         state_management: ""
         error_handling: ""
         validation_rules: []
-  
+
   interface_specifications:
     - interface_name: ""
       description: ""
@@ -515,36 +527,36 @@ component_designs:
           return_type: ""
           preconditions: []
           postconditions: []
-      
+
       contracts:
         - contract_type: ""
           description: ""
           validation: ""
-  
+
   design_patterns:
     patterns_used:
       - pattern_name: ""
         component: ""
         rationale: ""
         implementation: ""
-  
+
   solid_principles:
     single_responsibility:
       compliance: []
       violations: []
-    
+
     open_closed:
       compliance: []
       violations: []
-    
+
     liskov_substitution:
       compliance: []
       violations: []
-    
+
     interface_segregation:
       compliance: []
       violations: []
-    
+
     dependency_inversion:
       compliance: []
       violations: []
@@ -552,22 +564,22 @@ component_designs:
 
 Focus on SOLID principles compliance and clear component responsibilities.
 """
-        
+
         response = self.llm_client.generate_response(prompt)
-        
+
         # Extract YAML content
         if "```yaml" in response:
             yaml_content = response.split("```yaml")[1].split("```")[0].strip()
         else:
             yaml_content = response
-        
+
         # Save component designs
         with open(self.artifacts_path / "phase1" / "component_designs.yaml", "w") as f:
             f.write(yaml_content)
-        
+
         print("✅ Generated: component_designs.yaml")
         return yaml_content
-    
+
     def step5_integration_design(self, component_designs):
         """
         Phase 5: Integration Design
@@ -575,7 +587,7 @@ Focus on SOLID principles compliance and clear component responsibilities.
         Flow Pattern: AI-Driven Automation
         """
         print("\n🔗 Step 5: Integration Design")
-        
+
         prompt = f"""
 You are an expert AI Integration Architect specializing in system integration and API design.
 
@@ -590,13 +602,13 @@ Generate integration specifications following this structure:
 integration_specs:
   project_name: "{self.project_name}"
   timestamp: "{self.timestamp}"
-  
+
   dependency_injection:
     strategy: ""
     composition_root: ""
     container_configuration: []
     lifecycle_management: []
-  
+
   api_design:
     rest_apis:
       - endpoint: ""
@@ -606,57 +618,57 @@ integration_specs:
         authentication: ""
         authorization: ""
         error_handling: []
-    
+
     internal_apis:
       - interface: ""
         communication_pattern: ""
         data_format: ""
         error_handling: ""
-  
+
   communication_patterns:
     synchronous:
       - pattern: ""
         use_case: ""
         implementation: ""
-    
+
     asynchronous:
       - pattern: ""
         use_case: ""
         implementation: ""
-  
+
   data_flow:
     external_integrations:
       - system: ""
         data_format: ""
         protocol: ""
         security: ""
-    
+
     internal_data_flow:
       - source: ""
         target: ""
         data_type: ""
         transformation: ""
-  
+
   error_handling:
     strategies:
       - error_type: ""
         handling_strategy: ""
         recovery_mechanism: ""
-    
+
     patterns:
       - pattern_name: ""
         implementation: ""
         use_cases: []
-  
+
   security_integration:
     authentication:
       strategy: ""
       implementation: ""
-    
+
     authorization:
       strategy: ""
       implementation: ""
-    
+
     data_protection:
       encryption: ""
       secure_transmission: ""
@@ -664,22 +676,22 @@ integration_specs:
 
 Focus on robust integration patterns and comprehensive error handling.
 """
-        
+
         response = self.llm_client.generate_response(prompt)
-        
+
         # Extract YAML content
         if "```yaml" in response:
             yaml_content = response.split("```yaml")[1].split("```")[0].strip()
         else:
             yaml_content = response
-        
+
         # Save integration specs
         with open(self.artifacts_path / "phase1" / "integration_specs.yaml", "w") as f:
             f.write(yaml_content)
-        
+
         print("✅ Generated: integration_specs.yaml")
         return yaml_content
-    
+
     def step6_architecture_validation(self, integration_specs):
         """
         Phase 6: Architecture Validation
@@ -687,7 +699,7 @@ Focus on robust integration patterns and comprehensive error handling.
         Flow Pattern: Human-AI Collaborative Decision
         """
         print("\n✅ Step 6: Architecture Validation")
-        
+
         prompt = f"""
 You are an expert AI System Architect performing comprehensive architecture validation.
 
@@ -702,7 +714,7 @@ Generate validation specifications following this structure:
 interface_specifications:
   project_name: "{self.project_name}"
   timestamp: "{self.timestamp}"
-  
+
   requirements_traceability:
     functional_requirements:
       - requirement_id: ""
@@ -710,53 +722,53 @@ interface_specifications:
         components: []
         interfaces: []
         validation_status: ""
-    
+
     non_functional_requirements:
       - requirement_id: ""
         description: ""
         architecture_element: ""
         validation_status: ""
-  
+
   architecture_compliance:
     pattern_compliance:
       - pattern: ""
         compliance_status: ""
         deviations: []
         justification: ""
-    
+
     principle_compliance:
       - principle: ""
         compliance_status: ""
         evidence: []
         violations: []
-  
+
   quality_validation:
     performance:
       validation_criteria: []
       test_strategies: []
       acceptance_criteria: []
-    
+
     scalability:
       validation_criteria: []
       test_strategies: []
       acceptance_criteria: []
-    
+
     security:
       validation_criteria: []
       test_strategies: []
       acceptance_criteria: []
-  
+
   integration_validation:
     internal_interfaces:
       - interface: ""
         validation_status: ""
         test_approach: ""
-    
+
     external_interfaces:
       - interface: ""
         validation_status: ""
         test_approach: ""
-  
+
   risk_assessment:
     identified_risks:
       - risk_id: ""
@@ -764,12 +776,12 @@ interface_specifications:
         probability: ""
         impact: ""
         mitigation: ""
-    
+
     validation_gaps:
       - gap_id: ""
         description: ""
         resolution_plan: ""
-  
+
   approval_status:
     technical_approval: ""
     stakeholder_approval: ""
@@ -779,22 +791,24 @@ interface_specifications:
 
 Provide comprehensive validation with clear approval criteria.
 """
-        
+
         response = self.llm_client.generate_response(prompt)
-        
+
         # Extract YAML content
         if "```yaml" in response:
             yaml_content = response.split("```yaml")[1].split("```")[0].strip()
         else:
             yaml_content = response
-        
+
         # Save interface specifications
-        with open(self.artifacts_path / "phase1" / "interface_specifications.yaml", "w") as f:
+        with open(
+            self.artifacts_path / "phase1" / "interface_specifications.yaml", "w"
+        ) as f:
             f.write(yaml_content)
-        
+
         print("✅ Generated: interface_specifications.yaml")
         return yaml_content
-    
+
     def step7_final_documentation(self, interface_specifications):
         """
         Phase 7: Final Documentation
@@ -802,7 +816,7 @@ Provide comprehensive validation with clear approval criteria.
         Flow Pattern: AI-Driven Automation
         """
         print("\n📚 Step 7: Final Documentation")
-        
+
         prompt = f"""
 You are an expert AI Integration Architect creating comprehensive architecture documentation.
 
@@ -830,23 +844,25 @@ Format as a complete Markdown document with:
 
 Focus on providing implementation-ready documentation for development teams.
 """
-        
+
         response = self.llm_client.generate_response(prompt, max_tokens=6000)
-        
+
         # Save architecture decisions
-        with open(self.artifacts_path / "deliverables" / "architecture_decisions.md", "w") as f:
+        with open(
+            self.artifacts_path / "deliverables" / "architecture_decisions.md", "w"
+        ) as f:
             f.write(response)
-        
+
         print("✅ Generated: architecture_decisions.md")
-        
+
         # Generate summary README
         self.generate_summary_readme()
-        
+
         return response
-    
+
     def generate_summary_readme(self):
         """Generate a comprehensive README for the PATH artifacts"""
-        
+
         readme_content = f"""# PATH Framework Artifacts
 ## {self.project_name}
 
@@ -875,7 +891,7 @@ This directory contains comprehensive architecture artifacts generated following
 The artifacts follow the 7-step PATH Software Engineering process:
 
 1. **Context Analysis** → `domain_context.yaml`
-2. **Domain Modeling** → `domain_model.yaml`  
+2. **Domain Modeling** → `domain_model.yaml`
 3. **Architecture Design** → `system_architecture.yaml`
 4. **Component Design** → `component_designs.yaml`
 5. **Integration Design** → `integration_specs.yaml`
@@ -920,20 +936,20 @@ Artifacts are compliant with:
 *Generated by PATH Framework Artifact Generator*
 *Methodology Reference: docs/framework/path_software_engineering_methodology.md*
 """
-        
+
         with open(self.artifacts_path / "README.md", "w") as f:
             f.write(readme_content)
-        
+
         print("✅ Generated: README.md")
-    
+
     def generate_all_artifacts(self):
         """Execute the complete 7-step PATH process"""
-        print(f"\n🎯 Starting PATH Framework Artifact Generation")
+        print("\n🎯 Starting PATH Framework Artifact Generation")
         print(f"Project: {self.project_name}")
         print(f"Domain: {self.domain}")
         print(f"Output: {self.artifacts_path}")
         print("=" * 60)
-        
+
         try:
             # Execute 7-step process
             domain_context = self.step1_context_analysis()
@@ -942,89 +958,117 @@ Artifacts are compliant with:
             component_designs = self.step4_component_design(system_architecture)
             integration_specs = self.step5_integration_design(component_designs)
             interface_specs = self.step6_architecture_validation(integration_specs)
-            final_docs = self.step7_final_documentation(interface_specs)
-            
+            self.step7_final_documentation(interface_specs)
+
             print("\n" + "=" * 60)
             print("🎉 PATH Framework Artifacts Generation Complete!")
             print(f"📁 Location: {self.artifacts_path}")
             print("\n📋 Generated Files:")
-            
+
             # List all generated files
-            for root, dirs, files in os.walk(self.artifacts_path):
+            for root, _dirs, files in os.walk(self.artifacts_path):
                 for file in files:
-                    rel_path = os.path.relpath(os.path.join(root, file), self.artifacts_path)
+                    rel_path = os.path.relpath(
+                        os.path.join(root, file), self.artifacts_path
+                    )
                     print(f"   📄 {rel_path}")
-            
-            print(f"\n✅ All artifacts comply with PATH Software Engineering Methodology v2.0.0")
-            print(f"🚀 Ready for Phase 2: TDD Implementation")
-            
+
+            print(
+                "\n✅ All artifacts comply with PATH Software Engineering Methodology v2.0.0"
+            )
+            print("🚀 Ready for Phase 2: TDD Implementation")
+
         except Exception as e:
             print(f"\n❌ Error during generation: {e}")
             raise
 
+
 def main():
-    parser = argparse.ArgumentParser(description='Generate PATH Framework Artifacts')
-    
+    parser = argparse.ArgumentParser(description="Generate PATH Framework Artifacts")
+
     # Required arguments
-    parser.add_argument('--project', required=True, help='Project name')
-    
+    parser.add_argument("--project", required=True, help="Project name")
+
     # Optional context arguments
-    parser.add_argument('--domain', default='business', 
-                        choices=['business', 'protocol', 'data', 'realtime', 'financial', 'healthcare', 'iot'],
-                        help='Domain type')
-    parser.add_argument('--requirements', help='Functional requirements description')
-    parser.add_argument('--constraints', help='Technical constraints and limitations')
-    parser.add_argument('--stakeholders', help='Stakeholders and user types')
-    parser.add_argument('--compliance', help='Compliance and regulatory requirements')
-    parser.add_argument('--requirements-file', help='YAML file with detailed requirements')
-    
+    parser.add_argument(
+        "--domain",
+        default="business",
+        choices=[
+            "business",
+            "protocol",
+            "data",
+            "realtime",
+            "financial",
+            "healthcare",
+            "iot",
+        ],
+        help="Domain type",
+    )
+    parser.add_argument("--requirements", help="Functional requirements description")
+    parser.add_argument("--constraints", help="Technical constraints and limitations")
+    parser.add_argument("--stakeholders", help="Stakeholders and user types")
+    parser.add_argument("--compliance", help="Compliance and regulatory requirements")
+    parser.add_argument(
+        "--requirements-file", help="YAML file with detailed requirements"
+    )
+
     # Interactive mode
-    parser.add_argument('--interactive', action='store_true', help='Interactive requirements gathering')
-    
+    parser.add_argument(
+        "--interactive", action="store_true", help="Interactive requirements gathering"
+    )
+
     # Output options
-    parser.add_argument('--output', help='Output directory (default: projects/{project}/path_artifacts)')
-    
+    parser.add_argument(
+        "--output", help="Output directory (default: projects/{project}/path_artifacts)"
+    )
+
     args = parser.parse_args()
-    
+
     # Interactive mode
     if args.interactive:
         print("🎯 PATH Framework Interactive Mode")
         print("=" * 50)
-        
+
         project = input("Project name: ") or args.project
         domain = input(f"Domain [{args.domain}]: ") or args.domain
-        requirements = input("Functional requirements (optional): ") or args.requirements
+        requirements = (
+            input("Functional requirements (optional): ") or args.requirements
+        )
         constraints = input("Technical constraints (optional): ") or args.constraints
         stakeholders = input("Stakeholders (optional): ") or args.stakeholders
         compliance = input("Compliance requirements (optional): ") or args.compliance
-        
+
         args.project = project
         args.domain = domain
         args.requirements = requirements
         args.constraints = constraints
         args.stakeholders = stakeholders
         args.compliance = compliance
-    
+
     # Verify environment
-    if not os.getenv('OPENROUTER_API_KEY') and not os.getenv('OPENAI_API_KEY'):
+    if not os.getenv("OPENROUTER_API_KEY") and not os.getenv("OPENAI_API_KEY"):
         print("❌ Error: No API key found. Set OPENROUTER_API_KEY or OPENAI_API_KEY")
         sys.exit(1)
-    
+
     # Display configuration
-    print(f"\n🎯 PATH Framework Configuration")
+    print("\n🎯 PATH Framework Configuration")
     print(f"Project: {args.project}")
     print(f"Domain: {args.domain}")
     if args.requirements:
-        print(f"Requirements: {args.requirements[:100]}{'...' if len(args.requirements) > 100 else ''}")
+        print(
+            f"Requirements: {args.requirements[:100]}{'...' if len(args.requirements) > 100 else ''}"
+        )
     if args.constraints:
-        print(f"Constraints: {args.constraints[:100]}{'...' if len(args.constraints) > 100 else ''}")
+        print(
+            f"Constraints: {args.constraints[:100]}{'...' if len(args.constraints) > 100 else ''}"
+        )
     if args.stakeholders:
         print(f"Stakeholders: {args.stakeholders}")
     if args.compliance:
         print(f"Compliance: {args.compliance}")
     if args.requirements_file:
         print(f"Requirements file: {args.requirements_file}")
-    
+
     # Generate artifacts
     generator = PathArtifactGenerator(
         project_name=args.project,
@@ -1033,9 +1077,10 @@ def main():
         constraints=args.constraints,
         stakeholders=args.stakeholders,
         compliance=args.compliance,
-        requirements_file=args.requirements_file
+        requirements_file=args.requirements_file,
     )
     generator.generate_all_artifacts()
+
 
 if __name__ == "__main__":
     main()

@@ -1,11 +1,12 @@
 """Test configuration for PATH Framework."""
 
-import pytest
 import asyncio
-from pathlib import Path
-import tempfile
 import shutil
-from typing import Generator
+import tempfile
+from collections.abc import Generator
+from pathlib import Path
+
+import pytest
 
 
 @pytest.fixture(scope="session")
@@ -31,21 +32,18 @@ def sample_config():
         "project": {
             "name": "test-project",
             "version": "0.1.0",
-            "description": "Test project"
+            "description": "Test project",
         },
         "framework": {
             "version": "1.0.0",
-            "phases": ["software_engineering", "tdd", "devops", "operations"]
+            "phases": ["software_engineering", "tdd", "devops", "operations"],
         },
         "agents": {
             "llm_provider": "openai",
             "human_approval_required": True,
-            "audit_trail_enabled": True
+            "audit_trail_enabled": True,
         },
-        "logging": {
-            "level": "INFO",
-            "format": "structured"
-        }
+        "logging": {"level": "INFO", "format": "structured"},
     }
 
 
@@ -53,16 +51,14 @@ def sample_config():
 def mock_llm_response():
     """Mock LLM response for testing."""
     return {
-        "choices": [{
-            "message": {
-                "content": "This is a mock response from the LLM.",
-                "role": "assistant"
-            },
-            "finish_reason": "stop"
-        }],
-        "usage": {
-            "prompt_tokens": 10,
-            "completion_tokens": 15,
-            "total_tokens": 25
-        }
+        "choices": [
+            {
+                "message": {
+                    "content": "This is a mock response from the LLM.",
+                    "role": "assistant",
+                },
+                "finish_reason": "stop",
+            }
+        ],
+        "usage": {"prompt_tokens": 10, "completion_tokens": 15, "total_tokens": 25},
     }

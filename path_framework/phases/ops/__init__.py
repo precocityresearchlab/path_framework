@@ -17,9 +17,4 @@ Components:
 """
 
 # Ops Phase Registry
-OPS_PATH_COMPONENTS = {
-    "process": {},
-    "ai": {},
-    "technology": {},
-    "human": {}
-}
+OPS_PATH_COMPONENTS = {"process": {}, "ai": {}, "technology": {}, "human": {}}
