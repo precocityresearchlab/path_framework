@@ -1,5 +1,5 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.10"
 resolution-markers = [
     "python_full_version >= '3.13'",
@@ -2049,11 +2049,13 @@ source = { editable = "." }
 dependencies = [
     { name = "anthropic" },
     { name = "asyncio-mqtt" },
+    { name = "boto3" },
     { name = "httpx" },
     { name = "openai" },
     { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "pyyaml" },
+    { name = "requests" },
     { name = "rich" },
     { name = "structlog" },
     { name = "typer" },
@@ -2208,6 +2210,7 @@ dev = [
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "pytest-cov" },
+    { name = "requests" },
     { name = "ruff" },
 ]
 
@@ -2219,6 +2222,7 @@ requires-dist = [
     { name = "asyncpg", marker = "extra == 'database'", specifier = ">=0.29.0" },
     { name = "azure-identity", marker = "extra == 'dev-tools'", specifier = ">=1.16.0" },
     { name = "bandit", marker = "extra == 'security'", specifier = ">=1.7.0" },
+    { name = "boto3", specifier = ">=1.34.0" },
     { name = "boto3", marker = "extra == 'dev-tools'", specifier = ">=1.34.0" },
     { name = "coverage", marker = "extra == 'testing'", specifier = ">=7.5.0" },
     { name = "cryptography", marker = "extra == 'security'", specifier = ">=42.0.0" },
@@ -2256,6 +2260,7 @@ requires-dist = [
     { name = "pytest-mock", marker = "extra == 'testing'", specifier = ">=3.14.0" },
     { name = "pyyaml", specifier = ">=6.0.2" },
     { name = "redis", marker = "extra == 'database'", specifier = ">=5.0.0" },
+    { name = "requests", specifier = ">=2.31.0" },
     { name = "rich", specifier = ">=13.7.0" },
     { name = "ruff", marker = "extra == 'dev'", specifier = ">=0.1.0" },
     { name = "safety", marker = "extra == 'security'", specifier = ">=3.2.0" },
@@ -2279,6 +2284,7 @@ dev = [
     { name = "pytest", specifier = ">=8.4.1" },
     { name = "pytest-asyncio", specifier = ">=1.1.0" },
     { name = "pytest-cov", specifier = ">=6.2.1" },
+    { name = "requests", specifier = ">=2.31.0" },
     { name = "ruff", specifier = ">=0.1.0" },
 ]
 
