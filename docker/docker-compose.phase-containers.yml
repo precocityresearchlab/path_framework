@@ -1,0 +1,80 @@
+version: '3.8'
+
+services:
+  phase1-agents:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.phase
+    environment:
+      - DEPLOYMENT_MODE=phase_containers
+      - PHASE=1
+      - AGENT_PROFILES=domain_analyst,system_architect,component_designer,integration_architect
+    ports:
+      - "8001:8000"
+    resources:
+      limits:
+        cpus: '2'
+        memory: 8G
+
+  phase2-agents:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.phase
+    environment:
+      - DEPLOYMENT_MODE=phase_containers
+      - PHASE=2
+      - AGENT_PROFILES=tdd_orchestrator,test_strategist,implementation_specialist,coverage_validator
+    ports:
+      - "8002:8000"
+    resources:
+      limits:
+        cpus: '2'
+        memory: 8G
+
+  phase3-agents:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.phase
+    environment:
+      - DEPLOYMENT_MODE=phase_containers
+      - PHASE=3
+      - AGENT_PROFILES=pipeline_architect,infrastructure_engineer,deployment_specialist,monitoring_analyst
+    ports:
+      - "8003:8000"
+    resources:
+      limits:
+        cpus: '2'
+        memory: 8G
+
+  phase4-agents:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.phase
+    environment:
+      - DEPLOYMENT_MODE=phase_containers
+      - PHASE=4
+      - AGENT_PROFILES=reliability_engineer,operations_specialist,performance_analyst,security_operator
+    ports:
+      - "8004:8000"
+    resources:
+      limits:
+        cpus: '2'
+        memory: 8G
+
+  shared-knowledge:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - knowledge_data:/data
+
+  message-broker:
+    image: confluentinc/cp-kafka:latest
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    ports:
+      - "9092:9092"
+
+volumes:
+  knowledge_data:

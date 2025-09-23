@@ -18,3 +18,4 @@ High
 - If task completion is unclear, define explicit completion criteria before proceeding.
 - If multiple urgent tasks arise, prioritize and queue them rather than working simultaneously.
 - If task dependencies require parallel work, break into smaller sequential subtasks.
+- TDD Red-Green-Refactor cycles are considered micro-tasks within larger task completion.

@@ -5,6 +5,7 @@ Guides refactoring decisions based on code complexity and business criticality t
 
 ## Instructions
 - Refactor only for complex or business-critical components to maximize impact. (ID: REFACTOR_COMPLEX_CRITICAL)
+- Defer to TDD refactor phase during Red-Green-Refactor cycles. (ID: DEFER_TO_TDD_REFACTOR)
 - Skip refactoring for simple, stable components to maintain development velocity. (ID: SKIP_SIMPLE_STABLE)
 - Use complexity metrics (cyclomatic, cognitive) to guide refactoring priorities. (ID: USE_COMPLEXITY_METRICS)
 - Prioritize refactoring for components with high change frequency and complexity. (ID: PRIORITIZE_HIGH_CHANGE_COMPLEX)
@@ -18,3 +19,4 @@ Medium
 - If complexity metrics are unavailable, use code review judgment for refactoring decisions.
 - If quality gates fail, refactor regardless of complexity to meet standards.
 - If refactoring scope is unclear, start with smallest viable improvement.
+- If in TDD cycle, prioritize Red-Green-Refactor over complexity-based decisions.

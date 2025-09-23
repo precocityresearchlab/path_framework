@@ -8,8 +8,6 @@ Ensures all development work delivers measurable business value through proper u
 - User stories must follow format: "As a [user type], I want [functionality], so that [benefit]". (ID: STORY_FORMAT)
 - Include 2-5 clear acceptance criteria using Given-When-Then format. (ID: ACCEPTANCE_CRITERIA)
 - Validate business value is clearly articulated in each user story. (ID: VALIDATE_BUSINESS_VALUE)
-- Create user stories in "As a... I want... So that..." format before Phase 1. (ID: STORY_FORMAT_FOUNDATION)
-- Define 2-5 acceptance criteria using Given-When-Then format. (ID: ACCEPTANCE_CRITERIA_FOUNDATION)
 - Track quantified benefits: 40% faster time-to-market, 50% fewer defects, 60% velocity improvement. (ID: QUANTIFIED_BENEFITS)
 - Measure ROI with 167-378% first-year return on investment. (ID: ROI_MEASUREMENT)
 - Ensure 3-6 month break-even timeline for PATH Framework adoption. (ID: BREAK_EVEN_TIMELINE)
