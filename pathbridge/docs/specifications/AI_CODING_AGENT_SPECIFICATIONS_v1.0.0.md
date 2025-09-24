@@ -232,7 +232,7 @@ flowchart TD
 
 **Core Components:**
 ```yaml
-BaseAgent:
+CoreAgent:
   components:
     - reasoning_engine: "LLM-based decision making"
     - knowledge_base: "Domain-specific knowledge storage"

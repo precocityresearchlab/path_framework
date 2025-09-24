@@ -1,8 +1,8 @@
 ---
 created_date: 2025-09-23
 created_by: PATH Framework Team
-last_modified: 2025-09-23
-version: 2.0.0
+last_modified: 2025-09-24
+version: 2.1.0
 purpose: CoreAgent hexagonal architecture design with minimal core and specialized TypeAgent capabilities
 framework_phase: N/A
 dependencies: [core_agent, type_agents, capability_interface, knowledge_base]

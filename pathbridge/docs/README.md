@@ -1,13 +1,13 @@
 ---
 created_date: 2025-09-23
 created_by: PATH Framework Team
-last_modified: 2025-09-23
-version: 1.0.0
-purpose: PathBridge Agent - Universal bridge for PATH Framework integration
+last_modified: 2025-09-24
+version: 1.2.0
+purpose: PathBridge Agent - Universal bridge for PATH Framework integration with CoreAgent foundation
 framework_phase: N/A
-dependencies: [PATH Framework, RAG, MCP, Vector DB, future capabilities]
+dependencies: [PATH Framework, CoreAgent, RAG, MCP, Vector DB, future capabilities]
 status: design
-tags: [pathbridge, universal-agent, integration, bridge, capabilities]
+tags: [pathbridge, universal-agent, integration, bridge, capabilities, coreagent]
 ---
 
 # PathBridge Agent
@@ -81,13 +81,44 @@ flowchart TD
 - **Purpose**: Official PathBridge Agent platform
 - **Future Use**: Documentation, API endpoints, community resources
 
-## Next Steps
+## Documentation Standards
 
-1. **Architecture Design**: Define core PathBridge architecture
-2. **Adapter Framework**: Design capability adapter system
-3. **Integration Protocols**: Define PATH Framework integration points
-4. **Implementation Plan**: Create development roadmap
-5. **Domain Registration**: Secure pathbridge.ai domain
+See [`DOCUMENTATION_NAMING_CONVENTION.md`](DOCUMENTATION_NAMING_CONVENTION.md) for file naming and organization standards.
+
+## Documentation Structure
+
+### **📁 Core Documentation**
+- [`core/COREAGENT_USAGE.md`](core/COREAGENT_USAGE.md) - CoreAgent usage guide and examples
+- [`core/COREAGENT_IMPLEMENTATION_TASKS.md`](core/COREAGENT_IMPLEMENTATION_TASKS.md) - Implementation tasks
+- [`core/coreagent_architecture.md`](core/coreagent_architecture.md) - CoreAgent architecture design
+
+### **🏗️ Architecture Documentation**
+- [`architecture/pathbridge_architecture_diagram.md`](architecture/pathbridge_architecture_diagram.md) - System architecture diagrams
+- [`architecture/pathbridge_capability_standards.md`](architecture/pathbridge_capability_standards.md) - Capability standards
+- [`architecture/pathbridge_interaction_mechanisms.md`](architecture/pathbridge_interaction_mechanisms.md) - Interaction patterns
+
+### **📖 Implementation Guides**
+- [`guides/pathbridge_llm_integration_guide.md`](guides/pathbridge_llm_integration_guide.md) - LLM integration guide
+- [`guides/pathbridge_ai_coding_assistant.md`](guides/pathbridge_ai_coding_assistant.md) - AI coding assistant guide
+
+### **📋 Technical Specifications**
+- [`specifications/AI_CODING_AGENT_SPECIFICATIONS_v1.0.0.md`](specifications/AI_CODING_AGENT_SPECIFICATIONS_v1.0.0.md) - AI agent specifications
+- [`specifications/AGENT_SPECIFICATION_CODES_v1.0.0.md`](specifications/AGENT_SPECIFICATION_CODES_v1.0.0.md) - Specification codes
+
+### **🔗 Communication Protocols**
+- [`protocols/AGENT_DATA_EXCHANGE_PROTOCOLS_v1.0.0.md`](protocols/AGENT_DATA_EXCHANGE_PROTOCOLS_v1.0.0.md) - Data exchange protocols
+- [`protocols/PATH_PROTOCOL_V3.md`](protocols/PATH_PROTOCOL_V3.md) - PATH protocol specification
+
+### **📅 Project Planning**
+- [`planning/AGENT_DEVELOPMENT_ROADMAP.md`](planning/AGENT_DEVELOPMENT_ROADMAP.md) - Development roadmap
+- [`planning/AGENT_IMPLEMENTATION_PLAN.md`](planning/AGENT_IMPLEMENTATION_PLAN.md) - Implementation plan
+
+## Quick Start
+
+1. **Start with Core**: Read [`core/COREAGENT_USAGE.md`](core/COREAGENT_USAGE.md) for basic usage
+2. **Understand Architecture**: Review [`architecture/pathbridge_architecture_diagram.md`](architecture/pathbridge_architecture_diagram.md)
+3. **Follow Implementation**: Use [`planning/AGENT_IMPLEMENTATION_PLAN.md`](planning/AGENT_IMPLEMENTATION_PLAN.md)
+4. **Integration**: Reference [`guides/pathbridge_llm_integration_guide.md`](guides/pathbridge_llm_integration_guide.md)
 
 ## Integration Capabilities
 

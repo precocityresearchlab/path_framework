@@ -1,19 +1,19 @@
 ---
 created_date: 2025-09-23
 created_by: PATH Framework Team
-last_modified: 2025-09-23
-version: 1.0.0
-purpose: Open standards specification for PATH Framework agent capabilities
+last_modified: 2025-09-24
+version: 1.1.0
+purpose: Open standards specification for PATH Framework agent capabilities with CoreAgent foundation
 framework_phase: N/A
-dependencies: [base_agent, system_adapter, capability_interface]
+dependencies: [CoreAgent, system_adapter, capability_interface]
 status: active
-tags: [standards, capabilities, open-source, interoperability, agent-architecture]
+tags: [standards, capabilities, open-source, interoperability, agent-architecture, CoreAgent]
 ---
 
 # PATH Framework Agent Capability Standards
 
 ![Framework](https://img.shields.io/badge/Framework-PATH-orange?style=flat-square)
-![Version](https://img.shields.io/badge/Version-1.0.0-blue?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.1.0-blue?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Open%20Standard-brightgreen?style=flat-square)
 

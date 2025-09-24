@@ -9,8 +9,8 @@ graph LR
     OS[🖥️ Operating System<br/>Commands & Processes]
     GIT[📚 Git Repository<br/>Version Control]
     
-    %% BaseAgent Core Architecture
-    REQ --> BA[🎯 BaseAgent<br/>PATH_DEVELOPMENT]
+    %% CoreAgent Core Architecture
+    REQ --> BA[🎯 CoreAgent<br/>PATH_DEVELOPMENT]
     
     %% Core Services Layer
     BA --> CORE_SERVICES[Core Services Layer]
@@ -78,7 +78,7 @@ graph LR
 
 ## Legend
 
-🔵 **Agent Core** - BaseAgent with profile configuration  
+🔵 **Agent Core** - CoreAgent with profile configuration  
 🟢 **Service Layers** - Organized service architecture  
 🟣 **Services** - Individual service components  
 🔴 **Validation** - PATH Framework compliance & quality gates  

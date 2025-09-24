@@ -1,19 +1,19 @@
 ---
 created_date: 2025-09-23
 created_by: PATH Framework Team
-last_modified: 2025-09-23
-version: 1.0.0
-purpose: Agent interaction mechanisms and communication patterns
+last_modified: 2025-09-24
+version: 1.1.0
+purpose: Agent interaction mechanisms and communication patterns with CoreAgent foundation
 framework_phase: N/A
-dependencies: [agent_orchestrator, knowledge_base, event_bus, agent_messenger]
+dependencies: [agent_orchestrator, knowledge_base, event_bus, agent_messenger, CoreAgent]
 status: active
-tags: [agent-communication, orchestration, architecture, interaction-patterns]
+tags: [agent-communication, orchestration, architecture, interaction-patterns, CoreAgent]
 ---
 
-# Agent Interaction Mechanisms
+# PathBridge Agent Interaction Mechanisms
 
 ## Overview
-PATH Framework agents interact through 2 simple mechanisms for maximum efficiency and clarity.
+PATH Framework agents built on CoreAgent foundation interact through 2 simple mechanisms for maximum efficiency and clarity.
 
 ## Simplified Architecture
 

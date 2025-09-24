@@ -1,16 +1,35 @@
-# PATH Framework BaseAgent Usage Guide
+---
+created_date: 2025-09-23
+created_by: PATH Framework Team
+last_modified: 2025-09-24
+version: 1.2.0
+purpose: Comprehensive usage guide for PATH Framework CoreAgent with sample data and rule compliance
+framework_phase: N/A
+dependencies: [CoreAgent, capability interface, PATH Framework rules]
+status: active
+tags: [CoreAgent, usage guide, sample data, rule compliance, PATH Framework]
+---
 
-This guide shows how to use the PATH Framework BaseAgent with sample data, following PATH Framework rule compliance requirements.
+# PATH Framework CoreAgent Usage Guide
+
+![Framework](https://img.shields.io/badge/Framework-PATH-orange?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.2.0-blue?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square)
+![Institution](https://img.shields.io/badge/Institution-PATH%20Framework-purple?style=flat-square)
+![Methodology](https://img.shields.io/badge/Methodology-CoreAgent%20Usage-red?style=flat-square)
+
+This guide shows how to use the PATH Framework CoreAgent with sample data, following PATH Framework rule compliance requirements.
 
 ## Quick Start
 
 ```python
 import asyncio
-from src.core.base_agent import BaseAgent
+from src.core.core_agent import CoreAgent
 from src.core.capability_interface import CapabilityRequest
 
 # Initialize agent
-agent = BaseAgent("development")
+agent = CoreAgent("development")
 
 # Create and execute capability request
 request = CapabilityRequest(
@@ -29,11 +48,11 @@ print(f"Status: {response.status}")
 
 ## Core Concepts
 
-### 1. BaseAgent Initialization
+### 1. CoreAgent Initialization
 
 ```python
 # Initialize with profile name
-agent = BaseAgent("development")
+agent = CoreAgent("development")
 
 # Agent provides:
 print(f"Agent ID: {agent.agent_id}")                    # PATH_DEVELOPMENT
@@ -43,7 +62,7 @@ print(f"Capabilities: {agent.list_capabilities()}")     # ['file_operations', ..
 
 ### 2. Available Capabilities
 
-The BaseAgent comes with four standard capabilities:
+The CoreAgent comes with four standard capabilities:
 
 #### File Operations
 - **Methods**: `read`, `write`, `create_directory`, `delete`, `list`, `move`, `copy`
@@ -110,7 +129,7 @@ request = CapabilityRequest(
 
 ### 3. PATH Framework Rule Compliance
 
-The BaseAgent enforces PATH Framework rules automatically:
+The CoreAgent enforces PATH Framework rules automatically:
 
 #### Mandatory Validation Gates
 
@@ -318,13 +337,13 @@ cd path_framework
 uv run python examples/simple_usage_guide.py
 
 # Comprehensive example with all capabilities
-uv run python examples/base_agent_usage_example.py
+uv run python examples/core_agent_usage_example.py
 ```
 
 ### Expected Output
 
 ```
-🚀 PATH Framework BaseAgent Usage Example
+🚀 PATH Framework CoreAgent Usage Example
 ==================================================
 ✅ Agent initialized: PATH_DEVELOPMENT
 📅 Session UTC: 2024-01-16T15:30:45.123456+00:00
@@ -460,14 +479,14 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 # This will show detailed execution logs
-agent = BaseAgent("development")
+agent = CoreAgent("development")
 ```
 
 ## Next Steps
 
 1. **Explore Agent Profiles**: Look at different profiles in `src/profiles/`
 2. **Create Custom Capabilities**: Implement your own capabilities following the interface
-3. **Build Applications**: Use BaseAgent as foundation for PATH Framework applications
+3. **Build Applications**: Use CoreAgent as foundation for PATH Framework applications
 4. **Study Rule Compliance**: Review how examples follow PATH Framework rules
 
 ## Support

@@ -246,10 +246,10 @@ async def compare_providers():
 ### Using LLM Integration in Custom Agents
 
 ```python
-from path_framework.agents_base import BaseAgent
+from path_framework.agents_base import CoreAgent
 from path_framework.core.llm_client import get_llm_client, LLMRequest
 
-class CustomAnalysisAgent(BaseAgent):
+class CustomAnalysisAgent(CoreAgent):
     def __init__(self, config=None):
         super().__init__(
             agent_id="custom_analyst",
