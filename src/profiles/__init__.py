@@ -1,1 +1,1 @@
-"""Agent profiles for specialized functionality."""
+# Profiles module

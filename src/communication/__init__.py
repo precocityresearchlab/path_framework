@@ -1,1 +1,1 @@
-"""Communication layer for agent interactions."""
+# Communication module

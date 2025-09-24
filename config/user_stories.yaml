@@ -1,0 +1,21 @@
+user_stories:
+  - story_id: "US-001"
+    user_story: "As a customer, I want to place an order for products, so that I can receive them at my address"
+    domain: "e-commerce"
+    
+  - story_id: "US-002"
+    user_story: "As a patient, I want to schedule appointments, so that I can receive medical care"
+    domain: "healthcare"
+    
+  - story_id: "US-003"
+    user_story: "As a student, I want to enroll in courses, so that I can complete my degree"
+    domain: "education"
+
+test_scenarios:
+  incomplete_story:
+    story_id: "US-INCOMPLETE"
+    user_story: "I want to do something"
+    
+  complex_story:
+    story_id: "US-COMPLEX"
+    user_story: "As a premium customer with loyalty status, I want to expedite my order processing with priority shipping, so that I can receive products faster than standard delivery"

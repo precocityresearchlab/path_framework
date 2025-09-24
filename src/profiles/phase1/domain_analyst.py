@@ -3,7 +3,6 @@
 from typing import Dict, Any
 from ...core.base_agent import AgentProfile, AgentRequest
 from ...knowledge.knowledge_base import SharedKnowledgeBase
-from ...core.llm_interface import AgentLLMMixin
 
 
 class DomainAnalystProfile(AgentProfile):
@@ -94,57 +93,224 @@ class DomainAnalystProfile(AgentProfile):
         return validation_result
     
     def _extract_user_type(self, story: str) -> str:
-        """Extract user type from story."""
-        # Simple extraction logic - would use NLP in real implementation
-        if "As a" in story:
-            start = story.find("As a") + 5
-            end = story.find(",", start)
-            return story[start:end].strip() if end != -1 else ""
+        """Extract user type from story using enhanced pattern matching."""
+        import re
+        
+        # Enhanced pattern matching for user types
+        patterns = [
+            r"As an? ([^,]+),",
+            r"As an? ([^,]+) I want",
+            r"As an? ([^,]+)\s+I want"
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, story, re.IGNORECASE)
+            if match:
+                user_type = match.group(1).strip()
+                # Clean up common articles and normalize
+                user_type = re.sub(r'^(a|an)\s+', '', user_type, flags=re.IGNORECASE)
+                return user_type.title()
+        
         return ""
     
     def _extract_functionality(self, story: str) -> str:
-        """Extract functionality from story."""
-        if "I want" in story:
-            start = story.find("I want") + 7
-            end = story.find("so that", start)
-            return story[start:end].strip() if end != -1 else ""
+        """Extract functionality from story using enhanced pattern matching."""
+        import re
+        
+        # Enhanced pattern matching for functionality
+        patterns = [
+            r"I want to ([^,]+)(?:,|\s+so that)",
+            r"I want ([^,]+)(?:,|\s+so that)",
+            r"I need to ([^,]+)(?:,|\s+so that)",
+            r"I need ([^,]+)(?:,|\s+so that)"
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, story, re.IGNORECASE)
+            if match:
+                functionality = match.group(1).strip()
+                # Remove "to" prefix if present
+                functionality = re.sub(r'^to\s+', '', functionality, flags=re.IGNORECASE)
+                return functionality.lower()
+        
         return ""
     
     def _extract_benefit(self, story: str) -> str:
-        """Extract benefit from story."""
-        if "so that" in story:
-            start = story.find("so that") + 8
-            return story[start:].strip()
+        """Extract benefit from story using enhanced pattern matching."""
+        import re
+        
+        # Enhanced pattern matching for benefits
+        patterns = [
+            r"so that (.+)$",
+            r"in order to (.+)$",
+            r"to achieve (.+)$",
+            r"because (.+)$"
+        ]
+        
+        for pattern in patterns:
+            match = re.search(pattern, story, re.IGNORECASE | re.DOTALL)
+            if match:
+                benefit = match.group(1).strip()
+                # Clean up punctuation
+                benefit = re.sub(r'[.!?]+$', '', benefit)
+                return benefit.lower()
+        
         return ""
     
     def _identify_domain_entities(self, story: str) -> list:
-        """Identify domain entities in story."""
-        # Simplified entity extraction
+        """Identify domain entities using generic NLP techniques."""
+        import re
+        
+        # Extract potential entities using linguistic patterns (nouns, proper nouns)
         entities = []
-        common_entities = ["user", "order", "product", "payment", "account", "customer"]
-        for entity in common_entities:
-            if entity.lower() in story.lower():
-                entities.append(entity.title())
-        return entities
+        
+        # Find capitalized words that could be entities
+        capitalized_words = re.findall(r'\b[A-Z][a-z]+\b', story)
+        entities.extend(capitalized_words)
+        
+        # Find common entity indicators
+        entity_indicators = {
+            "Actor": [r"\b(user|person|actor|agent|participant)s?\b"],
+            "Object": [r"\b(item|object|thing|element|component)s?\b"],
+            "Process": [r"\b(process|workflow|procedure|operation|task)s?\b"],
+            "Data": [r"\b(data|information|record|entry|file)s?\b"],
+            "System": [r"\b(system|application|platform|service|tool)s?\b"],
+            "Resource": [r"\b(resource|asset|material|content|document)s?\b"]
+        }
+        
+        story_lower = story.lower()
+        for entity_type, patterns in entity_indicators.items():
+            for pattern in patterns:
+                if re.search(pattern, story_lower):
+                    entities.append(entity_type)
+                    break
+        
+        # Extract domain-specific nouns from context
+        domain_nouns = self._extract_domain_nouns(story)
+        entities.extend(domain_nouns)
+        
+        return list(set(entities))  # Remove duplicates
+    
+    def _extract_domain_nouns(self, story: str) -> list:
+        """Extract domain-specific nouns that could be entities."""
+        import re
+        
+        # Simple noun extraction - words that appear in object positions
+        nouns = []
+        
+        # Pattern: "I want to [verb] [noun]"
+        verb_object_pattern = r"I want to \w+ (\w+)"
+        matches = re.findall(verb_object_pattern, story, re.IGNORECASE)
+        nouns.extend([match.title() for match in matches])
+        
+        # Pattern: "[verb] a/an/the [noun]"
+        article_noun_pattern = r"\b(?:a|an|the)\s+(\w+)\b"
+        matches = re.findall(article_noun_pattern, story, re.IGNORECASE)
+        nouns.extend([match.title() for match in matches if len(match) > 2])
+        
+        return nouns
     
     def _extract_business_rules(self, story: str) -> list:
-        """Extract business rules from story."""
-        # Simplified rule extraction
+        """Extract business rules using enhanced pattern recognition."""
+        import re
+        
         rules = []
-        if "must" in story.lower():
-            rules.append("Mandatory requirement identified")
-        if "cannot" in story.lower() or "not allowed" in story.lower():
-            rules.append("Restriction identified")
-        return rules
+        story_lower = story.lower()
+        
+        # Rule patterns with specific business logic
+        rule_patterns = {
+            "Mandatory": [r"\b(must|required|mandatory|need to|have to)\b"],
+            "Restriction": [r"\b(cannot|not allowed|forbidden|prohibited|restricted)\b"],
+            "Validation": [r"\b(valid|validate|verify|check|confirm)\b"],
+            "Authorization": [r"\b(authorized|permission|access|role|privilege)\b"],
+            "Workflow": [r"\b(after|before|when|if|then|process|workflow)\b"],
+            "Business Hours": [r"\b(business hours|working hours|office hours)\b"],
+            "Approval": [r"\b(approve|approval|review|confirm)\b"]
+        }
+        
+        for rule_type, patterns in rule_patterns.items():
+            for pattern in patterns:
+                if re.search(pattern, story_lower):
+                    rules.append(f"{rule_type} rule identified")
+                    break
+        
+        return list(set(rules))  # Remove duplicates
     
     def _identify_edge_cases(self, story: str) -> list:
-        """Identify potential edge cases."""
+        """Identify generic edge cases based on functional patterns."""
+        import re
+        
         edge_cases = []
-        if "user" in story.lower():
-            edge_cases.extend(["Guest user scenario", "Authenticated user scenario"])
-        if "payment" in story.lower():
-            edge_cases.extend(["Payment failure", "Partial payment"])
-        return edge_cases
+        story_lower = story.lower()
+        
+        # Generic edge case patterns based on functional requirements
+        edge_case_patterns = {
+            "Input Validation": [r"\b(input|enter|provide|submit|form)\b"],
+            "Authentication": [r"\b(user|login|access|account|authenticate)\b"],
+            "Authorization": [r"\b(permission|role|privilege|authorized|allowed)\b"],
+            "Data Processing": [r"\b(process|calculate|compute|transform|analyze)\b"],
+            "Network Operations": [r"\b(send|receive|connect|download|upload|sync)\b"],
+            "Concurrent Operations": [r"\b(multiple|concurrent|simultaneous|parallel)\b"],
+            "Error Conditions": [r"\b(error|fail|exception|invalid|incorrect)\b"],
+            "Performance": [r"\b(fast|slow|timeout|performance|speed|load)\b"],
+            "Security": [r"\b(secure|security|protect|safe|encrypt)\b"],
+            "State Management": [r"\b(save|store|update|delete|modify|change)\b"]
+        }
+        
+        for case_category, patterns in edge_case_patterns.items():
+            for pattern in patterns:
+                if re.search(pattern, story_lower):
+                    edge_cases.extend(self._generate_generic_edge_cases(case_category))
+                    break
+        
+        return list(set(edge_cases))  # Remove duplicates
+    
+    def _generate_generic_edge_cases(self, category: str) -> list:
+        """Generate generic edge cases for each functional category."""
+        edge_case_map = {
+            "Input Validation": [
+                "Empty input", "Invalid format", "Input too long",
+                "Special characters", "Boundary values"
+            ],
+            "Authentication": [
+                "Unauthenticated user", "Expired session", "Invalid credentials",
+                "Account locked", "First-time access"
+            ],
+            "Authorization": [
+                "Insufficient permissions", "Role mismatch", "Resource access denied",
+                "Privilege escalation attempt", "Cross-user access"
+            ],
+            "Data Processing": [
+                "Empty dataset", "Large dataset", "Corrupted data",
+                "Processing timeout", "Resource exhaustion"
+            ],
+            "Network Operations": [
+                "Network timeout", "Connection lost", "Server unavailable",
+                "Bandwidth limitations", "Offline mode"
+            ],
+            "Concurrent Operations": [
+                "Race condition", "Deadlock", "Resource contention",
+                "Simultaneous updates", "State inconsistency"
+            ],
+            "Error Conditions": [
+                "System error", "Validation failure", "Business rule violation",
+                "External dependency failure", "Unexpected state"
+            ],
+            "Performance": [
+                "High load", "Memory constraints", "CPU limitations",
+                "Storage full", "Response timeout"
+            ],
+            "Security": [
+                "Unauthorized access", "Data tampering", "Injection attack",
+                "Information disclosure", "Malicious input"
+            ],
+            "State Management": [
+                "Concurrent modifications", "State corruption", "Rollback scenario",
+                "Partial updates", "Consistency violation"
+            ]
+        }
+        
+        return edge_case_map.get(category, [])
     
     def _calculate_completeness(self, analysis: Dict[str, Any]) -> float:
         """Calculate story completeness score."""
@@ -167,22 +333,76 @@ class DomainAnalystProfile(AgentProfile):
         """Extract domain entities from multiple stories."""
         entities = set()
         for story in stories:
-            story_entities = self._identify_domain_entities(story.get("description", ""))
+            story_text = story.get("description", "") if isinstance(story, dict) else str(story)
+            story_entities = self._identify_domain_entities(story_text)
             entities.update(story_entities)
         return list(entities)
     
     def _identify_relationships(self, stories: list) -> list:
-        """Identify relationships between entities."""
-        # Simplified relationship identification
-        return ["User has Orders", "Order contains Products", "User has Account"]
+        """Identify generic relationships between entities."""
+        import re
+        
+        relationships = []
+        entities = self._extract_entities(stories)
+        
+        # Generic relationship patterns
+        relationship_patterns = [
+            r"(\w+)\s+(?:has|contains|includes|owns)\s+(\w+)",
+            r"(\w+)\s+(?:belongs to|is part of|is owned by)\s+(\w+)",
+            r"(\w+)\s+(?:manages|controls|operates)\s+(\w+)",
+            r"(\w+)\s+(?:uses|utilizes|accesses)\s+(\w+)"
+        ]
+        
+        for story in stories:
+            story_text = story.get("description", "") if isinstance(story, dict) else str(story)
+            for pattern in relationship_patterns:
+                matches = re.findall(pattern, story_text, re.IGNORECASE)
+                for match in matches:
+                    entity1, entity2 = match[0].title(), match[1].title()
+                    if entity1 in entities and entity2 in entities:
+                        relationships.append(f"{entity1} -> {entity2}")
+        
+        return list(set(relationships)) if relationships else ["Generic entity relationships"]
     
     def _identify_value_objects(self, stories: list) -> list:
-        """Identify value objects."""
-        return ["Email", "Money", "Address", "PhoneNumber"]
+        """Identify generic value objects from stories."""
+        import re
+        
+        value_objects = set()
+        
+        # Generic value object patterns
+        value_patterns = {
+            "Identifier": [r"\b(id|identifier|code|number)\b"],
+            "Measurement": [r"\b(amount|quantity|size|weight|length)\b"],
+            "Time": [r"\b(date|time|timestamp|duration|period)\b"],
+            "Location": [r"\b(address|location|coordinates|position)\b"],
+            "Contact": [r"\b(email|phone|contact|communication)\b"],
+            "Status": [r"\b(status|state|condition|flag)\b"]
+        }
+        
+        for story in stories:
+            story_text = story.get("description", "") if isinstance(story, dict) else str(story)
+            story_lower = story_text.lower()
+            
+            for value_type, patterns in value_patterns.items():
+                for pattern in patterns:
+                    if re.search(pattern, story_lower):
+                        value_objects.add(value_type)
+                        break
+        
+        return list(value_objects) if value_objects else ["Generic value objects"]
     
     def _define_aggregates(self, stories: list) -> list:
-        """Define domain aggregates."""
-        return ["UserAggregate", "OrderAggregate", "ProductAggregate"]
+        """Define generic domain aggregates based on entities."""
+        entities = self._extract_entities(stories)
+        
+        # Create aggregates from main entities
+        aggregates = []
+        for entity in entities:
+            if entity not in ["Actor", "Object", "Process", "Data", "System", "Resource"]:
+                aggregates.append(f"{entity}Aggregate")
+        
+        return aggregates if aggregates else ["GenericAggregate"]
     
     def _extract_validation_rules(self, context: str) -> list:
         """Extract validation rules."""

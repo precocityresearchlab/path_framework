@@ -27,6 +27,9 @@ from .phase4.operations_specialist import OperationsSpecialistProfile
 from .phase4.performance_analyst import PerformanceAnalystProfile
 from .phase4.security_operator import SecurityOperatorProfile
 
+# Test profile
+from .test_profile import TestProfile
+
 
 class ProfileLoader:
     """Loads agent profiles dynamically."""
@@ -55,6 +58,9 @@ class ProfileLoader:
         "operations_specialist": OperationsSpecialistProfile,
         "performance_analyst": PerformanceAnalystProfile,
         "security_operator": SecurityOperatorProfile,
+        
+        # Test profile
+        "test_profile": TestProfile,
     }
     
     @classmethod

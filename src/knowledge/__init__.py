@@ -1,1 +1,1 @@
-"""Knowledge management system for agents."""
+# Knowledge module

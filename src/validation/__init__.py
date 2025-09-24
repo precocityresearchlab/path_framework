@@ -1,1 +1,1 @@
-"""Human validation interfaces and workflows."""
+# Validation module
