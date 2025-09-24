@@ -21,6 +21,40 @@ tags: [PATH Framework, README, AI-human collaboration, methodology, software eng
 
 > A comprehensive methodology framework for systematic software engineering through intelligent AI-human collaboration
 
+## Table of Contents
+
+- [🎯 What is PATH Framework?](#-what-is-path-framework)
+- [🌟 Key Benefits](#-key-benefits)
+  - [For Development Teams](#for-development-teams)
+  - [For Organizations](#for-organizations)
+- [Quick Start](#quick-start)
+  - [1. Install Prerequisites](#1-install-prerequisites)
+  - [2. Clone and Setup](#2-clone-and-setup)
+  - [3. Create Your First Project](#3-create-your-first-project)
+  - [4. Explore the Framework](#4-explore-the-framework)
+- [📁 Framework Structure](#-framework-structure)
+- [🎯 Use Cases & Domain Applications](#-use-cases--domain-applications)
+  - [Protocol-Based Systems (MQTT, HTTP, WebSocket)](#protocol-based-systems-mqtt-http-websocket)
+  - [Business Applications (ERP, CRM, E-commerce)](#business-applications-erp-crm-e-commerce)
+  - [Data Processing Systems (ETL, Analytics, ML)](#data-processing-systems-etl-analytics-ml)
+  - [Real-Time Systems (Trading, Gaming, IoT)](#real-time-systems-trading-gaming-iot)
+- [🛠️ Technology Stack Support](#️-technology-stack-support)
+- [📖 Learning Path](#-learning-path)
+  - [Beginner (New to Human-AI Collaboration)](#beginner-new-to-human-ai-collaboration)
+  - [Intermediate (Some AI/Automation Experience)](#intermediate-some-aiautomation-experience)
+  - [Advanced (Experienced with Development Frameworks)](#advanced-experienced-with-development-frameworks)
+- [🤝 Human-AI Collaboration Model](#-human-ai-collaboration-model)
+  - [Core Principles](#core-principles)
+  - [AI Roles (4 per phase)](#ai-roles-4-per-phase)
+- [📈 Success Metrics](#-success-metrics)
+  - [Technical Metrics](#technical-metrics)
+  - [Process Metrics](#process-metrics)
+  - [Business Metrics](#business-metrics)
+- [🚧 Coming Soon](#-coming-soon)
+- [🤝 Contributing](#-contributing)
+- [📄 License](#-license)
+- [🔗 Links](#-links)
+
 ## 🎯 What is PATH Framework?
 
 **PATH Framework** (Process/AI/Technology/Human) is a revolutionary approach to software engineering that structures development practices around four integrated phases through intelligent AI-human collaboration:
